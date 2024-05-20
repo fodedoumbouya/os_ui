@@ -21,8 +21,14 @@ class Os extends StatelessWidget {
   });
 
   ThemeData _theme(BuildContext context) {
+    final platform = switch (osIndentifier.type) {
+      OsType.macos => TargetPlatform.macOS,
+      OsType.windows => TargetPlatform.windows,
+      OsType.linux => TargetPlatform.linux,
+    };
+
     return Theme.of(context).copyWith(
-      platform: osIndentifier.platform,
+      platform: platform,
       // visualDensity: density,
     );
   }
@@ -43,7 +49,7 @@ class Os extends StatelessWidget {
   Widget _screen(BuildContext context, OsIndentifier osIndentifier) {
     final mediaQuery = MediaQuery.of(context);
     final screenSize = mediaQuery.size;
-    final screen = switch (osIndentifier.platform == TargetPlatform.macOS) {
+    final screen = switch (osIndentifier.type == OsType.macos) {
       true => const MacOs(),
       false => _notSupport,
     };
