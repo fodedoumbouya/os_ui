@@ -14,8 +14,8 @@ class _MacOSDockState extends State<MacOSDock> {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.bottomCenter,
-      width: 470,
-      height: 70,
+      width: 350,
+      height: 60,
       padding: const EdgeInsets.all(2.0),
       margin: const EdgeInsets.only(
         bottom: 10,
@@ -39,7 +39,7 @@ class _MacOSDockState extends State<MacOSDock> {
                   // color: Colors.red,
                   alignment: AlignmentDirectional.bottomCenter,
                   margin: const EdgeInsets.symmetric(
-                    horizontal: 5,
+                    horizontal: 0,
                   ),
                   child: Image.network(
                     "https://cdn.discordapp.com/attachments/1035682064651005972/1242492378154008637/launcher.png?ex=664e08b3&is=664cb733&hm=ff8c68f9cf18babb1c118f06dd10974862314315f9655b61f8a4af9264f073f8&",
