@@ -1,8 +1,6 @@
-import 'dart:ui' as ui;
-
 import 'package:flutter/material.dart';
 import 'package:os_ui/os_ui.dart';
-import 'package:os_ui/src/os/macOs/utils/draw_extensions.dart';
+import 'package:os_ui/src/os/utils/draw_extensions.dart';
 
 //Copy this CustomPainter code to the Bottom of the File
 class MacOsPainter extends CustomPainter {

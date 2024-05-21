@@ -22,9 +22,9 @@ extension GenericDeviceFramePainterExtensions on Canvas {
           ],
           [
             0,
-            0.390208,
-            0.578125,
-            0.828125,
+            0.400208,
+            0.598125,
+            0.998125,
           ],
         );
         break;

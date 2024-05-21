@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:os_ui/src/controller/controller.dart';
 import 'package:os_ui/src/os/macOs/mac_os.dart';
 import 'package:os_ui/src/utils/os_indentifier.dart';
