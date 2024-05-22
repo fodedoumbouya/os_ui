@@ -66,7 +66,7 @@ class _MacOSDockState extends State<MacOSDock> {
                             horizontal: 0,
                           ),
                           child: Image.network(
-                            "https://cdn.discordapp.com/attachments/1035682064651005972/1242492378154008637/launcher.png?ex=664e08b3&is=664cb733&hm=ff8c68f9cf18babb1c118f06dd10974862314315f9655b61f8a4af9264f073f8&",
+                            "https://cdn.discordapp.com/attachments/1035682064651005972/1242492378154008637/launcher.png?ex=664eb173&is=664d5ff3&hm=30aa488d2b551019cbd44239391fd61648aac054cce60c01b0507be3e8c7ae93&",
                             fit: BoxFit.cover,
                           ),
                         );

@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   intl: ^0.19.0
+  pointer_interceptor: ^0.10.1+1
 
 dev_dependencies:
   flutter_test:
