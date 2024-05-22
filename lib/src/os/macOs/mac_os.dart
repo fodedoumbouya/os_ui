@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:os_ui/src/os/macOs/bar/bar.dart';
 import 'package:os_ui/src/os/macOs/utils/background_frame.dart';
 import 'package:os_ui/src/os/macOs/dock/mac_os_dock.dart';
 
@@ -19,6 +20,10 @@ class _MacOsState extends State<MacOs> {
       ),
       child: const Stack(
         children: [
+          Align(
+            alignment: Alignment.topCenter,
+            child: Bar(),
+          ),
           Align(
             alignment: Alignment.bottomCenter,
             child: MacOSDock(),

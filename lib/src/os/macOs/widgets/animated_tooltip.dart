@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class TooltipArrowPainter extends CustomPainter {
@@ -62,9 +63,9 @@ class TooltipArrow extends StatelessWidget {
         size: size,
         painter: TooltipArrowPainter(
           size: size,
-          color: theme.canvasColor,
+          color: theme.canvasColor.withOpacity(0.5),
           isInverted: isInverted,
-          shadowColor: theme.shadowColor,
+          shadowColor: theme.shadowColor.withOpacity(0.5),
         ),
       ),
     );
@@ -77,6 +78,8 @@ class AnimatedTooltip extends StatefulWidget {
   final GlobalKey? targetGlobalKey;
   final ThemeData? theme;
   final Widget? child;
+  final void Function(PointerEnterEvent)? onEnter;
+  final void Function(PointerExitEvent)? onExit;
 
   const AnimatedTooltip({
     super.key,
@@ -84,7 +87,10 @@ class AnimatedTooltip extends StatefulWidget {
     this.targetGlobalKey,
     this.theme,
     this.child,
-  }) : assert(child != null || targetGlobalKey != null);
+    this.onEnter,
+    this.onExit,
+  }) : assert(child != null || targetGlobalKey != null,
+            "child or targetGlobalKey must be provided");
 
   @override
   State<StatefulWidget> createState() => AnimatedTooltipState();
@@ -171,8 +177,14 @@ class AnimatedTooltipState extends State<AnimatedTooltip> {
       controller: _overlayController,
       child: widget.child != null
           ? MouseRegion(
-              onEnter: (event) => _toggle(),
-              onExit: (event) => _toggle(),
+              onEnter: (event) {
+                _toggle();
+                widget.onEnter?.call(event);
+              },
+              onExit: (event) {
+                _toggle();
+                widget.onExit?.call(event);
+              },
               child: widget.child)
           : null,
       overlayChildBuilder: (context) {
@@ -202,7 +214,8 @@ class AnimatedTooltipState extends State<AnimatedTooltip> {
                     child: IntrinsicWidth(
                       child: Material(
                         elevation: 4.0,
-                        color: theme.canvasColor,
+                        color: theme.canvasColor.withOpacity(0.5),
+                        shadowColor: Colors.transparent,
                         borderRadius: BorderRadius.circular(8.0),
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
