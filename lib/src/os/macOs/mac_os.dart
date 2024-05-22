@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:os_ui/src/os/macOs/bar/bar.dart';
+import 'package:os_ui/src/os/macOs/body/body.dart';
 import 'package:os_ui/src/os/macOs/utils/background_frame.dart';
 import 'package:os_ui/src/os/macOs/dock/mac_os_dock.dart';
 
@@ -24,6 +26,7 @@ class _MacOsState extends State<MacOs> {
             alignment: Alignment.topCenter,
             child: Bar(),
           ),
+          Align(alignment: Alignment.center, child: BodyMacOs()),
           Align(
             alignment: Alignment.bottomCenter,
             child: MacOSDock(),

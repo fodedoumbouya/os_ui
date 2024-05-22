@@ -16,7 +16,7 @@ class _BarState extends State<Bar> {
 
   final ValueNotifier<DateTime> _time = ValueNotifier<DateTime>(DateTime.now());
   Timer? timer;
-  static List<String> listLanguage = ["en", "fr"];
+  static List<String> listLanguage = ["EN", "FR"];
 
   initTme() {
     // Update the time every second
@@ -123,7 +123,7 @@ class _BarState extends State<Bar> {
                       // rebuildState();
                       // windowsNotifier.removeAllWidget();
                     },
-                    offset: Offset(20, barHeight),
+                    offset: Offset(30, barHeight),
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(8.0),
@@ -139,7 +139,8 @@ class _BarState extends State<Bar> {
                     surfaceTintColor: Colors.white.withOpacity(0.5),
                     splashRadius: 0,
                     constraints: const BoxConstraints(
-                      maxWidth: 70,
+                      maxWidth: 100,
+                      minWidth: 80,
                     ),
                     itemBuilder: (BuildContext context) => [
                           ...List.generate(listLanguage.length, (index) {
@@ -159,6 +160,7 @@ class _BarState extends State<Bar> {
                       ),
                       child: const Text(
                         "EN",
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black87,
                         ),
