@@ -13,6 +13,9 @@ class MacOs extends StatefulWidget {
 }
 
 class _MacOsState extends State<MacOs> {
+  bool onFullScreen = false;
+  final double barHeight = 30;
+
   @override
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
@@ -20,17 +23,28 @@ class _MacOsState extends State<MacOs> {
       painter: MacOsPainter(
         windowSize: screenSize,
       ),
-      child: const Stack(
+      child: Stack(
         children: [
-          Align(
+          const Align(
             alignment: Alignment.topCenter,
             child: Bar(),
           ),
-          Align(alignment: Alignment.center, child: BodyMacOs()),
           Align(
-            alignment: Alignment.bottomCenter,
-            child: MacOSDock(),
-          )
+              alignment: Alignment.center,
+              child: Padding(
+                padding: EdgeInsets.only(top: barHeight),
+                child: BodyMacOs(
+                  onFullScreen: (p0) {
+                    onFullScreen = p0;
+                    setState(() {});
+                  },
+                ),
+              )),
+          if (!onFullScreen)
+            const Align(
+              alignment: Alignment.bottomCenter,
+              child: MacOSDock(),
+            )
         ],
       ),
     );

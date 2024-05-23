@@ -95,7 +95,7 @@ class _BarState extends State<Bar> {
                   ),
                 ],
                 child: Image.network(
-                  "https://cdn.discordapp.com/attachments/1035682064651005972/1242796547196850176/applelogo.png?ex=664f23fa&is=664dd27a&hm=a899bc2eb7c42351f9919ed583b535c1cff5a30a17ba80c66e4356815d1441ae&",
+                  "https://cdn.discordapp.com/attachments/1035682064651005972/1242796547196850176/applelogo.png?ex=664fccba&is=664e7b3a&hm=09b19fb2ea698ad58bbf1c3b25c5e98638a538a9718280af05cf8b4e2c811133&",
                   color: Colors.white,
                   height: 20,
                   width: 20,

@@ -3,12 +3,12 @@ import 'model/common_sizes.dart';
 class SizeCalculator {
   late final CommonSizes _size;
 
-  late double height;
+  double height = -1;
   late double width;
-  late double top;
-  late double left;
-  late double bottom;
-  late double right;
+  double top = -1;
+  double left = -1;
+  double bottom = -1;
+  double right = -1;
 
   /// Initializes the fields
   /// It should called just once in widget lifecycle before [ResizableWidgetController] used
