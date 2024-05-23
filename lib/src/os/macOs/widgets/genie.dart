@@ -34,11 +34,11 @@ class _GenieEffectState extends State<GenieEffect>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 300),
     );
     _animation = CurvedAnimation(
       parent: _controller,
-      curve: Curves.fastEaseInToSlowEaseOut,
+      curve: Curves.easeOut, //fastEaseInToSlowEaseOut
     );
 
     _scaleAnimation = Tween<double>(

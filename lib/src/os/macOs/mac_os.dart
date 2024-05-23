@@ -5,6 +5,8 @@ import 'package:os_ui/src/os/macOs/body/body.dart';
 import 'package:os_ui/src/os/macOs/utils/background_frame.dart';
 import 'package:os_ui/src/os/macOs/dock/mac_os_dock.dart';
 
+import 'windows_management/controller/controller.dart';
+
 class MacOs extends StatefulWidget {
   const MacOs({super.key});
 
@@ -15,6 +17,9 @@ class MacOs extends StatefulWidget {
 class _MacOsState extends State<MacOs> {
   bool onFullScreen = false;
   final double barHeight = 30;
+
+  final WindowsManagementController windowsManagementController =
+      WindowsManagementController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +39,7 @@ class _MacOsState extends State<MacOs> {
               child: Padding(
                 padding: EdgeInsets.only(top: barHeight),
                 child: BodyMacOs(
+                  windowsManagementController: windowsManagementController,
                   onFullScreen: (p0) {
                     onFullScreen = p0;
                     setState(() {});
@@ -41,9 +47,11 @@ class _MacOsState extends State<MacOs> {
                 ),
               )),
           if (!onFullScreen)
-            const Align(
+            Align(
               alignment: Alignment.bottomCenter,
-              child: MacOSDock(),
+              child: MacOSDock(
+                windowsManagementController: windowsManagementController,
+              ),
             )
         ],
       ),

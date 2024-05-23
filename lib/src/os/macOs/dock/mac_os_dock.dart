@@ -1,82 +1,108 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import '../widgets/animated_tooltip.dart';
+import '../windows_management/controller/controller.dart';
+import '../windows_management/model/model.dart';
 
-class MacOSDock extends StatefulWidget {
-  const MacOSDock({super.key});
+class MacOSDock extends StatelessWidget {
+  final WindowsManagementController windowsManagementController;
 
-  @override
-  State<MacOSDock> createState() => _MacOSDockState();
-}
+  MacOSDock({super.key, required this.windowsManagementController});
 
-class _MacOSDockState extends State<MacOSDock> {
   final hovedIndex = ValueNotifier<int>(-1);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // alignment: Alignment.bottomCenter,
-      // width: 350,
-      // height: 60,
-      padding: const EdgeInsets.all(2.0),
-      margin: const EdgeInsets.only(
-        bottom: 10,
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.white.withOpacity(0.3),
-      ),
-      child: IntrinsicWidth(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ...List.generate(
-              6,
-              (index) {
-                return AnimatedTooltip(
-                    content: Text("Item $index"),
-                    theme: ThemeData(
-                        canvasColor: Colors.white.withOpacity(0.8),
-                        shadowColor: Colors.black),
-                    onEnter: (p0) {
-                      hovedIndex.value = index;
-                    },
-                    onExit: (p0) {
-                      hovedIndex.value = -1;
-                    },
-                    child: ValueListenableBuilder(
-                      valueListenable: hovedIndex,
-                      builder: (context, value, child) {
-                        final double y = value == index ? -10 : 0;
-                        final double width = value == index ? 70 : 60;
-                        // print(y);
-                        return AnimatedContainer(
-                          // color: Colors.red,
-                          duration: const Duration(milliseconds: 200),
-                          height: 60,
-                          width: width,
-                          transform: Matrix4.identity()
-                            ..translate(
-                              0.0,
-                              y,
-                              0.0,
-                            ),
-                          alignment: AlignmentDirectional.bottomCenter,
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 0,
-                          ),
-                          child: Image.network(
-                            "https://cdn.discordapp.com/attachments/1035682064651005972/1242492378154008637/launcher.png?ex=665002f3&is=664eb173&hm=be6cd3748ce73232aa993c28b76f272828d67f1544e550c7c7866b9ec3e64c39&",
-                            fit: BoxFit.cover,
-                          ),
-                        );
-                      },
-                    ));
-              },
+    return ValueListenableBuilder(
+        valueListenable: windowsManagementController.windows,
+        builder: (context, windowsList, child) {
+          final appOnBottom = windowsList
+              .where((element) =>
+                  element.iconPosition == AppIconPosition.dock ||
+                  element.isOpenWindow)
+              .toList();
+          return Container(
+            // alignment: Alignment.bottomCenter,
+            // width: 350,
+            height: 70,
+            padding: const EdgeInsets.all(2.0),
+            margin: const EdgeInsets.only(
+              bottom: 10,
             ),
-          ],
-        ),
-      ),
-    );
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.white.withOpacity(0.3),
+            ),
+            child: IntrinsicWidth(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ...List.generate(
+                    appOnBottom.length,
+                    (index) {
+                      final app = appOnBottom[index];
+                      return Column(
+                        children: [
+                          Expanded(
+                              child: AnimatedTooltip(
+                            content: Text("Item $index"),
+                            theme: ThemeData(
+                                canvasColor: Colors.white.withOpacity(0.8),
+                                shadowColor: Colors.black),
+                            onEnter: (p0) {
+                              hovedIndex.value = index;
+                            },
+                            onExit: (p0) {
+                              hovedIndex.value = -1;
+                            },
+                            child: ValueListenableBuilder(
+                              valueListenable: hovedIndex,
+                              builder: (context, value, child) {
+                                final double y = value == index ? -10 : 0;
+                                final double width = value == index ? 70 : 60;
+                                // print(y);
+                                return AnimatedContainer(
+                                  // color: Colors.red,
+                                  duration: const Duration(milliseconds: 200),
+                                  height: 60,
+                                  width: width,
+                                  transform: Matrix4.identity()
+                                    ..translate(
+                                      0.0,
+                                      y,
+                                      0.0,
+                                    ),
+                                  alignment: AlignmentDirectional.bottomCenter,
+                                  margin: const EdgeInsets.symmetric(
+                                    horizontal: 0,
+                                  ),
+                                  child: Image.network(
+                                    app.iconUrl,
+                                    fit: BoxFit.cover,
+                                  ),
+                                );
+                              },
+                            ),
+                          )),
+                          SizedBox(
+                            height: 5,
+                            width: 5,
+                            child: app.isOpenWindow
+                                ? const Icon(
+                                    Icons.circle,
+                                    size: 4,
+                                  )
+                                : const SizedBox.shrink(),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
   }
 }
