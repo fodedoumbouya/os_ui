@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class GenieEffect extends StatefulWidget {
-  bool isMinimized;
-  Widget child;
-  GenieEffect({required this.isMinimized, required this.child, super.key});
+  final bool isMinimized;
+  final Widget child;
+  const GenieEffect(
+      {required this.isMinimized, required this.child, super.key});
 
   @override
   State<GenieEffect> createState() => _GenieEffectState();
@@ -13,32 +14,18 @@ class _GenieEffectState extends State<GenieEffect>
     with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
-  // final bool _isMinimizing = false;
-  // late Animation<Offset> _translationAnimation;
   late Animation<double> _scaleAnimation;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _controller = AnimationController(
-  //     vsync: this,
-  //     duration: const Duration(milliseconds: 400),
-  //   );
-  //   _animation = CurvedAnimation(
-  //     parent: _controller,
-  //     curve: Curves.easeOut,
-  //   );
-  // }
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 250),
     );
     _animation = CurvedAnimation(
       parent: _controller,
-      curve: Curves.easeOut, //fastEaseInToSlowEaseOut
+      curve: Curves.easeOut,
     );
 
     _scaleAnimation = Tween<double>(
@@ -46,7 +33,7 @@ class _GenieEffectState extends State<GenieEffect>
       end: 0,
     ).animate(CurvedAnimation(
       parent: _controller,
-      curve: Curves.fastEaseInToSlowEaseOut,
+      curve: Curves.easeOut,
     ));
   }
 
@@ -57,19 +44,11 @@ class _GenieEffectState extends State<GenieEffect>
   }
 
   Future<void> _minimizeWindow() async {
-    // _isMinimizing = true;
-    // rebuildState();
-
     await _controller.forward();
-
-    // _isMinimizing = false;
-    // rebuildState();
   }
 
   Future<void> _restoreWindow() async {
     await _controller.reverse();
-
-    // rebuildState();
   }
 
   @override
@@ -99,21 +78,6 @@ class _GenieEffectState extends State<GenieEffect>
             child: child,
           ),
         );
-
-        // Transform.translate(
-        //   offset: Offset(
-        //     _animation.value / MediaQuery.of(context).size.width,
-        //     _animation.value * MediaQuery.of(context).size.height,
-        //   ),
-        //   child: child,
-        // );
-
-        // Transform.scale(
-        //   // scaleY: 1 - _animation.value,
-        //   scaleX: 1 - _animation.value,
-        //   // scale: 1 - _animation.value,
-        //   child: child,
-        // );
       },
       child: widget.child,
     );

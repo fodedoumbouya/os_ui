@@ -1,28 +1,18 @@
+import 'package:os_ui/src/os/macOs/windows_management/controller/controller.dart';
 import 'package:os_ui/src/utils/os_type.dart';
 
 class OsIndentifier {
-  final String name;
-
   final OsType type;
 
-  // final TargetPlatform platform;
+  final WindowsManagementController windowsManagementController;
 
   const OsIndentifier({
-    required this.name,
     required this.type,
-    // required this.platform,
+    required this.windowsManagementController,
   });
 
   @override
   String toString() {
-    return 'OsIndentifier{name: $name, type: $type}';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is OsIndentifier && other.name == name && other.type == type;
-    // other.platform == platform;
+    return 'OsIndentifier(type: $type)';
   }
 }

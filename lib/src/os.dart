@@ -49,7 +49,10 @@ class Os extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context);
     final screenSize = mediaQuery.size;
     final screen = switch (osIndentifier.type == OsType.macos) {
-      true => const MacOs(),
+      true => MacOs(
+          windowsManagementController:
+              osIndentifier.windowsManagementController,
+        ),
       false => _notSupport,
     };
     return SizedBox(

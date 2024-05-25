@@ -287,6 +287,8 @@ class _WindowsPortalState extends State<WindowsPortal> {
           child: ValueListenableBuilder(
             valueListenable: showActionIcon,
             builder: (context, value, child) {
+              final canMinimized = windowsModel.canMinimized && !_isFullScreen;
+              final canExpand = windowsModel.canExpand;
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -299,23 +301,27 @@ class _WindowsPortalState extends State<WindowsPortal> {
                     },
                   ),
                   _widgetActionIcon(
-                    color: _isFullScreen ? Colors.grey : Colors.yellow,
+                    color: canMinimized ? Colors.yellow : Colors.grey,
                     icon: Icons.minimize,
-                    onMouseOn: (value && !_isFullScreen),
+                    onMouseOn: (value && canMinimized),
                     bottomPadding: 3,
                     onTap: () {
-                      if (!_isFullScreen) {
+                      if (canMinimized) {
                         widget.onMinimize.call();
                       }
                     },
                   ),
                   _widgetActionIcon(
-                    color: Colors.green,
-                    icon: Icons.fullscreen,
-                    onMouseOn: value,
+                    color: canExpand ? Colors.green : Colors.grey,
+                    icon: _isFullScreen
+                        ? Icons.close_fullscreen
+                        : Icons.fullscreen,
+                    onMouseOn: (value && canExpand),
                     onTap: () {
-                      _isFullScreen = !_isFullScreen;
-                      widget.onFullScreen(_isFullScreen);
+                      if (canExpand) {
+                        _isFullScreen = !_isFullScreen;
+                        widget.onFullScreen(_isFullScreen);
+                      }
                     },
                   ),
                 ],

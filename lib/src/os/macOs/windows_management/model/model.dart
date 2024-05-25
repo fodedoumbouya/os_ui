@@ -67,7 +67,9 @@ enum AppIconPosition {
 
 // Define the model for the windows
 class WindowsModel {
-  int index; // The index of the window
+  static int _currentIndex =
+      0; // Add a static variable to keep track of the current index
+  int index = -1; // The index of the window
   final String iconUrl; // The URL of the window icon
   final String name; // The name of the window
   AppIconPosition iconPosition; // The position of the app icon
@@ -75,15 +77,14 @@ class WindowsModel {
   WindowsModelStyle? style; // The style of the window
   bool canExpand; // Whether the window can be expanded
   bool canMinimized; // Whether the window can be minimized
-  bool isMinimized; // Whether the window is minimized
+  bool isMinimized = false; // Whether the window is minimized
   Widget child; // The child widget of the window
-  bool isFullScreen; // Whether the window is in full screen mode
+  bool isFullScreen = false; // Whether the window is in full screen mode
   bool isCurrentScreen = true; // Whether the window is the current screen
   List<Widget> states = []; // The list of states of the window
   bool isOpenWindow = false; // Whether the window is open
 
   WindowsModel({
-    required this.index,
     required this.size,
     required this.name,
     required this.iconUrl,
@@ -91,8 +92,11 @@ class WindowsModel {
     this.style,
     this.canExpand = true,
     this.canMinimized = true,
-    this.isFullScreen = false,
-    this.isMinimized = false,
     required this.child,
-  });
+  }) {
+    if (index == -1) {
+      // If the index is not provided, auto increment it
+      index = _currentIndex++;
+    }
+  }
 }
