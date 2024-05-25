@@ -26,8 +26,6 @@ class MacOSDock extends StatelessWidget {
           // sort by index
           appOnBottom.sort((a, b) => a.index.compareTo(b.index));
           return Container(
-            // alignment: Alignment.bottomCenter,
-            // width: 350,
             height: 70,
             padding: const EdgeInsets.all(2.0),
             margin: const EdgeInsets.only(
@@ -81,9 +79,7 @@ class MacOSDock extends StatelessWidget {
                                 builder: (context, value, child) {
                                   final double y = value == index ? -10 : 0;
                                   final double width = value == index ? 70 : 60;
-                                  // print(y);
                                   return AnimatedContainer(
-                                    // color: Colors.red,
                                     duration: const Duration(milliseconds: 200),
                                     height: 60,
                                     width: width,

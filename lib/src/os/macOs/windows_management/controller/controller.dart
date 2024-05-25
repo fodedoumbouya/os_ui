@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:os_ui/src/os/macOs/windows_management/model/model.dart';
 
+/// The controller class for managing windows in a macOS-like interface.
 class WindowsManagementController {
   final _windows = ValueNotifier<List<WindowsModel>>([]);
 
@@ -18,14 +19,17 @@ class WindowsManagementController {
 
   int currentWindow = 0;
 
+  /// Get the value notifier for the list of windows.
   ValueNotifier<List<WindowsModel>> get windows => _windows;
 
+  /// Check if the current window exists. Throws an exception if it doesn't.
   checkIfWindowExist() {
     if (currentWindow == -1) {
       throw Exception("Window not found");
     }
   }
 
+  /// Swap to the window with the specified index.
   void swapToCurrentWindow({int? index}) {
     if (index != null) {
       currentWindow =
@@ -36,6 +40,7 @@ class WindowsManagementController {
     sortWindows();
   }
 
+  /// Add a new window to the list of windows.
   void addWindow(WindowsModel window) {
     currentWindow =
         windows.value.indexWhere((element) => element.index == window.index);
@@ -45,6 +50,7 @@ class WindowsManagementController {
     sortWindows();
   }
 
+  /// Sort the windows based on the current window.
   Future sortWindows() async {
     final currentWindowWidget = _windows.value[currentWindow];
     _windows.value.removeAt(currentWindow);
@@ -60,6 +66,7 @@ class WindowsManagementController {
   //   windows.notifyListeners();
   // }
 
+  /// Transition to a new screen within the current window.
   void toGo({required Widget child, WindowsModel? window}) {
     if (window != null) {
       currentWindow =
@@ -74,6 +81,7 @@ class WindowsManagementController {
     windows.notifyListeners();
   }
 
+  /// Go back to the previous screen within the current window.
   void goBack({WindowsModel? window}) {
     if (window != null) {
       currentWindow =
@@ -100,6 +108,7 @@ class WindowsManagementController {
   //   }
   // }
 
+  /// Close all windows.
   void closeAllWindow() {
     for (var element in windows.value) {
       element.isOpenWindow = false;
@@ -108,6 +117,7 @@ class WindowsManagementController {
     windows.notifyListeners();
   }
 
+  /// Minimize the window with the specified index.
   void minimize({int? index}) {
     if (index != null) {
       currentWindow =
@@ -121,6 +131,7 @@ class WindowsManagementController {
     windows.notifyListeners();
   }
 
+  /// Maximize the window with the specified index.
   void maximize({int? index}) {
     if (index != null) {
       currentWindow =
@@ -134,6 +145,7 @@ class WindowsManagementController {
     windows.notifyListeners();
   }
 
+  /// Set the window with the specified index to full screen mode.
   void fullScreen({int? index}) async {
     swapToCurrentWindow(index: index);
     if (index != null) {
@@ -144,6 +156,7 @@ class WindowsManagementController {
     _windows.value[currentWindow].isFullScreen = true;
   }
 
+  /// Set the window with the specified index to normal screen mode.
   void unFullScreen({int? index}) {
     if (index != null) {
       currentWindow =
@@ -155,13 +168,13 @@ class WindowsManagementController {
     _windows.value[currentWindow].isFullScreen = false;
   }
 
+  /// Close the window with the specified index.
   void close({required int index}) {
     currentWindow =
         _windows.value.indexWhere((element) => element.index == index);
 
     /// set the window to be closed
     _windows.value[currentWindow].isOpenWindow = false;
-
     windows.notifyListeners();
   }
 }

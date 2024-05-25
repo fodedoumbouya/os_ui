@@ -63,15 +63,10 @@ class _WindowsPortalState extends State<WindowsPortal> {
     if (_isFullScreen) {
       size = widget.safeAreaSize;
     }
-    // print("_isFullScreen: $_isFullScreen");
-    // print("isMinimized: $isMinimized");
-    // print("$index   isCurrent Screen: ${windowsModel.isCurrentScreen}");
     return GenieEffect(
       isMinimized: isMinimized,
       child: ResizableWidget(
         isCurrentScreen: windowsModel.isCurrentScreen,
-        // showDragWidgets: true,
-        // windowsModel.isCurrentScreen,
         isFullScreen: _isFullScreen,
         index: index,
         areaHeight: widget.safeAreaSize.height,
@@ -80,7 +75,6 @@ class _WindowsPortalState extends State<WindowsPortal> {
         width: size.width,
         minHeight: windowsModel.size.height,
         minWidth: windowsModel.size.width,
-        // initialPosition: position,
         dragWidgetsArea: const Size.square(30 / 2),
         onTap: (b) {
           widget.setOnCurrentScreen(index);
@@ -205,9 +199,7 @@ class _WindowsPortalState extends State<WindowsPortal> {
                     // topM: 10,
                     // leftM: 10,
                     margin: const EdgeInsets.only(top: 10, left: 5),
-                    // rightM: 10,
-                    // w: 10,
-                    // color: Colors.amber,
+
                     height: 15,
                     width: 15,
                   ),
