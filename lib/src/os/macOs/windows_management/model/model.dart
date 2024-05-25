@@ -69,20 +69,47 @@ enum AppIconPosition {
 class WindowsModel {
   static int _currentIndex =
       0; // Add a static variable to keep track of the current index
-  int index = -1; // The index of the window
-  final String iconUrl; // The URL of the window icon
-  final String name; // The name of the window
-  AppIconPosition iconPosition; // The position of the app icon
-  Size size; // The size of the window
-  WindowsModelStyle? style; // The style of the window
-  bool canExpand; // Whether the window can be expanded
-  bool canMinimized; // Whether the window can be minimized
-  bool isMinimized = false; // Whether the window is minimized
-  Widget child; // The child widget of the window
-  bool isFullScreen = false; // Whether the window is in full screen mode
-  bool isCurrentScreen = true; // Whether the window is the current screen
-  List<Widget> states = []; // The list of states of the window
-  bool isOpenWindow = false; // Whether the window is open
+  /// The index of the window
+  int index = -1;
+
+  /// The URL of the window icon and support [network] and [asset]
+  final String iconUrl;
+
+  /// The name of the window
+  final String name;
+
+  /// The position of the app icon
+  AppIconPosition iconPosition;
+
+  /// The size of the window
+  Size size;
+
+  /// The style of the window
+  WindowsModelStyle? style;
+
+  /// Whether the window can be expanded
+  bool canExpand;
+
+  /// Whether the window can be minimized
+  bool canMinimized;
+
+  /// Whether the window is minimized
+  bool isMinimized = false;
+
+  /// The child widget of the window
+  Widget child;
+
+  /// Whether the window is in full screen mode
+  bool isFullScreen = false;
+
+  /// Whether the window is the current screen
+  bool isCurrentScreen = true;
+
+  /// The list of states of the window
+  List<Widget> states = [];
+
+  /// Whether the window is open
+  bool isOpenWindow = false;
 
   WindowsModel({
     required this.size,

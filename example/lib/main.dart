@@ -92,6 +92,8 @@ class _MyHomePageState extends State<MyHomePage> {
             size: const Size(200, 200),
             iconPosition: AppIconPosition.desktop,
             iconUrl:
+                // "images/launcher.png",
+
                 "https://cdn.discordapp.com/attachments/1035682064651005972/1242492378154008637/launcher.png?ex=6652a5f3&is=66515473&hm=1d905fb78cfbcd8ef8aacac5035e30f7061dec8b554a868fefa76f7a4feba695&",
             style: WindowsModelStyle(
               barColor: Colors.blue,

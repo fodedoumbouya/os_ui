@@ -37,6 +37,16 @@ class BodyMacOs extends StatelessWidget {
                   itemCount: deskApp.length,
                   itemBuilder: (context, index) {
                     final app = deskApp[index];
+                    final imageWidget = switch (app.iconUrl.contains("http")) {
+                      true => Image.network(
+                          app.iconUrl,
+                          fit: BoxFit.cover,
+                        ),
+                      false => Image.asset(
+                          app.iconUrl,
+                          fit: BoxFit.cover,
+                        ),
+                    };
                     return GestureDetector(
                       onTap: () {
                         /// on tap on the desktop app icon
@@ -59,10 +69,7 @@ class BodyMacOs extends StatelessWidget {
                             flex: 3,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
-                              child: Image.network(
-                                app.iconUrl,
-                                fit: BoxFit.cover,
-                              ),
+                              child: imageWidget,
                             ),
                           ),
                           Expanded(
