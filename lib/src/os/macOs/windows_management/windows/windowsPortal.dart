@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:os_ui/src/os/macOs/widgets/genie.dart';
 import 'package:os_ui/src/os/macOs/windows_management/model/model.dart';
 
@@ -32,11 +31,21 @@ class WindowsPortal extends StatefulWidget {
 }
 
 class _WindowsPortalState extends State<WindowsPortal> {
+  /// ValueNotifier to show the action icon
+  /// [showActionIcon] is set to true when the mouse is on the top bar so that the action icon can be shown
+  /// [showActionIcon] is set to false when the mouse is not on the top bar so that the action icon can be hidden
   final showActionIcon = ValueNotifier<bool>(false);
+
+  /// [isFullScreen] is set to true when the window is in full screen mode
   bool _isFullScreen = false;
+
+  /// [isMinimized] is set to true when the window is minimized
   bool isMinimized = false;
-  GlobalKey key = GlobalKey();
+
+  /// [index] is the index of the window
   late int index;
+
+  /// [windowsModel] is the model of the window
   late WindowsModel windowsModel;
 
   @override
@@ -60,9 +69,13 @@ class _WindowsPortalState extends State<WindowsPortal> {
   @override
   Widget build(BuildContext context) {
     Size size = windowsModel.size;
+
+    ///[_isFullScreen] is set to true when the window is in full screen mode and the size of the window is set to the size of the safe area
     if (_isFullScreen) {
       size = widget.safeAreaSize;
     }
+
+    ///[GenieEffect] is used to show the genie effect when the window is minimized
     return GenieEffect(
       isMinimized: isMinimized,
       child: ResizableWidget(
@@ -225,10 +238,12 @@ class _WindowsPortalState extends State<WindowsPortal> {
               Container(
                 height: 20,
                 decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                  ),
+                  borderRadius: _isFullScreen
+                      ? null
+                      : const BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10),
+                        ),
                   color: windowsModel.style?.barColor ?? Colors.white,
                 ),
                 alignment: Alignment.centerLeft,

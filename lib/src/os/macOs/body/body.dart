@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:os_ui/src/os/macOs/windows_management/controller/controller.dart';
 import 'package:os_ui/src/os/macOs/windows_management/model/model.dart';
 // import 'package:os_ui/src/os/macOs/windows_management/model/model.dart';
@@ -41,6 +39,10 @@ class BodyMacOs extends StatelessWidget {
                     final app = deskApp[index];
                     return GestureDetector(
                       onTap: () {
+                        /// on tap on the desktop app icon
+                        /// if the app is minimized, maximize it
+                        /// if the app is open window, swap to the current window
+                        /// else add the window
                         if (app.isMinimized) {
                           windowsManagementController.maximize(
                               index: app.index);
@@ -87,33 +89,49 @@ class BodyMacOs extends StatelessWidget {
                   children: List.generate(windowsList.length, (i) {
                     int lastIndex = windowsList.length - 1;
                     WindowsModel windows = windowsList[i];
-                    windows.isCurrentScreen = lastIndex == i;
-                    final index = windows.index;
-                    // print(
-                    //     " currentWindow ${windows.isCurrentScreen} index $index");
 
+                    /// set the current screen to the last index of the window
+                    /// because I use the last index to determine the current screen
+                    windows.isCurrentScreen = lastIndex == i;
+
+                    /// set the index of the window
+                    /// and use it to determine the window
+                    final index = windows.index;
                     return WindowsPortal(
                       safeAreaSize: s,
                       key: ValueKey(index),
                       windowsModel: windows,
                       setOnCurrentScreen: (index) {
+                        /// set the current screen to the index on tap on the window
                         windowsManagementController.swapToCurrentWindow(
                             index: index);
                       },
                       updatePosition: (left, top) {},
                       onFullScreen: (p0) {
+                        /// on tap on the full screen button
+                        /// if the window is in full screen mode, un-full screen it
+                        /// else full screen it
                         if (windows.isFullScreen) {
                           windowsManagementController.unFullScreen(
                               index: index);
                         } else {
                           windowsManagementController.fullScreen(index: index);
                         }
+
+                        /// call the onFullScreen function
+                        /// to hide the dock and top bar
                         onFullScreen(p0);
                       },
                       onMinimize: () {
+                        /// on tap on the minimize button
                         windowsManagementController.minimize(index: index);
                       },
                       onClose: () {
+                        if (windows.isFullScreen) {
+                          onFullScreen(false);
+                        }
+
+                        /// on tap on the close button
                         windowsManagementController.close(index: index);
                       },
                     );

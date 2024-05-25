@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:os_ui/src/os/macOs/bar/bar.dart';
 import 'package:os_ui/src/os/macOs/body/body.dart';
 import 'package:os_ui/src/os/macOs/utils/background_frame.dart';
@@ -32,7 +31,6 @@ class _MacOsState extends State<MacOs> {
                 "https://cdn.discordapp.com/attachments/1035682064651005972/1242492378154008637/launcher.png?ex=6652a5f3&is=66515473&hm=1d905fb78cfbcd8ef8aacac5035e30f7061dec8b554a868fefa76f7a4feba695&",
             style: WindowsModelStyle(
               barColor: Colors.blue,
-              // shadowColor: Colors.transparent,
             ),
             child: Container(
               color: Colors.blue,
@@ -106,21 +104,24 @@ class _MacOsState extends State<MacOs> {
       ),
       child: Stack(
         children: [
-          Align(
-            alignment: Alignment.topCenter,
-            child: Bar(
-              windowsManagementController: windowsManagementController,
+          if (!onFullScreen)
+            Align(
+              alignment: Alignment.topCenter,
+              child: Bar(
+                windowsManagementController: windowsManagementController,
+              ),
             ),
-          ),
           Align(
               alignment: Alignment.center,
               child: Padding(
-                padding: EdgeInsets.only(top: barHeight),
+                padding: EdgeInsets.only(top: onFullScreen ? 0 : barHeight),
                 child: BodyMacOs(
                   windowsManagementController: windowsManagementController,
                   onFullScreen: (p0) {
                     onFullScreen = p0;
-                    setState(() {});
+                    if (mounted) {
+                      setState(() {});
+                    }
                   },
                 ),
               )),

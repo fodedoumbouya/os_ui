@@ -59,13 +59,6 @@ class WindowsManagementController {
     return;
   }
 
-  // void updateWindow(WindowsModel window) {
-  //   _windows.value.removeWhere((element) => element.index == window.index);
-  //   _windows.value.add(window);
-  //   currentWindow = window.index;
-  //   windows.notifyListeners();
-  // }
-
   /// Transition to a new screen within the current window.
   void toGo({required Widget child, WindowsModel? window}) {
     if (window != null) {
@@ -98,15 +91,6 @@ class WindowsManagementController {
     _windows.value[currentWindow].states.removeLast();
     windows.notifyListeners();
   }
-
-  // void removeWindow(int index) {
-  //   _windows.value.removeWhere((element) => element.index == index);
-  //   if (_windows.value.isNotEmpty) {
-  //     currentWindow = windows.value.last.index;
-  //   } else {
-  //     currentWindow = -1;
-  //   }
-  // }
 
   /// Close all windows.
   void closeAllWindow() {
@@ -173,8 +157,12 @@ class WindowsManagementController {
     currentWindow =
         _windows.value.indexWhere((element) => element.index == index);
 
-    /// set the window to be closed
+    /// set the window to be closed and initialize the window
     _windows.value[currentWindow].isOpenWindow = false;
+    _windows.value[currentWindow].isMinimized = false;
+    _windows.value[currentWindow].isFullScreen = false;
+    _windows.value[currentWindow].isCurrentScreen = false;
+    _windows.value[currentWindow].states = [];
     windows.notifyListeners();
   }
 }
