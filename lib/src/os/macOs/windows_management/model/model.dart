@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class WindowsModelStyle {
   final Color? barColor;
@@ -7,11 +8,51 @@ class WindowsModelStyle {
   WindowsModelStyle({this.barColor, this.shadowColor});
 }
 
+class TopBarModel {
+  final Color? backgroundColor;
+  final TextStyle? textStyle;
+  final Color? iconColor;
+  final String? barText;
+  final Function? onAbout;
+  final List<PopupMenuItem> popupMenuItemsOnAppleIcon;
+  final Color? popupMenuItemColor;
+  final Color? popupMenuItemShadowColor;
+  final Color? popupMenuItemSurfaceTintColor;
+  final ValueNotifier<String?>? language;
+  final List<PopupMenuItem> listLanguage;
+  final DateFormat? dateFormat;
+  TopBarModel(
+      {this.backgroundColor,
+      this.textStyle,
+      this.iconColor,
+      this.barText,
+      this.onAbout,
+      this.popupMenuItemsOnAppleIcon = const [],
+      this.popupMenuItemColor,
+      this.popupMenuItemShadowColor,
+      this.popupMenuItemSurfaceTintColor,
+      this.language,
+      this.dateFormat,
+      this.listLanguage = const []});
+}
+
+class DockStyle {
+  final Color? backgroundColor;
+  final Color? tooltipBackgroundColor;
+  final TextStyle? tooltipTextStyle;
+
+  DockStyle(
+      {this.backgroundColor,
+      this.tooltipBackgroundColor,
+      this.tooltipTextStyle});
+}
+
 enum AppIconPosition { dock, desktop }
 
 class WindowsModel {
   int index;
   final String iconUrl;
+  final String name;
   AppIconPosition iconPosition;
   Size size;
   WindowsModelStyle? style;
@@ -26,6 +67,7 @@ class WindowsModel {
   WindowsModel(
       {required this.index,
       required this.size,
+      required this.name,
       required this.iconUrl,
       this.iconPosition = AppIconPosition.desktop,
       this.style,

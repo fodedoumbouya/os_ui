@@ -3,8 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../windows_management/controller/controller.dart';
+
 class Bar extends StatefulWidget {
-  const Bar({super.key});
+  final WindowsManagementController windowsManagementController;
+
+  const Bar({super.key, required this.windowsManagementController});
 
   @override
   State<Bar> createState() => _BarState();
@@ -16,7 +20,6 @@ class _BarState extends State<Bar> {
 
   final ValueNotifier<DateTime> _time = ValueNotifier<DateTime>(DateTime.now());
   Timer? timer;
-  static List<String> listLanguage = ["EN", "FR"];
 
   initTme() {
     // Update the time every second
@@ -30,7 +33,6 @@ class _BarState extends State<Bar> {
 
   @override
   void initState() {
-    // initState();
     initTme();
     super.initState();
   }
@@ -46,9 +48,11 @@ class _BarState extends State<Bar> {
 
   @override
   Widget build(BuildContext context) {
+    final topBarModel = widget.windowsManagementController.topBarModel;
+    final language = topBarModel?.language ?? ValueNotifier<String?>(null);
     return Container(
       height: barHeight,
-      color: Colors.white.withOpacity(0.3),
+      color: topBarModel?.backgroundColor ?? Colors.white.withOpacity(0.3),
       padding: const EdgeInsets.only(left: 10, right: 10),
       child: Row(
         children: [
@@ -57,15 +61,6 @@ class _BarState extends State<Bar> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               PopupMenuButton(
-                onSelected: (value) {
-                  // if (value == 0) {
-                  //   windowsNotifier.addWidgetToWindows(
-                  //       widget:
-                  //           myWindows.getAbout(index: getNewIndex()));
-                  // } else if (value == 1) {
-                  //   unlockControler.setState(newState: true);
-                  // }
-                },
                 offset: Offset(0, barHeight),
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
@@ -77,26 +72,27 @@ class _BarState extends State<Bar> {
                 ),
                 padding: const EdgeInsets.all(8.0),
                 tooltip: "",
-                color: Colors.white.withOpacity(0.5),
-                shadowColor: Colors.white.withOpacity(0.5),
-                surfaceTintColor: Colors.white.withOpacity(0.5),
+                color: topBarModel?.popupMenuItemColor ??
+                    Colors.white.withOpacity(0.8),
+                shadowColor: topBarModel?.popupMenuItemShadowColor ??
+                    Colors.white.withOpacity(0.5),
+                surfaceTintColor: topBarModel?.popupMenuItemSurfaceTintColor ??
+                    Colors.white.withOpacity(0.5),
                 splashRadius: 0,
                 constraints: const BoxConstraints(
                   maxWidth: 200,
                 ),
                 itemBuilder: (BuildContext context) => [
-                  const PopupMenuItem(
-                    value: 0,
-                    child: Text("aboutPc"),
-                  ),
-                  const PopupMenuItem(
-                    value: 1,
-                    child: Text("lockScreen"),
-                  ),
+                  ...List.generate(
+                      (topBarModel?.popupMenuItemsOnAppleIcon ?? []).length,
+                      (index) {
+                    final item = topBarModel!.popupMenuItemsOnAppleIcon[index];
+                    return item;
+                  })
                 ],
                 child: Image.network(
-                  "https://cdn.discordapp.com/attachments/1035682064651005972/1242796547196850176/applelogo.png?ex=664fccba&is=664e7b3a&hm=09b19fb2ea698ad58bbf1c3b25c5e98638a538a9718280af05cf8b4e2c811133&",
-                  color: Colors.white,
+                  "https://cdn.discordapp.com/attachments/1035682064651005972/1242796547196850176/applelogo.png?ex=6653187a&is=6651c6fa&hm=42eaf858fda6c638fc6a96f804c296a7009adc154fedf9fb85aa5c2312eb5ada&",
+                  color: topBarModel?.iconColor ?? Colors.white,
                   height: 20,
                   width: 20,
                 ),
@@ -104,11 +100,12 @@ class _BarState extends State<Bar> {
               const SizedBox(
                 width: iconSpace,
               ),
-              const Text(
-                "fullName",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
+              Text(
+                topBarModel?.barText ?? "",
+                style: topBarModel?.textStyle ??
+                    const TextStyle(
+                      color: Colors.white,
+                    ),
               ),
             ],
           ),
@@ -117,12 +114,6 @@ class _BarState extends State<Bar> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 PopupMenuButton(
-                    onSelected: (value) {
-                      // languageNotifier.changeLanguage(
-                      //     language: listLanguage[value]);
-                      // rebuildState();
-                      // windowsNotifier.removeAllWidget();
-                    },
                     offset: Offset(30, barHeight),
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
@@ -134,37 +125,49 @@ class _BarState extends State<Bar> {
                     ),
                     padding: const EdgeInsets.all(8.0),
                     tooltip: "",
-                    color: Colors.white.withOpacity(0.5),
-                    shadowColor: Colors.white.withOpacity(0.5),
-                    surfaceTintColor: Colors.white.withOpacity(0.5),
+                    color: topBarModel?.popupMenuItemColor ??
+                        Colors.white.withOpacity(0.5),
+                    shadowColor: topBarModel?.popupMenuItemShadowColor ??
+                        Colors.white.withOpacity(0.5),
+                    surfaceTintColor:
+                        topBarModel?.popupMenuItemSurfaceTintColor ??
+                            Colors.white.withOpacity(0.5),
                     splashRadius: 0,
                     constraints: const BoxConstraints(
                       maxWidth: 100,
                       minWidth: 80,
                     ),
                     itemBuilder: (BuildContext context) => [
-                          ...List.generate(listLanguage.length, (index) {
-                            return PopupMenuItem(
-                              value: index,
-                              child: Text(listLanguage[index]),
-                            );
+                          ...List.generate(
+                              (topBarModel?.listLanguage ?? []).length,
+                              (index) {
+                            final item = topBarModel!.listLanguage[index];
+                            return item;
                           })
                         ],
-                    child: Container(
-                      width: 30,
-                      height: 20,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(3),
-                      ),
-                      child: const Text(
-                        "EN",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black87,
-                        ),
-                      ),
+                    child: ValueListenableBuilder(
+                      valueListenable: language,
+                      builder: (context, value, child) {
+                        return value == null
+                            ? const SizedBox.shrink()
+                            : Container(
+                                width: 30,
+                                height: 20,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(3),
+                                ),
+                                child: Text(
+                                  value,
+                                  textAlign: TextAlign.center,
+                                  style: topBarModel?.textStyle ??
+                                      const TextStyle(
+                                        color: Colors.black87,
+                                      ),
+                                ),
+                              );
+                      },
                     )),
                 const SizedBox(
                   width: iconSpace,
@@ -173,11 +176,13 @@ class _BarState extends State<Bar> {
                   valueListenable: _time,
                   builder: (context, value, child) {
                     String formattedTime =
-                        DateFormat('E MMM d HH:mm').format(value);
+                        (topBarModel?.dateFormat ?? DateFormat('E MMM d HH:mm'))
+                            .format(value);
                     return Text(formattedTime,
-                        style: const TextStyle(
-                          color: Colors.white,
-                        ));
+                        style: topBarModel?.textStyle ??
+                            const TextStyle(
+                              color: Colors.white,
+                            ));
                   },
                 ),
               ],

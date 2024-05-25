@@ -14,14 +14,17 @@ class MacOSDock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dockStyle = windowsManagementController.dockStyle;
     return ValueListenableBuilder(
         valueListenable: windowsManagementController.windows,
         builder: (context, windowsList, child) {
-          final appOnBottom = windowsList
+          List<WindowsModel> appOnBottom = windowsList
               .where((element) =>
                   element.iconPosition == AppIconPosition.dock ||
                   element.isOpenWindow)
               .toList();
+          // sort by index
+          appOnBottom.sort((a, b) => a.index.compareTo(b.index));
           return Container(
             // alignment: Alignment.bottomCenter,
             // width: 350,
@@ -32,7 +35,8 @@ class MacOSDock extends StatelessWidget {
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Colors.white.withOpacity(0.3),
+              color:
+                  dockStyle?.backgroundColor ?? Colors.white.withOpacity(0.3),
             ),
             child: IntrinsicWidth(
               child: Row(
@@ -42,60 +46,78 @@ class MacOSDock extends StatelessWidget {
                     appOnBottom.length,
                     (index) {
                       final app = appOnBottom[index];
-                      return Column(
-                        children: [
-                          Expanded(
-                              child: AnimatedTooltip(
-                            content: Text("Item $index"),
-                            theme: ThemeData(
-                                canvasColor: Colors.white.withOpacity(0.8),
-                                shadowColor: Colors.black),
-                            onEnter: (p0) {
-                              hovedIndex.value = index;
-                            },
-                            onExit: (p0) {
-                              hovedIndex.value = -1;
-                            },
-                            child: ValueListenableBuilder(
-                              valueListenable: hovedIndex,
-                              builder: (context, value, child) {
-                                final double y = value == index ? -10 : 0;
-                                final double width = value == index ? 70 : 60;
-                                // print(y);
-                                return AnimatedContainer(
-                                  // color: Colors.red,
-                                  duration: const Duration(milliseconds: 200),
-                                  height: 60,
-                                  width: width,
-                                  transform: Matrix4.identity()
-                                    ..translate(
-                                      0.0,
-                                      y,
-                                      0.0,
-                                    ),
-                                  alignment: AlignmentDirectional.bottomCenter,
-                                  margin: const EdgeInsets.symmetric(
-                                    horizontal: 0,
-                                  ),
-                                  child: Image.network(
-                                    app.iconUrl,
-                                    fit: BoxFit.cover,
-                                  ),
-                                );
+                      return GestureDetector(
+                        onTap: () {
+                          if (app.isMinimized) {
+                            windowsManagementController.maximize(
+                                index: app.index);
+                          } else if (app.isOpenWindow) {
+                            windowsManagementController.swapToCurrentWindow(
+                                index: app.index);
+                          } else {
+                            windowsManagementController.addWindow(app);
+                          }
+                        },
+                        child: Column(
+                          children: [
+                            Expanded(
+                                child: AnimatedTooltip(
+                              content: Text(app.name,
+                                  style: dockStyle?.tooltipTextStyle ??
+                                      const TextStyle(color: Colors.black)),
+                              theme: ThemeData(
+                                  canvasColor:
+                                      dockStyle?.tooltipBackgroundColor ??
+                                          Colors.white.withOpacity(0.8),
+                                  shadowColor: Colors.black),
+                              onEnter: (p0) {
+                                hovedIndex.value = index;
                               },
+                              onExit: (p0) {
+                                hovedIndex.value = -1;
+                              },
+                              child: ValueListenableBuilder(
+                                valueListenable: hovedIndex,
+                                builder: (context, value, child) {
+                                  final double y = value == index ? -10 : 0;
+                                  final double width = value == index ? 70 : 60;
+                                  // print(y);
+                                  return AnimatedContainer(
+                                    // color: Colors.red,
+                                    duration: const Duration(milliseconds: 200),
+                                    height: 60,
+                                    width: width,
+                                    transform: Matrix4.identity()
+                                      ..translate(
+                                        0.0,
+                                        y,
+                                        0.0,
+                                      ),
+                                    alignment:
+                                        AlignmentDirectional.bottomCenter,
+                                    margin: const EdgeInsets.symmetric(
+                                      horizontal: 0,
+                                    ),
+                                    child: Image.network(
+                                      app.iconUrl,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  );
+                                },
+                              ),
+                            )),
+                            SizedBox(
+                              height: 5,
+                              width: 5,
+                              child: app.isOpenWindow
+                                  ? const Icon(
+                                      Icons.circle,
+                                      size: 4,
+                                    )
+                                  : const SizedBox.shrink(),
                             ),
-                          )),
-                          SizedBox(
-                            height: 5,
-                            width: 5,
-                            child: app.isOpenWindow
-                                ? const Icon(
-                                    Icons.circle,
-                                    size: 4,
-                                  )
-                                : const SizedBox.shrink(),
-                          ),
-                        ],
+                          ],
+                        ),
                       );
                     },
                   ),

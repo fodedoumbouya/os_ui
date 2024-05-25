@@ -128,7 +128,6 @@ class _ResizableWidgetState extends State<ResizableWidget> {
               right: controller.right,
               child: widget.child,
             ),
-
             Positioned(
               top: controller.top - widget.dragWidgetsArea.height,
               left: controller.left - widget.dragWidgetsArea.width,

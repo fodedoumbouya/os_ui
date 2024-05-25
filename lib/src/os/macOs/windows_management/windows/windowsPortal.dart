@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:os_ui/src/os/macOs/widgets/genie.dart';
 import 'package:os_ui/src/os/macOs/windows_management/model/model.dart';
 
@@ -33,6 +34,7 @@ class WindowsPortal extends StatefulWidget {
 class _WindowsPortalState extends State<WindowsPortal> {
   final showActionIcon = ValueNotifier<bool>(false);
   bool _isFullScreen = false;
+  bool isMinimized = false;
   GlobalKey key = GlobalKey();
   late int index;
   late WindowsModel windowsModel;
@@ -42,18 +44,16 @@ class _WindowsPortalState extends State<WindowsPortal> {
     windowsModel = widget.windowsModel;
     index = windowsModel.index;
     _isFullScreen = windowsModel.isFullScreen;
+    isMinimized = windowsModel.isMinimized;
     super.initState();
   }
 
   @override
   void didUpdateWidget(covariant WindowsPortal oldWidget) {
-    if (oldWidget.windowsModel.isFullScreen !=
-        widget.windowsModel.isFullScreen) {
-      _isFullScreen = widget.windowsModel.isFullScreen;
-      windowsModel = widget.windowsModel;
-      index = windowsModel.index;
-    }
-    key = GlobalKey();
+    windowsModel = widget.windowsModel;
+    index = windowsModel.index;
+    _isFullScreen = windowsModel.isFullScreen;
+    isMinimized = windowsModel.isMinimized;
     super.didUpdateWidget(oldWidget);
   }
 
@@ -63,15 +63,15 @@ class _WindowsPortalState extends State<WindowsPortal> {
     if (_isFullScreen) {
       size = widget.safeAreaSize;
     }
-
+    // print("_isFullScreen: $_isFullScreen");
+    // print("isMinimized: $isMinimized");
+    // print("$index   isCurrent Screen: ${windowsModel.isCurrentScreen}");
     return GenieEffect(
-      // child: windowsModel.isMinimized
-      //     ? const SizedBox.shrink()
-      //     :
-      isMinimized: windowsModel.isMinimized,
+      isMinimized: isMinimized,
       child: ResizableWidget(
-        key: key,
         isCurrentScreen: windowsModel.isCurrentScreen,
+        // showDragWidgets: true,
+        // windowsModel.isCurrentScreen,
         isFullScreen: _isFullScreen,
         index: index,
         areaHeight: widget.safeAreaSize.height,
@@ -243,12 +243,18 @@ class _WindowsPortalState extends State<WindowsPortal> {
                 child: _widgetAction(),
               ),
               Expanded(
-                  child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(10),
-                  bottomRight: Radius.circular(10),
+                  child: GestureDetector(
+                behavior: HitTestBehavior.deferToChild,
+                onTap: () {
+                  widget.setOnCurrentScreen(index);
+                },
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
+                  ),
+                  child: windowsModel.child,
                 ),
-                child: windowsModel.child,
               )),
             ],
           ),
