@@ -45,14 +45,17 @@ class MacOSDock extends StatelessWidget {
                       final app = appOnBottom[index];
                       return GestureDetector(
                         onTap: () {
-                          if (app.isMinimized) {
-                            windowsManagementController.maximize(
-                                index: app.index);
-                          } else if (app.isOpenWindow) {
-                            windowsManagementController.swapToCurrentWindow(
-                                index: app.index);
+                          if (app.isLaunchpad) {
                           } else {
-                            windowsManagementController.addWindow(app);
+                            if (app.isMinimized) {
+                              windowsManagementController.maximize(
+                                  index: app.index);
+                            } else if (app.isOpenWindow) {
+                              windowsManagementController.swapToCurrentWindow(
+                                  index: app.index);
+                            } else {
+                              windowsManagementController.addWindow(app);
+                            }
                           }
                         },
                         child: Column(

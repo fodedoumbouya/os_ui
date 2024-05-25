@@ -68,7 +68,7 @@ enum AppIconPosition {
 // Define the model for the windows
 class WindowsModel {
   static int _currentIndex =
-      0; // Add a static variable to keep track of the current index
+      1; // Add a static variable to keep track of the current index
   /// The index of the window
   int index = -1;
 
@@ -110,6 +110,9 @@ class WindowsModel {
 
   /// Whether the window is open
   bool isOpenWindow = false;
+
+  /// Whether the window is a launchpad
+  bool isLaunchpad = false;
 
   WindowsModel({
     required this.size,

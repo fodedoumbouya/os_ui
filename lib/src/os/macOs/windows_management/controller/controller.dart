@@ -11,9 +11,17 @@ class WindowsManagementController {
 
   final List<WindowsModel> applications;
   WindowsManagementController(
-      {required this.applications, this.dockStyle, this.topBarModel}) {
+      {required this.applications,
+      required this.launchIconPath,
+      this.dockStyle,
+      this.topBarModel}) {
+    /// Add the launcher to the list of windows.
+    _windows.value.add(_launcher(launchIconPath));
+
+    /// Add the applications to the list of windows.
     _windows.value.addAll(applications);
   }
+  String launchIconPath;
   DockStyle? dockStyle;
   TopBarModel? topBarModel;
 
@@ -166,3 +174,12 @@ class WindowsManagementController {
     windows.notifyListeners();
   }
 }
+
+WindowsModel _launcher(String iconUrl) => WindowsModel(
+    size: Size.zero,
+    name: "Launcher",
+    iconUrl: iconUrl,
+    iconPosition: AppIconPosition.dock,
+    child: const SizedBox.shrink())
+  ..index = 0
+  ..isLaunchpad = true;

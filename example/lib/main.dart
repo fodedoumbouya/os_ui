@@ -73,54 +73,53 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final WindowsManagementController windowsManagementController =
       WindowsManagementController(
+          launchIconPath: "images/launcher.png",
           applications: [
-        WindowsModel(
-            name: "Launcher",
-            size: const Size(400, 400),
-            iconPosition: AppIconPosition.dock,
-            iconUrl:
-                "https://cdn.discordapp.com/attachments/1035682064651005972/1242492378154008637/launcher.png?ex=6652a5f3&is=66515473&hm=1d905fb78cfbcd8ef8aacac5035e30f7061dec8b554a868fefa76f7a4feba695&",
-            style: WindowsModelStyle(
-              barColor: Colors.blue,
-            ),
-            child: Container(
-              color: Colors.blue,
-              alignment: Alignment.center,
-            )),
-        WindowsModel(
-            name: "Launcher",
-            size: const Size(200, 200),
-            iconPosition: AppIconPosition.desktop,
-            iconUrl:
-                // "images/launcher.png",
-
-                "https://cdn.discordapp.com/attachments/1035682064651005972/1242492378154008637/launcher.png?ex=6652a5f3&is=66515473&hm=1d905fb78cfbcd8ef8aacac5035e30f7061dec8b554a868fefa76f7a4feba695&",
-            style: WindowsModelStyle(
-              barColor: Colors.blue,
-              // shadowColor: Colors.transparent,
-            ),
-            child: Container(
-              color: Colors.blue,
-              alignment: Alignment.center,
-            )),
-        WindowsModel(
-            name: "Linkedin",
-            size: const Size(700, 700),
-            iconPosition: AppIconPosition.dock,
-            // canMinimized: false,
-            // canExpand: false,
-            iconUrl:
-                "https://cdn.discordapp.com/attachments/1035682064651005972/1243948846871216228/linkedin.png?ex=66535524&is=665203a4&hm=39e9ee28fbbca43addbbb45b376186ec7e1c26ec270c93a0ee064c13ca466ce0&",
-            style: WindowsModelStyle(
-              barColor: Colors.blue,
-              // shadowColor: Colors.transparent,
-            ),
-            child: Container(
-              color: Colors.red,
-              alignment: Alignment.center,
-            ))
-          ..isOpenWindow = true,
-      ],
+            // WindowsModel(
+            //     name: "Launcher",
+            //     size: const Size(400, 400),
+            //     iconPosition: AppIconPosition.dock,
+            //     iconUrl:
+            //         "https://cdn.discordapp.com/attachments/1035682064651005972/1242492378154008637/launcher.png?ex=6652a5f3&is=66515473&hm=1d905fb78cfbcd8ef8aacac5035e30f7061dec8b554a868fefa76f7a4feba695&",
+            //     style: WindowsModelStyle(
+            //       barColor: Colors.blue,
+            //     ),
+            //     child: Container(
+            //       color: Colors.blue,
+            //       alignment: Alignment.center,
+            //     )),
+            WindowsModel(
+                name: "Github",
+                size: const Size(200, 200),
+                iconPosition: AppIconPosition.desktop,
+                iconUrl:
+                    "https://cdn.discordapp.com/attachments/1035682064651005972/1244058303894650890/github.png?ex=6653bb15&is=66526995&hm=85f02416a132275b2c5884138f3e8bd5a8ca27185ccc39154d91f8ccdf2afd1c&",
+                style: WindowsModelStyle(
+                  barColor: Colors.blue,
+                  // shadowColor: Colors.transparent,
+                ),
+                child: Container(
+                  color: Colors.blue,
+                  alignment: Alignment.center,
+                )),
+            WindowsModel(
+                name: "Linkedin",
+                size: const Size(700, 700),
+                iconPosition: AppIconPosition.dock,
+                // canMinimized: false,
+                // canExpand: false,
+                iconUrl:
+                    "https://cdn.discordapp.com/attachments/1035682064651005972/1243948846871216228/linkedin.png?ex=66535524&is=665203a4&hm=39e9ee28fbbca43addbbb45b376186ec7e1c26ec270c93a0ee064c13ca466ce0&",
+                style: WindowsModelStyle(
+                  barColor: Colors.blue,
+                  // shadowColor: Colors.transparent,
+                ),
+                child: Container(
+                  color: Colors.red,
+                  alignment: Alignment.center,
+                ))
+              ..isOpenWindow = true,
+          ],
           topBarModel: TopBarModel(
             barText: "MacOs",
             language: language,
