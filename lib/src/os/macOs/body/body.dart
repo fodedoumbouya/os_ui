@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:os_ui/src/os/macOs/windows_management/controller/controller.dart';
+import 'package:os_ui/src/os/controller/controller.dart';
 import 'package:os_ui/src/os/macOs/windows_management/model/model.dart';
 // import 'package:os_ui/src/os/macOs/windows_management/model/model.dart';
 import 'package:os_ui/src/os/macOs/windows_management/windows/windowsPortal.dart';

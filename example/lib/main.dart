@@ -133,7 +133,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ));
 
-  final OsController osController = OsController();
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -144,7 +143,6 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       body: Os(
-          osController: osController,
           osIndentifier: OsIndentifier(
               type: OsType.macos,
               windowsManagementController: windowsManagementController)),

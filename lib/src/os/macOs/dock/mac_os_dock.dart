@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/animated_tooltip.dart';
-import '../windows_management/controller/controller.dart';
+import '../../controller/controller.dart';
 import '../windows_management/model/model.dart';
 
 class MacOSDock extends StatelessWidget {

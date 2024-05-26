@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../windows_management/controller/controller.dart';
+import '../../controller/controller.dart';
 
 class Bar extends StatefulWidget {
   final WindowsManagementController windowsManagementController;

@@ -6,7 +6,7 @@ import 'package:os_ui/src/os/macOs/utils/background_frame.dart';
 import 'package:os_ui/src/os/macOs/dock/mac_os_dock.dart';
 
 import 'utils/constant.dart';
-import 'windows_management/controller/controller.dart';
+import '../controller/controller.dart';
 
 class MacOs extends StatefulWidget {
   final WindowsManagementController windowsManagementController;

@@ -1,4 +1,4 @@
-import 'package:os_ui/src/os/macOs/windows_management/controller/controller.dart';
+import 'package:os_ui/src/os/controller/controller.dart';
 import 'package:os_ui/src/utils/os_type.dart';
 
 class OsIndentifier {

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:os_ui/src/controller/controller.dart';
 import 'package:os_ui/src/os/macOs/mac_os.dart';
 import 'package:os_ui/src/utils/os_indentifier.dart';
 import 'package:os_ui/src/utils/os_type.dart';
 
 class Os extends StatelessWidget {
-  final OsController osController;
-
   final OsIndentifier osIndentifier;
 
   /// [deviceOccupySize] is the size of the device in the screen
@@ -14,7 +11,6 @@ class Os extends StatelessWidget {
 
   const Os({
     super.key,
-    required this.osController,
     required this.osIndentifier,
     this.deviceOccupySize,
   });
