@@ -43,9 +43,21 @@ class MacOSDock extends StatelessWidget {
                     appOnBottom.length,
                     (index) {
                       final app = appOnBottom[index];
+                      final imageWidget =
+                          switch (app.iconUrl.contains("http")) {
+                        true => Image.network(
+                            app.iconUrl,
+                            fit: BoxFit.cover,
+                          ),
+                        false => Image.asset(
+                            app.iconUrl,
+                            fit: BoxFit.cover,
+                          ),
+                      };
                       return GestureDetector(
                         onTap: () {
                           if (app.isLaunchpad) {
+                            windowsManagementController.showLaunchPadToggle();
                           } else {
                             if (app.isMinimized) {
                               windowsManagementController.maximize(
@@ -96,10 +108,7 @@ class MacOSDock extends StatelessWidget {
                                     margin: const EdgeInsets.symmetric(
                                       horizontal: 0,
                                     ),
-                                    child: Image.network(
-                                      app.iconUrl,
-                                      fit: BoxFit.cover,
-                                    ),
+                                    child: imageWidget,
                                   );
                                 },
                               ),

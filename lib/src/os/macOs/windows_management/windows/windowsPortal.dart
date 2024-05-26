@@ -48,6 +48,9 @@ class _WindowsPortalState extends State<WindowsPortal> {
   /// [windowsModel] is the model of the window
   late WindowsModel windowsModel;
 
+  /// [_key] is the key of the window
+  GlobalKey _key = GlobalKey();
+
   @override
   void initState() {
     windowsModel = widget.windowsModel;
@@ -63,6 +66,7 @@ class _WindowsPortalState extends State<WindowsPortal> {
     index = windowsModel.index;
     _isFullScreen = windowsModel.isFullScreen;
     isMinimized = windowsModel.isMinimized;
+
     super.didUpdateWidget(oldWidget);
   }
 
@@ -76,198 +80,204 @@ class _WindowsPortalState extends State<WindowsPortal> {
     }
 
     ///[GenieEffect] is used to show the genie effect when the window is minimized
-    return GenieEffect(
-      isMinimized: isMinimized,
-      child: ResizableWidget(
-        isCurrentScreen: windowsModel.isCurrentScreen,
-        isFullScreen: _isFullScreen,
-        index: index,
-        areaHeight: widget.safeAreaSize.height,
-        areaWidth: widget.safeAreaSize.width,
-        height: size.height,
-        width: size.width,
-        minHeight: windowsModel.size.height,
-        minWidth: windowsModel.size.width,
-        dragWidgetsArea: const Size.square(30 / 2),
-        onTap: (b) {
-          widget.setOnCurrentScreen(index);
-        },
-        onStartMoving: (b) {
-          widget.setOnCurrentScreen(index);
-        },
-        lastPosition: (left, top) {
-          widget.updatePosition(left, top);
-        },
-        triggersList: _isFullScreen
-            ? []
-            : [
-                //-----------------------------------------------------------TOP move and resize events--------------------------------------------------------
-                Trigger(
-                  // position: (left: 0.8, top: 0.0),
-                  height: 15,
-                  cursor: SystemMouseCursors.resizeUpDown,
-                  child: Container(
-                    color: Colors.transparent,
-                    // height: 10,
-                    margin: const EdgeInsets.only(left: 75, right: 15),
-                  ),
-                  dragTriggerType: DragTriggersEnum.topCenter,
-                ),
-                Trigger(
-                  position: (left: 0.8, top: 0.02),
-                  height: 25,
-                  cursor: SystemMouseCursors.move,
-                  child: Container(
-                    color: Colors.transparent,
-                    margin: const EdgeInsets.only(left: 75, right: 15),
-                  ),
-                  dragTriggerType: DragTriggersEnum.center,
-                ),
-                //--------------------------------------------left move events---------------------------------------------------------------------------------------
-                Trigger(
-                  position: (left: 0.01, top: 0),
-                  cursor: SystemMouseCursors.resizeLeft,
-                  child: Container(
-                    color: Colors.transparent,
-                    width: 10,
-                    margin: const EdgeInsets.only(top: 20, bottom: 20),
-                  ),
-                  dragTriggerType: DragTriggersEnum.centerLeft,
-                ),
-                //--------------------------------------------right move events---------------------------------------------------------------------------------------
-                Trigger(
-                  // position: (left: 0.0, top: 0),
-                  // height: 100,
-                  cursor: SystemMouseCursors.resizeRight,
-                  child: Container(
-                    color: Colors.transparent,
-                    width: 10,
-                    margin:
-                        const EdgeInsets.only(top: 20, bottom: 20, right: 10),
-                  ),
-                  dragTriggerType: DragTriggersEnum.centerRight,
-                ),
-                //--------------------------------------------Bottom move events---------------------------------------------------------------------------------------
-                Trigger(
-                  // position: (left: 0.0, top: 0),
-                  // height: 100,
-                  cursor: SystemMouseCursors.resizeUpDown,
-                  child: Container(
-                    color: Colors.transparent,
-                    height: 10,
-                    margin:
-                        const EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                  ),
-                  dragTriggerType: DragTriggersEnum.bottomCenter,
-                ),
-                //--------------------------------------------left bottom center  move events---------------------------------------------------------------------------------------
-                Trigger(
-                  // position: (left: 0.0, top: 0),
-                  // height: 100,
-                  cursor: SystemMouseCursors.resizeUpRightDownLeft,
-                  child: Container(
-                    color: Colors.transparent,
-                    margin: const EdgeInsets.only(left: 5, bottom: 10),
-                    // rightM: 10,
-                    // w: 10,
-                    height: 15,
-                    width: 15,
-                  ),
-                  dragTriggerType: DragTriggersEnum.bottomLeft,
-                ),
-                //--------------------------------------------Right bottom center  move events---------------------------------------------------------------------------------------
-                Trigger(
-                  // position: (left: 0.0, top: 0),
-                  // height: 100,
-                  cursor: SystemMouseCursors.resizeUpLeftDownRight,
-                  child: Container(
-                    margin: const EdgeInsets.only(right: 5, bottom: 10),
-                    color: Colors.transparent,
-                    height: 15,
-                    width: 15,
-                  ),
-                  dragTriggerType: DragTriggersEnum.bottomRight,
-                ),
-                //--------------------------------------------TOP  Rigtht  move events---------------------------------------------------------------------------------------
-                Trigger(
-                  // position: (left: 0.0, top: 0),
-                  // height: 100,
-                  cursor: SystemMouseCursors.resizeUpRightDownLeft,
-                  child: Container(
-                    // topM: 10,
-                    // rightM: 10,
-                    margin: const EdgeInsets.only(top: 10, right: 5),
-                    color: Colors.transparent,
-                    height: 15,
-                    width: 15,
-                  ),
-                  dragTriggerType: DragTriggersEnum.topRight,
-                ),
-                //--------------------------------------------TOP left  move events---------------------------------------------------------------------------------------
-                Trigger(
-                  // position: (left: 0.0, top: 0),
-                  // height: 100,
-                  cursor: SystemMouseCursors.resizeUpLeftDownRight,
-                  child: Container(
-                    // topM: 10,
-                    // leftM: 10,
-                    margin: const EdgeInsets.only(top: 10, left: 5),
-
-                    height: 15,
-                    width: 15,
-                  ),
-                  dragTriggerType: DragTriggersEnum.topLeft,
-                ),
-              ],
-        child: Container(
-          width: size.width,
+    return LayoutBuilder(builder: (context, constraints) {
+      /// [_key] is the key of the window
+      /// helps to update the window size
+      _key = GlobalKey();
+      return GenieEffect(
+        isMinimized: isMinimized,
+        child: ResizableWidget(
+          key: _key,
+          isCurrentScreen: windowsModel.isCurrentScreen,
+          isFullScreen: _isFullScreen,
+          index: index,
+          areaHeight: widget.safeAreaSize.height,
+          areaWidth: widget.safeAreaSize.width,
           height: size.height,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: windowsModel.style?.shadowColor ??
-                    Colors.black.withOpacity(0.3),
-                blurRadius: 10,
-                offset: const Offset(0, 5),
-              )
-            ],
-          ),
-          child: Column(
-            children: [
-              Container(
-                height: 20,
-                decoration: BoxDecoration(
-                  borderRadius: _isFullScreen
-                      ? null
-                      : const BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10),
-                        ),
-                  color: windowsModel.style?.barColor ?? Colors.white,
-                ),
-                alignment: Alignment.centerLeft,
-                child: _widgetAction(),
-              ),
-              Expanded(
-                  child: GestureDetector(
-                behavior: HitTestBehavior.deferToChild,
-                onTap: () {
-                  widget.setOnCurrentScreen(index);
-                },
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
+          width: size.width,
+          minHeight: windowsModel.size.height,
+          minWidth: windowsModel.size.width,
+          dragWidgetsArea: const Size.square(30 / 2),
+          onTap: (b) {
+            widget.setOnCurrentScreen(index);
+          },
+          onStartMoving: (b) {
+            widget.setOnCurrentScreen(index);
+          },
+          lastPosition: (left, top) {
+            widget.updatePosition(left, top);
+          },
+          triggersList: _isFullScreen
+              ? []
+              : [
+                  //-----------------------------------------------------------TOP move and resize events--------------------------------------------------------
+                  Trigger(
+                    // position: (left: 0.8, top: 0.0),
+                    height: 15,
+                    cursor: SystemMouseCursors.resizeUpDown,
+                    child: Container(
+                      color: Colors.transparent,
+                      // height: 10,
+                      margin: const EdgeInsets.only(left: 75, right: 15),
+                    ),
+                    dragTriggerType: DragTriggersEnum.topCenter,
                   ),
-                  child: windowsModel.child,
+                  Trigger(
+                    position: (left: 0.8, top: 0.02),
+                    height: 25,
+                    cursor: SystemMouseCursors.move,
+                    child: Container(
+                      color: Colors.transparent,
+                      margin: const EdgeInsets.only(left: 75, right: 15),
+                    ),
+                    dragTriggerType: DragTriggersEnum.center,
+                  ),
+                  //--------------------------------------------left move events---------------------------------------------------------------------------------------
+                  Trigger(
+                    position: (left: 0.01, top: 0),
+                    cursor: SystemMouseCursors.resizeLeft,
+                    child: Container(
+                      color: Colors.transparent,
+                      width: 10,
+                      margin: const EdgeInsets.only(top: 20, bottom: 20),
+                    ),
+                    dragTriggerType: DragTriggersEnum.centerLeft,
+                  ),
+                  //--------------------------------------------right move events---------------------------------------------------------------------------------------
+                  Trigger(
+                    // position: (left: 0.0, top: 0),
+                    // height: 100,
+                    cursor: SystemMouseCursors.resizeRight,
+                    child: Container(
+                      color: Colors.transparent,
+                      width: 10,
+                      margin:
+                          const EdgeInsets.only(top: 20, bottom: 20, right: 10),
+                    ),
+                    dragTriggerType: DragTriggersEnum.centerRight,
+                  ),
+                  //--------------------------------------------Bottom move events---------------------------------------------------------------------------------------
+                  Trigger(
+                    // position: (left: 0.0, top: 0),
+                    // height: 100,
+                    cursor: SystemMouseCursors.resizeUpDown,
+                    child: Container(
+                      color: Colors.transparent,
+                      height: 10,
+                      margin: const EdgeInsets.only(
+                          left: 10, right: 10, bottom: 10),
+                    ),
+                    dragTriggerType: DragTriggersEnum.bottomCenter,
+                  ),
+                  //--------------------------------------------left bottom center  move events---------------------------------------------------------------------------------------
+                  Trigger(
+                    // position: (left: 0.0, top: 0),
+                    // height: 100,
+                    cursor: SystemMouseCursors.resizeUpRightDownLeft,
+                    child: Container(
+                      color: Colors.transparent,
+                      margin: const EdgeInsets.only(left: 5, bottom: 10),
+                      // rightM: 10,
+                      // w: 10,
+                      height: 15,
+                      width: 15,
+                    ),
+                    dragTriggerType: DragTriggersEnum.bottomLeft,
+                  ),
+                  //--------------------------------------------Right bottom center  move events---------------------------------------------------------------------------------------
+                  Trigger(
+                    // position: (left: 0.0, top: 0),
+                    // height: 100,
+                    cursor: SystemMouseCursors.resizeUpLeftDownRight,
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 5, bottom: 10),
+                      color: Colors.transparent,
+                      height: 15,
+                      width: 15,
+                    ),
+                    dragTriggerType: DragTriggersEnum.bottomRight,
+                  ),
+                  //--------------------------------------------TOP  Rigtht  move events---------------------------------------------------------------------------------------
+                  Trigger(
+                    // position: (left: 0.0, top: 0),
+                    // height: 100,
+                    cursor: SystemMouseCursors.resizeUpRightDownLeft,
+                    child: Container(
+                      // topM: 10,
+                      // rightM: 10,
+                      margin: const EdgeInsets.only(top: 10, right: 5),
+                      color: Colors.transparent,
+                      height: 15,
+                      width: 15,
+                    ),
+                    dragTriggerType: DragTriggersEnum.topRight,
+                  ),
+                  //--------------------------------------------TOP left  move events---------------------------------------------------------------------------------------
+                  Trigger(
+                    // position: (left: 0.0, top: 0),
+                    // height: 100,
+                    cursor: SystemMouseCursors.resizeUpLeftDownRight,
+                    child: Container(
+                      // topM: 10,
+                      // leftM: 10,
+                      margin: const EdgeInsets.only(top: 10, left: 5),
+
+                      height: 15,
+                      width: 15,
+                    ),
+                    dragTriggerType: DragTriggersEnum.topLeft,
+                  ),
+                ],
+          child: Container(
+            width: size.width,
+            height: size.height,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: windowsModel.style?.shadowColor ??
+                      Colors.black.withOpacity(0.3),
+                  blurRadius: 10,
+                  offset: const Offset(0, 5),
+                )
+              ],
+            ),
+            child: Column(
+              children: [
+                Container(
+                  height: 20,
+                  decoration: BoxDecoration(
+                    borderRadius: _isFullScreen
+                        ? null
+                        : const BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                          ),
+                    color: windowsModel.style?.barColor ?? Colors.white,
+                  ),
+                  alignment: Alignment.centerLeft,
+                  child: _widgetAction(),
                 ),
-              )),
-            ],
+                Expanded(
+                    child: GestureDetector(
+                  behavior: HitTestBehavior.deferToChild,
+                  onTap: () {
+                    widget.setOnCurrentScreen(index);
+                  },
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                    ),
+                    child: windowsModel.child,
+                  ),
+                )),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget _widgetAction() {

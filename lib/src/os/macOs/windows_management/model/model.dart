@@ -44,6 +44,13 @@ class TopBarModel {
   });
 }
 
+/// The style for the desktop icons
+class DesktopStyle {
+  /// The text style of the desktop icons
+  final TextStyle? textStyle;
+  DesktopStyle({this.textStyle});
+}
+
 // Define the style for the dock
 class DockStyle {
   final Color? backgroundColor; // The background color of the dock

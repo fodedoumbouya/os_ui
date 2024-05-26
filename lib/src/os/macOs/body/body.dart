@@ -4,8 +4,11 @@ import 'package:os_ui/src/os/macOs/windows_management/model/model.dart';
 // import 'package:os_ui/src/os/macOs/windows_management/model/model.dart';
 import 'package:os_ui/src/os/macOs/windows_management/windows/windowsPortal.dart';
 
+import '../launchPad/launchPad.dart';
+
 class BodyMacOs extends StatelessWidget {
   final Function(bool) onFullScreen;
+
   final WindowsManagementController windowsManagementController;
 
   const BodyMacOs(
@@ -16,6 +19,20 @@ class BodyMacOs extends StatelessWidget {
   List<WindowsModel> get deskApp => windowsManagementController.windows.value
       .where((element) => element.iconPosition == AppIconPosition.desktop)
       .toList();
+
+  void tapOnApp({required WindowsModel app}) {
+    /// on tap on the desktop app icon
+    /// if the app is minimized, maximize it
+    /// if the app is open window, swap to the current window
+    /// else add the window
+    if (app.isMinimized) {
+      windowsManagementController.maximize(index: app.index);
+    } else if (app.isOpenWindow) {
+      windowsManagementController.swapToCurrentWindow(index: app.index);
+    } else {
+      windowsManagementController.addWindow(app);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,19 +66,7 @@ class BodyMacOs extends StatelessWidget {
                     };
                     return GestureDetector(
                       onTap: () {
-                        /// on tap on the desktop app icon
-                        /// if the app is minimized, maximize it
-                        /// if the app is open window, swap to the current window
-                        /// else add the window
-                        if (app.isMinimized) {
-                          windowsManagementController.maximize(
-                              index: app.index);
-                        } else if (app.isOpenWindow) {
-                          windowsManagementController.swapToCurrentWindow(
-                              index: app.index);
-                        } else {
-                          windowsManagementController.addWindow(app);
-                        }
+                        tapOnApp(app: app);
                       },
                       child: Column(
                         children: [
@@ -78,9 +83,11 @@ class BodyMacOs extends StatelessWidget {
                                 app.name,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                ),
+                                style: windowsManagementController
+                                        .desktopStyle?.textStyle ??
+                                    const TextStyle(
+                                      color: Colors.white,
+                                    ),
                               ))
                         ],
                       ),
@@ -144,6 +151,32 @@ class BodyMacOs extends StatelessWidget {
                     );
                   }),
                 );
+              },
+            ),
+            ValueListenableBuilder(
+              valueListenable: windowsManagementController.launchPadToggle,
+              builder: (context, value, child) {
+                return AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 250),
+                    switchInCurve: Curves.easeIn,
+                    switchOutCurve: Curves.easeInOut,
+                    child: value
+                        ? LaunchPad(
+                            windowsManagementController:
+                                windowsManagementController,
+                            onTap: (app) {
+                              /// close the launchpad when tap on the app or outside the launchpad
+                              windowsManagementController.showLaunchPadToggle();
+
+                              /// if the app is  null, so tap happened outside the launchpad
+                              /// if the app is not null, so tap happened on the app
+                              if (app != null) {
+                                /// call the tapOnApp function
+                                tapOnApp(app: app);
+                              }
+                            },
+                          )
+                        : const SizedBox.shrink());
               },
             ),
           ],

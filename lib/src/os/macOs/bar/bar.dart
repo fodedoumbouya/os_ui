@@ -50,6 +50,24 @@ class _BarState extends State<Bar> {
   Widget build(BuildContext context) {
     final topBarModel = widget.windowsManagementController.topBarModel;
     final language = topBarModel?.language ?? ValueNotifier<String?>(null);
+    final iconUrl = widget.windowsManagementController.appleIconPath;
+    final imageWidget = switch (iconUrl.contains("http")) {
+      true => Image.network(
+          iconUrl,
+          fit: BoxFit.cover,
+          color: topBarModel?.iconColor ?? Colors.white,
+          height: 20,
+          width: 20,
+        ),
+      false => Image.asset(
+          iconUrl,
+          fit: BoxFit.cover,
+          color: topBarModel?.iconColor ?? Colors.white,
+          height: 20,
+          width: 20,
+        ),
+    };
+
     return Container(
       height: barHeight,
       color: topBarModel?.backgroundColor ?? Colors.white.withOpacity(0.3),
@@ -90,12 +108,7 @@ class _BarState extends State<Bar> {
                     return item;
                   })
                 ],
-                child: Image.network(
-                  "https://cdn.discordapp.com/attachments/1035682064651005972/1242796547196850176/applelogo.png?ex=6653187a&is=6651c6fa&hm=42eaf858fda6c638fc6a96f804c296a7009adc154fedf9fb85aa5c2312eb5ada&",
-                  color: topBarModel?.iconColor ?? Colors.white,
-                  height: 20,
-                  width: 20,
-                ),
+                child: imageWidget,
               ),
               const SizedBox(
                 width: iconSpace,

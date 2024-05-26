@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:os_ui/src/os/macOs/bar/bar.dart';
 import 'package:os_ui/src/os/macOs/body/body.dart';
+import 'package:os_ui/src/os/macOs/launchPad/launchPad.dart';
 import 'package:os_ui/src/os/macOs/utils/background_frame.dart';
 import 'package:os_ui/src/os/macOs/dock/mac_os_dock.dart';
 
+import 'utils/constant.dart';
 import 'windows_management/controller/controller.dart';
 
 class MacOs extends StatefulWidget {
@@ -16,7 +18,6 @@ class MacOs extends StatefulWidget {
 
 class _MacOsState extends State<MacOs> {
   bool onFullScreen = false;
-  final double barHeight = 30;
 
   @override
   Widget build(BuildContext context) {

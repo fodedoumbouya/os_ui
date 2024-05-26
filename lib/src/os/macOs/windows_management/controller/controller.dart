@@ -13,6 +13,7 @@ class WindowsManagementController {
   WindowsManagementController(
       {required this.applications,
       required this.launchIconPath,
+      required this.appleIconPath,
       this.dockStyle,
       this.topBarModel}) {
     /// Add the launcher to the list of windows.
@@ -21,18 +22,41 @@ class WindowsManagementController {
     /// Add the applications to the list of windows.
     _windows.value.addAll(applications);
   }
+
+  /// The path to the icon for the launcher.
   String launchIconPath;
+
+  /// The path to the icon for the Apple icon.
+  String appleIconPath;
+
+  /// The style for the dock.
   DockStyle? dockStyle;
+
+  /// The model for the top bar.
   TopBarModel? topBarModel;
 
-  int currentWindow = 0;
+  /// The style for the desktop icons.
+  DesktopStyle? desktopStyle;
+
+  /// The index of the current window.
+  int _currentWindow = 0;
+
+  /// The notifier for the launchpad toggle.
+  final _showLaunchPad = ValueNotifier<bool>(false);
+
+  void showLaunchPadToggle() {
+    _showLaunchPad.value = !_showLaunchPad.value;
+    launchPadToggle.notifyListeners();
+  }
+
+  ValueNotifier<bool> get launchPadToggle => _showLaunchPad;
 
   /// Get the value notifier for the list of windows.
   ValueNotifier<List<WindowsModel>> get windows => _windows;
 
   /// Check if the current window exists. Throws an exception if it doesn't.
   checkIfWindowExist() {
-    if (currentWindow == -1) {
+    if (_currentWindow == -1) {
       throw Exception("Window not found");
     }
   }
@@ -40,28 +64,28 @@ class WindowsManagementController {
   /// Swap to the window with the specified index.
   void swapToCurrentWindow({int? index}) {
     if (index != null) {
-      currentWindow =
+      _currentWindow =
           windows.value.indexWhere((element) => element.index == index);
     }
     checkIfWindowExist();
-    _windows.value[currentWindow].isCurrentScreen = true;
+    _windows.value[_currentWindow].isCurrentScreen = true;
     sortWindows();
   }
 
   /// Add a new window to the list of windows.
   void addWindow(WindowsModel window) {
-    currentWindow =
+    _currentWindow =
         windows.value.indexWhere((element) => element.index == window.index);
     checkIfWindowExist();
-    _windows.value[currentWindow].isOpenWindow = true;
+    _windows.value[_currentWindow].isOpenWindow = true;
 
     sortWindows();
   }
 
   /// Sort the windows based on the current window.
   Future sortWindows() async {
-    final currentWindowWidget = _windows.value[currentWindow];
-    _windows.value.removeAt(currentWindow);
+    final currentWindowWidget = _windows.value[_currentWindow];
+    _windows.value.removeAt(_currentWindow);
     _windows.value.add(currentWindowWidget);
     windows.notifyListeners();
     return;
@@ -70,33 +94,33 @@ class WindowsManagementController {
   /// Transition to a new screen within the current window.
   void toGo({required Widget child, WindowsModel? window}) {
     if (window != null) {
-      currentWindow =
+      _currentWindow =
           windows.value.indexWhere((element) => element.index == window.index);
     }
     checkIfWindowExist();
 
-    _windows.value[currentWindow].isCurrentScreen = true;
-    _windows.value[currentWindow].states
-        .add(_windows.value[currentWindow].child);
-    _windows.value[currentWindow].child = child;
+    _windows.value[_currentWindow].isCurrentScreen = true;
+    _windows.value[_currentWindow].states
+        .add(_windows.value[_currentWindow].child);
+    _windows.value[_currentWindow].child = child;
     windows.notifyListeners();
   }
 
   /// Go back to the previous screen within the current window.
   void goBack({WindowsModel? window}) {
     if (window != null) {
-      currentWindow =
+      _currentWindow =
           windows.value.indexWhere((element) => element.index == window.index);
     }
     checkIfWindowExist();
-    if (_windows.value[currentWindow].states.isEmpty) {
-      close(index: currentWindow);
+    if (_windows.value[_currentWindow].states.isEmpty) {
+      close(index: _currentWindow);
       return;
     }
-    _windows.value[currentWindow].isCurrentScreen = true;
-    _windows.value[currentWindow].child =
-        _windows.value[currentWindow].states.last;
-    _windows.value[currentWindow].states.removeLast();
+    _windows.value[_currentWindow].isCurrentScreen = true;
+    _windows.value[_currentWindow].child =
+        _windows.value[_currentWindow].states.last;
+    _windows.value[_currentWindow].states.removeLast();
     windows.notifyListeners();
   }
 
@@ -105,20 +129,20 @@ class WindowsManagementController {
     for (var element in windows.value) {
       element.isOpenWindow = false;
     }
-    currentWindow = -1;
+    _currentWindow = -1;
     windows.notifyListeners();
   }
 
   /// Minimize the window with the specified index.
   void minimize({int? index}) {
     if (index != null) {
-      currentWindow =
+      _currentWindow =
           windows.value.indexWhere((element) => element.index == index);
     }
     checkIfWindowExist();
-    final w = _windows.value[currentWindow];
+    final w = _windows.value[_currentWindow];
     w.isMinimized = true;
-    _windows.value.removeAt(currentWindow);
+    _windows.value.removeAt(_currentWindow);
     _windows.value.add(w);
     windows.notifyListeners();
   }
@@ -126,13 +150,13 @@ class WindowsManagementController {
   /// Maximize the window with the specified index.
   void maximize({int? index}) {
     if (index != null) {
-      currentWindow =
+      _currentWindow =
           windows.value.indexWhere((element) => element.index == index);
     }
     checkIfWindowExist();
-    final w = _windows.value[currentWindow];
+    final w = _windows.value[_currentWindow];
     w.isMinimized = false;
-    _windows.value.removeAt(currentWindow);
+    _windows.value.removeAt(_currentWindow);
     _windows.value.add(w);
     windows.notifyListeners();
   }
@@ -141,36 +165,36 @@ class WindowsManagementController {
   void fullScreen({int? index}) async {
     swapToCurrentWindow(index: index);
     if (index != null) {
-      currentWindow =
+      _currentWindow =
           windows.value.indexWhere((element) => element.index == index);
     }
     checkIfWindowExist();
-    _windows.value[currentWindow].isFullScreen = true;
+    _windows.value[_currentWindow].isFullScreen = true;
   }
 
   /// Set the window with the specified index to normal screen mode.
   void unFullScreen({int? index}) {
     if (index != null) {
-      currentWindow =
+      _currentWindow =
           windows.value.indexWhere((element) => element.index == index);
     }
     checkIfWindowExist();
     sortWindows();
 
-    _windows.value[currentWindow].isFullScreen = false;
+    _windows.value[_currentWindow].isFullScreen = false;
   }
 
   /// Close the window with the specified index.
   void close({required int index}) {
-    currentWindow =
+    _currentWindow =
         _windows.value.indexWhere((element) => element.index == index);
 
     /// set the window to be closed and initialize the window
-    _windows.value[currentWindow].isOpenWindow = false;
-    _windows.value[currentWindow].isMinimized = false;
-    _windows.value[currentWindow].isFullScreen = false;
-    _windows.value[currentWindow].isCurrentScreen = false;
-    _windows.value[currentWindow].states = [];
+    _windows.value[_currentWindow].isOpenWindow = false;
+    _windows.value[_currentWindow].isMinimized = false;
+    _windows.value[_currentWindow].isFullScreen = false;
+    _windows.value[_currentWindow].isCurrentScreen = false;
+    _windows.value[_currentWindow].states = [];
     windows.notifyListeners();
   }
 }
