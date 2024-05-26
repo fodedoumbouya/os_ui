@@ -51,10 +51,13 @@ class _WindowsPortalState extends State<WindowsPortal> {
   /// [_key] is the key of the window
   GlobalKey _key = GlobalKey();
 
+  late Size lastSize;
+
   @override
   void initState() {
     windowsModel = widget.windowsModel;
     index = windowsModel.index;
+    lastSize = windowsModel.size;
     _isFullScreen = windowsModel.isFullScreen;
     isMinimized = windowsModel.isMinimized;
     super.initState();
@@ -81,9 +84,13 @@ class _WindowsPortalState extends State<WindowsPortal> {
 
     ///[GenieEffect] is used to show the genie effect when the window is minimized
     return LayoutBuilder(builder: (context, constraints) {
-      /// [_key] is the key of the window
-      /// helps to update the window size
-      _key = GlobalKey();
+      if (lastSize != constraints.biggest) {
+        lastSize = constraints.biggest;
+
+        /// [_key] is the key of the window
+        /// helps to update the window size
+        _key = GlobalKey();
+      }
       return GenieEffect(
         isMinimized: isMinimized,
         child: ResizableWidget(
