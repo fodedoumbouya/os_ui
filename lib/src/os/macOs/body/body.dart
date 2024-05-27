@@ -21,6 +21,7 @@ class BodyMacOs extends StatelessWidget {
       .toList();
 
   void tapOnApp({required WindowsModel app}) {
+    /// if the app has an onOpen function, call it
     if (app.onOpen != null) {
       app.onOpen!();
       return;

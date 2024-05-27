@@ -59,6 +59,15 @@ class MacOSDock extends StatelessWidget {
                           if (app.isLaunchpad) {
                             windowsManagementController.showLaunchPadToggle();
                           } else {
+                            /// if the app has an onOpen function, call it
+                            if (app.onOpen != null) {
+                              app.onOpen!();
+                              return;
+                            }
+
+                            /// if the app is minimized, maximize it
+                            /// if the app is open, swap to it
+                            /// else add the window
                             if (app.isMinimized) {
                               windowsManagementController.maximize(
                                   index: app.index);
