@@ -104,7 +104,10 @@ class WindowsModel {
   bool isMinimized = false;
 
   /// The child widget of the window
-  Widget child;
+  Widget? child;
+
+  //
+  void Function()? onOpen;
 
   /// Whether the window is in full screen mode
   bool isFullScreen = false;
@@ -129,8 +132,10 @@ class WindowsModel {
     this.style,
     this.canExpand = true,
     this.canMinimized = true,
-    required this.child,
+    this.child,
+    this.onOpen,
   }) {
+    assert(child != null || onOpen != null, 'child or onOpen must be not nul');
     if (index == -1) {
       // If the index is not provided, auto increment it
       index = _currentIndex++;

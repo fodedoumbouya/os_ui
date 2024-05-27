@@ -101,7 +101,7 @@ class WindowsManagementController {
 
     _windows.value[_currentWindow].isCurrentScreen = true;
     _windows.value[_currentWindow].states
-        .add(_windows.value[_currentWindow].child);
+        .add(_windows.value[_currentWindow].child!);
     _windows.value[_currentWindow].child = child;
     windows.notifyListeners();
   }

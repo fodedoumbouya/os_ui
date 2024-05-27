@@ -21,6 +21,11 @@ class BodyMacOs extends StatelessWidget {
       .toList();
 
   void tapOnApp({required WindowsModel app}) {
+    if (app.onOpen != null) {
+      app.onOpen!();
+      return;
+    }
+
     /// on tap on the desktop app icon
     /// if the app is minimized, maximize it
     /// if the app is open window, swap to the current window
