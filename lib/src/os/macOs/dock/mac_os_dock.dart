@@ -56,7 +56,11 @@ class MacOSDock extends StatelessWidget {
                       };
                       return GestureDetector(
                         onTap: () {
-                          if (app.isLaunchpad) {
+                          /// if the app is the launchpad, show the launchpad
+                          /// else if the launchpad is open, close it
+                          if (app.isLaunchpad ||
+                              windowsManagementController
+                                  .launchPadToggle.value) {
                             windowsManagementController.showLaunchPadToggle();
                           } else {
                             /// if the app has an onOpen function, call it

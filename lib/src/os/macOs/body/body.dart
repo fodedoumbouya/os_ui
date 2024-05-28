@@ -54,8 +54,9 @@ class BodyMacOs extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   padding: const EdgeInsets.all(10),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 12,
+                    crossAxisCount: 10,
                     childAspectRatio: 1.0,
+                    crossAxisSpacing: 15,
                   ),
                   itemCount: deskApp.length,
                   itemBuilder: (context, index) {

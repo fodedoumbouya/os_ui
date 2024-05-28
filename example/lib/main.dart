@@ -92,6 +92,21 @@ class _MyHomePageState extends State<MyHomePage> {
               onOpen: () => print("Github"),
             ),
             WindowsModel(
+              name: "Github",
+              size: const Size(200, 200),
+              iconPosition: AppIconPosition.desktop,
+              iconUrl: "images/github.png",
+              style: WindowsModelStyle(
+                barColor: Colors.blue,
+                // shadowColor: Colors.transparent,
+              ),
+              // child: Container(
+              //   color: Colors.blue,
+              //   alignment: Alignment.center,
+              // ),
+              onOpen: () => print("Github"),
+            ),
+            WindowsModel(
                 name: "Linkedin",
                 size: const Size(700, 700),
                 iconPosition: AppIconPosition.dock,
