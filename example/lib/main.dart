@@ -70,85 +70,97 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   static final language = ValueNotifier<String?>("EN");
+  late WindowsManagementController windowsManagementController;
 
-  final WindowsManagementController windowsManagementController =
-      WindowsManagementController(
-          launchIconPath: "images/launcher.png",
-          appleIconPath: "images/applelogo.png",
-          applications: [
-            WindowsModel(
-              name: "Github",
-              size: const Size(200, 200),
-              iconPosition: AppIconPosition.desktop,
-              iconUrl: "images/github.png",
+  @override
+  void initState() {
+    windowsManagementController = WindowsManagementController(
+        launchIconPath: "images/launcher.png",
+        appleIconPath: "images/applelogo.png",
+        applications: [
+          WindowsModel(
+            name: "Github",
+            size: const Size(200, 200),
+            iconPosition: AppIconPosition.desktop,
+            iconUrl: "images/github.png",
+            style: WindowsModelStyle(
+              barColor: Colors.blue,
+              // shadowColor: Colors.transparent,
+            ),
+            // child: Container(
+            //   color: Colors.blue,
+            //   alignment: Alignment.center,
+            // ),
+            onOpen: () {
+              windowsManagementController.showToast(
+                content: const Text("Github"),
+                title: const Text("Github"),
+                leading: const Icon(Icons.ac_unit),
+              );
+            },
+            // => print("Github"),
+          ),
+          WindowsModel(
+            name: "Github",
+            size: const Size(200, 200),
+            iconPosition: AppIconPosition.desktop,
+            iconUrl: "images/github.png",
+            style: WindowsModelStyle(
+              barColor: Colors.blue,
+              // shadowColor: Colors.transparent,
+            ),
+            // child: Container(
+            //   color: Colors.blue,
+            //   alignment: Alignment.center,
+            // ),
+            onOpen: () => print("Github"),
+          ),
+          WindowsModel(
+              name: "Linkedin",
+              size: const Size(700, 700),
+              iconPosition: AppIconPosition.dock,
+              // canMinimized: false,
+              // canExpand: false,
+              iconUrl: "images/linkedin.png",
               style: WindowsModelStyle(
                 barColor: Colors.blue,
                 // shadowColor: Colors.transparent,
               ),
-              // child: Container(
-              //   color: Colors.blue,
-              //   alignment: Alignment.center,
-              // ),
-              onOpen: () => print("Github"),
+              child: Container(
+                color: Colors.red,
+                alignment: Alignment.center,
+              ))
+            ..isOpenWindow = true,
+        ],
+        topBarModel: TopBarModel(
+          barText: "MacOs",
+          language: language,
+          listLanguage: [
+            PopupMenuItem(
+              child: const Text("EN"),
+              onTap: () {
+                language.value = "EN";
+              },
             ),
-            WindowsModel(
-              name: "Github",
-              size: const Size(200, 200),
-              iconPosition: AppIconPosition.desktop,
-              iconUrl: "images/github.png",
-              style: WindowsModelStyle(
-                barColor: Colors.blue,
-                // shadowColor: Colors.transparent,
-              ),
-              // child: Container(
-              //   color: Colors.blue,
-              //   alignment: Alignment.center,
-              // ),
-              onOpen: () => print("Github"),
-            ),
-            WindowsModel(
-                name: "Linkedin",
-                size: const Size(700, 700),
-                iconPosition: AppIconPosition.dock,
-                // canMinimized: false,
-                // canExpand: false,
-                iconUrl: "images/linkedin.png",
-                style: WindowsModelStyle(
-                  barColor: Colors.blue,
-                  // shadowColor: Colors.transparent,
-                ),
-                child: Container(
-                  color: Colors.red,
-                  alignment: Alignment.center,
-                ))
-              ..isOpenWindow = true,
+            PopupMenuItem(
+              child: const Text("VI"),
+              onTap: () {
+                language.value = "VI";
+              },
+            )
           ],
-          topBarModel: TopBarModel(
-            barText: "MacOs",
-            language: language,
-            listLanguage: [
-              PopupMenuItem(
-                child: const Text("EN"),
-                onTap: () {
-                  language.value = "EN";
-                },
-              ),
-              PopupMenuItem(
-                child: const Text("VI"),
-                onTap: () {
-                  language.value = "VI";
-                },
-              )
-            ],
-            popupMenuItemsOnAppleIcon: [
-              const PopupMenuItem(
-                child: Text("About"),
-              ),
-              const PopupMenuItem(
-                child: Text("Quit"),
-              )
-            ],
-          ));
+          popupMenuItemsOnAppleIcon: [
+            const PopupMenuItem(
+              child: Text("About"),
+            ),
+            const PopupMenuItem(
+              child: Text("Quit"),
+            )
+          ],
+        ));
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

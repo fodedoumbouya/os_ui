@@ -56,7 +56,39 @@ class _MacOsState extends State<MacOs> {
               child: MacOSDock(
                 windowsManagementController: widget.windowsManagementController,
               ),
-            )
+            ),
+          ValueListenableBuilder(
+            valueListenable: widget.windowsManagementController.toast.showToast,
+            builder: (context, dialogOpen, child) {
+              return AnimatedPositioned(
+                  top: dialogOpen ? 10 : -200,
+                  // left: 0,
+                  right: 0,
+                  width: 400,
+                  duration: const Duration(milliseconds: 300),
+                  child: Container(
+                    height: 150,
+                    margin: const EdgeInsets.all(30),
+                    decoration: widget.windowsManagementController.toast
+                            .toastDecoration ??
+                        BoxDecoration(
+                          color: const Color.fromARGB(255, 228, 227, 224),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                    child: ListTile(
+                      titleAlignment: ListTileTitleAlignment.center,
+                      contentPadding: widget
+                          .windowsManagementController.toast.contentPadding,
+                      leading: widget.windowsManagementController.toast.leading,
+                      title: widget.windowsManagementController.toast.title,
+                      subtitle:
+                          widget.windowsManagementController.toast.content,
+                      trailing:
+                          widget.windowsManagementController.toast.trailing,
+                    ),
+                  ));
+            },
+          )
         ],
       ),
     );

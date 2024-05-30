@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:os_ui/src/os/macOs/model/toast.dart';
 import 'package:os_ui/src/os/macOs/windows_management/model/model.dart';
 
 /// The controller class for managing windows in a macOS-like interface.
@@ -37,6 +38,8 @@ class WindowsManagementController {
 
   /// The style for the desktop icons.
   DesktopStyle? desktopStyle;
+
+  MacOsToast toast = MacOsToast();
 
   /// The index of the current window.
   int _currentWindow = 0;
@@ -196,6 +199,50 @@ class WindowsManagementController {
     _windows.value[_currentWindow].isCurrentScreen = false;
     _windows.value[_currentWindow].states = [];
     windows.notifyListeners();
+  }
+
+  /// [showToast] is a function that shows a toast.
+  void showToast({
+    Widget? content,
+    Widget? title,
+    Widget? leading,
+    Widget? trailing,
+    Duration? duration,
+    Decoration? toastDecoration,
+    EdgeInsetsGeometry? contentPadding,
+    bool autoDismiss = true,
+  }) async {
+    if (toast.showToast.value) {
+      hideToast();
+      await Future.delayed(const Duration(milliseconds: 500));
+    }
+    toast
+      ..content = content
+      ..title = title
+      ..leading = leading
+      ..trailing = trailing
+      ..duration = duration
+      ..toastDecoration = toastDecoration
+      ..autoDismiss = autoDismiss
+      ..contentPadding = contentPadding
+      ..showToast.value = true;
+    toast.showToast.notifyListeners();
+    if (autoDismiss) {
+      Future.delayed(
+          (duration ?? const Duration(seconds: 2)) +
+              const Duration(milliseconds: 300), () {
+        toast.showToast.value = false;
+        toast.showToast.notifyListeners();
+      });
+    }
+  }
+
+  /// [hideToast] is a function that hides the toast.
+  void hideToast() {
+    if (toast.showToast.value) {
+      toast.showToast.value = false;
+      toast.showToast.notifyListeners();
+    }
   }
 }
 
