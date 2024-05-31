@@ -148,4 +148,36 @@ class WindowsModel {
       index = _currentIndex++;
     }
   }
+
+  //copyWith
+  WindowsModel copyWith({
+    int? index,
+    String? iconUrl,
+    String? name,
+    AppIconPosition? iconPosition,
+    Size? size,
+    WindowsModelStyle? style,
+    bool? canExpand,
+    bool? canMinimized,
+    bool? isMinimized,
+    EntryWidgetBuilder? entryApp,
+    void Function()? onOpen,
+    bool? isFullScreen,
+    bool? isCurrentScreen,
+    List<EntryWidgetBuilder>? states,
+    bool? isOpenWindow,
+    bool? isLaunchpad,
+  }) {
+    return WindowsModel(
+      size: size ?? this.size,
+      name: name ?? this.name,
+      iconUrl: iconUrl ?? this.iconUrl,
+      iconPosition: iconPosition ?? this.iconPosition,
+      style: style ?? this.style,
+      canExpand: canExpand ?? this.canExpand,
+      canMinimized: canMinimized ?? this.canMinimized,
+      entryApp: entryApp ?? this.entryApp,
+      onOpen: onOpen ?? this.onOpen,
+    );
+  }
 }
