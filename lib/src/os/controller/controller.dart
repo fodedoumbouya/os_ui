@@ -94,6 +94,17 @@ class WindowsManagementController {
     return;
   }
 
+  void add(WindowsModel app) {
+    //if exist then do nothing
+    if (windows.value.indexWhere((element) => element.index == app.index) !=
+        -1) {
+      return;
+    }
+    app.isOpenWindow = true;
+    _windows.value.add(app);
+    windows.notifyListeners();
+  }
+
   /// Transition to a new screen within the current window.
   void toGo(
       {required Widget Function(WindowsManagementController) entryApp,
