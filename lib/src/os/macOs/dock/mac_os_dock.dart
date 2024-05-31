@@ -24,7 +24,8 @@ class MacOSDock extends StatelessWidget {
               .toList();
           // sort by index
           appOnBottom.sort((a, b) => a.index.compareTo(b.index));
-          return Container(
+          return AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
             height: 70,
             padding: const EdgeInsets.all(2.0),
             margin: const EdgeInsets.only(
