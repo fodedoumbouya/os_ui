@@ -70,7 +70,8 @@ class _BarState extends State<Bar> {
 
     return Container(
       height: barHeight,
-      color: topBarModel?.backgroundColor ?? Colors.white.withOpacity(0.3),
+      color: topBarModel?.popupMenuBackgroundColor ??
+          Colors.white.withOpacity(0.3),
       padding: const EdgeInsets.only(left: 10, right: 10),
       child: Row(
         children: [
