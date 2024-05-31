@@ -120,6 +120,7 @@ class BodyMacOs extends StatelessWidget {
                     final index = windows.index;
                     return WindowsPortal(
                       safeAreaSize: s,
+                      controller: windowsManagementController,
                       key: ValueKey(index),
                       windowsModel: windows,
                       setOnCurrentScreen: (index) {

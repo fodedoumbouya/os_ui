@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:os_ui/os_ui.dart';
 import 'package:os_ui/src/os/macOs/widgets/genie.dart';
 import 'package:os_ui/src/os/macOs/windows_management/model/model.dart';
 
@@ -9,6 +10,7 @@ import '../../utils/resizable/resizable_widget.dart';
 class WindowsPortal extends StatefulWidget {
   final Size safeAreaSize;
   final WindowsModel windowsModel;
+  final WindowsManagementController controller;
   final void Function(int) setOnCurrentScreen;
   final void Function(double, double) updatePosition;
   final void Function(bool) onFullScreen;
@@ -24,6 +26,7 @@ class WindowsPortal extends StatefulWidget {
     required this.updatePosition,
     required this.onMinimize,
     required this.onClose,
+    required this.controller,
   });
 
   @override
@@ -276,7 +279,9 @@ class _WindowsPortalState extends State<WindowsPortal> {
                       bottomLeft: Radius.circular(10),
                       bottomRight: Radius.circular(10),
                     ),
-                    child: windowsModel.child,
+                    child: windowsModel.child == null
+                        ? SizedBox.shrink()
+                        : windowsModel.child!(widget.controller),
                   ),
                 )),
               ],

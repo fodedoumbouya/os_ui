@@ -116,21 +116,21 @@ class _MyHomePageState extends State<MyHomePage> {
             onOpen: () => print("Github"),
           ),
           WindowsModel(
-              name: "Linkedin",
-              size: const Size(700, 700),
-              iconPosition: AppIconPosition.dock,
-              // canMinimized: false,
-              // canExpand: false,
-              iconUrl: "images/linkedin.png",
-              style: WindowsModelStyle(
-                barColor: Colors.blue,
-                // shadowColor: Colors.transparent,
-              ),
-              child: Container(
-                color: Colors.red,
-                alignment: Alignment.center,
-              ))
-            ..isOpenWindow = true,
+            name: "Linkedin",
+            size: const Size(700, 700),
+            iconPosition: AppIconPosition.dock,
+            // canMinimized: false,
+            // canExpand: false,
+            iconUrl: "images/linkedin.png",
+            style: WindowsModelStyle(
+              barColor: Colors.blue,
+              // shadowColor: Colors.transparent,
+            ),
+            child: (controller) => Container(
+              color: Colors.red,
+              alignment: Alignment.center,
+            ),
+          )..isOpenWindow = true,
         ],
         topBarModel: TopBarModel(
           barText: "MacOs",

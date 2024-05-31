@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:os_ui/os_ui.dart';
 
 // Define the style for the WindowsModel
 class WindowsModelStyle {
@@ -72,6 +73,11 @@ enum AppIconPosition {
   desktop, // The app icon is on the desktop
 }
 
+/// [EntryWidgetBuilder] is a function that returns a widget.
+typedef EntryWidgetBuilder = Widget Function(
+  WindowsManagementController controller,
+);
+
 // Define the model for the windows
 class WindowsModel {
   static int _currentIndex =
@@ -104,7 +110,7 @@ class WindowsModel {
   bool isMinimized = false;
 
   /// The child widget of the window
-  Widget? child;
+  EntryWidgetBuilder? child;
 
   //
   void Function()? onOpen;
@@ -116,7 +122,7 @@ class WindowsModel {
   bool isCurrentScreen = true;
 
   /// The list of states of the window
-  List<Widget> states = [];
+  List<EntryWidgetBuilder> states = [];
 
   /// Whether the window is open
   bool isOpenWindow = false;

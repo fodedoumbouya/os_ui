@@ -95,7 +95,9 @@ class WindowsManagementController {
   }
 
   /// Transition to a new screen within the current window.
-  void toGo({required Widget child, WindowsModel? window}) {
+  void toGo(
+      {required Widget Function(WindowsManagementController) child,
+      WindowsModel? window}) {
     if (window != null) {
       _currentWindow =
           windows.value.indexWhere((element) => element.index == window.index);
@@ -247,10 +249,11 @@ class WindowsManagementController {
 }
 
 WindowsModel _launcher(String iconUrl) => WindowsModel(
-    size: Size.zero,
-    name: "Launcher",
-    iconUrl: iconUrl,
-    iconPosition: AppIconPosition.dock,
-    child: const SizedBox.shrink())
-  ..index = 0
-  ..isLaunchpad = true;
+      size: Size.zero,
+      name: "Launcher",
+      iconUrl: iconUrl,
+      iconPosition: AppIconPosition.dock,
+      child: (controller) => const SizedBox.shrink(),
+    )
+      ..index = 0
+      ..isLaunchpad = true;
