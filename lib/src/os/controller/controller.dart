@@ -60,7 +60,8 @@ class WindowsManagementController {
   /// Check if the current window exists. Throws an exception if it doesn't.
   checkIfWindowExist() {
     if (_currentWindow == -1) {
-      throw Exception("Window not found");
+      throw Exception(
+          "Application not found. make sure the application exist in applications list or use [addApp] method to add the application");
     }
   }
 
@@ -94,7 +95,7 @@ class WindowsManagementController {
     return;
   }
 
-  void addWindows(WindowsModel app) {
+  void addApp(WindowsModel app) {
     //if exist then do nothing
     if (windows.value.indexWhere((element) => element.index == app.index) !=
         -1) {
