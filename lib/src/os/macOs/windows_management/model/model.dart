@@ -19,7 +19,6 @@ class TopBarModel {
   final Function? onAbout; // The callback function for the "About" action
   final List<PopupMenuItem>
       popupMenuItemsOnAppleIcon; // The popup menu items displayed when clicking on the Apple icon
-  final Color? popupMenuBackgroundColor; // The color of the popup menu items
   final Color? popupMenuItemColor; // The color of the popup menu items
   final Color?
       popupMenuItemShadowColor; // The color of the shadow of the popup menu items
@@ -32,7 +31,6 @@ class TopBarModel {
 
   TopBarModel({
     this.backgroundColor,
-    this.popupMenuBackgroundColor,
     this.textStyle,
     this.iconColor,
     this.barText,
