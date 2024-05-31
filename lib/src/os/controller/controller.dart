@@ -94,7 +94,7 @@ class WindowsManagementController {
     return;
   }
 
-  void add(WindowsModel app) {
+  void addWindows(WindowsModel app) {
     //if exist then do nothing
     if (windows.value.indexWhere((element) => element.index == app.index) !=
         -1) {
