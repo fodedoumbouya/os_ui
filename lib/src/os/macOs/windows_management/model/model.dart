@@ -110,7 +110,7 @@ class WindowsModel {
   bool isMinimized = false;
 
   /// The child widget of the window
-  EntryWidgetBuilder? child;
+  EntryWidgetBuilder? entryApp;
 
   //
   void Function()? onOpen;
@@ -138,10 +138,11 @@ class WindowsModel {
     this.style,
     this.canExpand = true,
     this.canMinimized = true,
-    this.child,
+    this.entryApp,
     this.onOpen,
   }) {
-    assert(child != null || onOpen != null, 'child or onOpen must be not nul');
+    assert(entryApp != null || onOpen != null,
+        'entryApp or onOpen must be not nul');
     if (index == -1) {
       // If the index is not provided, auto increment it
       index = _currentIndex++;

@@ -126,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
               barColor: Colors.blue,
               // shadowColor: Colors.transparent,
             ),
-            child: (controller) => Container(
+            entryApp: (controller) => Container(
               color: Colors.red,
               alignment: Alignment.center,
             ),

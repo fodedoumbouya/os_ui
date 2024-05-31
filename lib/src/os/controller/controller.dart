@@ -96,7 +96,7 @@ class WindowsManagementController {
 
   /// Transition to a new screen within the current window.
   void toGo(
-      {required Widget Function(WindowsManagementController) child,
+      {required Widget Function(WindowsManagementController) entryApp,
       WindowsModel? window}) {
     if (window != null) {
       _currentWindow =
@@ -106,8 +106,8 @@ class WindowsManagementController {
 
     _windows.value[_currentWindow].isCurrentScreen = true;
     _windows.value[_currentWindow].states
-        .add(_windows.value[_currentWindow].child!);
-    _windows.value[_currentWindow].child = child;
+        .add(_windows.value[_currentWindow].entryApp!);
+    _windows.value[_currentWindow].entryApp = entryApp;
     windows.notifyListeners();
   }
 
@@ -123,7 +123,7 @@ class WindowsManagementController {
       return;
     }
     _windows.value[_currentWindow].isCurrentScreen = true;
-    _windows.value[_currentWindow].child =
+    _windows.value[_currentWindow].entryApp =
         _windows.value[_currentWindow].states.last;
     _windows.value[_currentWindow].states.removeLast();
     windows.notifyListeners();
@@ -253,7 +253,7 @@ WindowsModel _launcher(String iconUrl) => WindowsModel(
       name: "Launcher",
       iconUrl: iconUrl,
       iconPosition: AppIconPosition.dock,
-      child: (controller) => const SizedBox.shrink(),
+      entryApp: (controller) => const SizedBox.shrink(),
     )
       ..index = 0
       ..isLaunchpad = true;

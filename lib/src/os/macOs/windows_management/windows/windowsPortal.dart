@@ -279,9 +279,9 @@ class _WindowsPortalState extends State<WindowsPortal> {
                       bottomLeft: Radius.circular(10),
                       bottomRight: Radius.circular(10),
                     ),
-                    child: windowsModel.child == null
-                        ? SizedBox.shrink()
-                        : windowsModel.child!(widget.controller),
+                    child: windowsModel.entryApp == null
+                        ? const SizedBox.shrink()
+                        : windowsModel.entryApp!(widget.controller),
                   ),
                 )),
               ],
