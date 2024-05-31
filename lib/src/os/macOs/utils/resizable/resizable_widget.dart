@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:os_ui/src/os/macOs/utils/resizable/drag_triggers_enum.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
 import 'model/common_sizes.dart';
 import 'model/trigger.dart';
@@ -109,6 +110,10 @@ class _ResizableWidgetState extends State<ResizableWidget> {
       animation: controller,
       child: Stack(
         children: widget.triggersList.map((trigger) {
+          if (widget.enableDragWidgets == false &&
+              trigger.cursor != SystemMouseCursors.move) {
+            return const SizedBox.shrink();
+          }
           return TriggerWidget(
             onDrag: trigger.dragTriggerType.getOnDragFunction(controller),
             trigger: trigger,
@@ -129,15 +134,17 @@ class _ResizableWidgetState extends State<ResizableWidget> {
               child: widget.child,
             ),
             Positioned(
-              top: controller.top - widget.dragWidgetsArea.height,
-              left: controller.left - widget.dragWidgetsArea.width,
-              bottom: controller.bottom - widget.dragWidgetsArea.height,
-              right: controller.right - widget.dragWidgetsArea.width,
-              child: Visibility(
-                visible: controller.showDragWidgets,
-                child: triggersStack!,
-              ),
-            ),
+                top: controller.top - widget.dragWidgetsArea.height,
+                left: controller.left - widget.dragWidgetsArea.width,
+                bottom: controller.bottom - widget.dragWidgetsArea.height,
+                right: controller.right - widget.dragWidgetsArea.width,
+                child: triggersStack!
+
+                //  Visibility(
+                //   visible: controller.showDragWidgets,
+                //   child: triggersStack!,
+                // ),
+                ),
 
             Positioned(
               top: controller.top,
