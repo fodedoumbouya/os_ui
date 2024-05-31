@@ -100,6 +100,7 @@ class _WindowsPortalState extends State<WindowsPortal> {
           key: _key,
           isCurrentScreen: windowsModel.isCurrentScreen,
           isFullScreen: _isFullScreen,
+          enableDragWidgets: windowsModel.enableDragWidgets,
           index: index,
           areaHeight: widget.safeAreaSize.height,
           areaWidth: widget.safeAreaSize.width,

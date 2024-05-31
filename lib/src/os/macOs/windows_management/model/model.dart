@@ -130,17 +130,19 @@ class WindowsModel {
   /// Whether the window is a launchpad
   bool isLaunchpad = false;
 
-  WindowsModel({
-    required this.size,
-    required this.name,
-    required this.iconUrl,
-    this.iconPosition = AppIconPosition.desktop,
-    this.style,
-    this.canExpand = true,
-    this.canMinimized = true,
-    this.entryApp,
-    this.onOpen,
-  }) {
+  bool enableDragWidgets;
+
+  WindowsModel(
+      {required this.size,
+      required this.name,
+      required this.iconUrl,
+      this.iconPosition = AppIconPosition.desktop,
+      this.style,
+      this.canExpand = true,
+      this.canMinimized = true,
+      this.entryApp,
+      this.onOpen,
+      this.enableDragWidgets = true}) {
     assert(entryApp != null || onOpen != null,
         'entryApp or onOpen must be not nul');
     if (index == -1) {
@@ -162,11 +164,7 @@ class WindowsModel {
     bool? isMinimized,
     EntryWidgetBuilder? entryApp,
     void Function()? onOpen,
-    bool? isFullScreen,
-    bool? isCurrentScreen,
-    List<EntryWidgetBuilder>? states,
-    bool? isOpenWindow,
-    bool? isLaunchpad,
+    bool? enableDragWidgets,
   }) {
     return WindowsModel(
       size: size ?? this.size,
@@ -178,6 +176,7 @@ class WindowsModel {
       canMinimized: canMinimized ?? this.canMinimized,
       entryApp: entryApp ?? this.entryApp,
       onOpen: onOpen ?? this.onOpen,
+      enableDragWidgets: enableDragWidgets ?? this.enableDragWidgets,
     );
   }
 }

@@ -13,7 +13,7 @@ class ResizableWidget extends StatefulWidget {
       Offset? initialPosition,
       double minWidth = 0.0,
       double minHeight = 0.0,
-      this.showDragWidgets,
+      this.enableDragWidgets,
       this.isFullScreen = false,
       this.index,
       required this.isCurrentScreen,
@@ -40,7 +40,7 @@ class ResizableWidget extends StatefulWidget {
     );
   }
   late final CommonSizes size;
-  final bool? showDragWidgets;
+  final bool? enableDragWidgets;
   final Widget child;
   final Size dragWidgetsArea;
   final List<Trigger> triggersList;
@@ -67,7 +67,7 @@ class _ResizableWidgetState extends State<ResizableWidget> {
   void initState() {
     controller = ResizableWidgetController();
     controller.init(
-        finalSize: widget.size, showDragWidgets: widget.showDragWidgets);
+        finalSize: widget.size, showDragWidgets: widget.enableDragWidgets);
     oldSize = widget.size;
     super.initState();
   }
