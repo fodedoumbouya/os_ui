@@ -126,14 +126,14 @@ class WindowsManagementController {
   //   windows.notifyListeners();
   // }
 
-  void updatePosition(
-      {required WindowsModel window, required Offset position}) {
-    _currentWindow =
-        windows.value.indexWhere((element) => element.index == window.index);
-    checkIfWindowExist();
-    _windows.value[_currentWindow].lastPosition = position;
-    windows.notifyListeners();
-  }
+  // void updatePosition(
+  //     {required WindowsModel window, required Offset position}) {
+  //   _currentWindow =
+  //       windows.value.indexWhere((element) => element.index == window.index);
+  //   checkIfWindowExist();
+  //   _windows.value[_currentWindow].lastPosition = position;
+  //   windows.notifyListeners();
+  // }
 
   /// Transition to a new screen within the current window.
   void toGo(
