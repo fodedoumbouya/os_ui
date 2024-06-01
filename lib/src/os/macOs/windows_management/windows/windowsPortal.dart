@@ -93,7 +93,6 @@ class _WindowsPortalState extends State<WindowsPortal> {
         /// helps to update the window size
         _key = GlobalKey();
       }
-      // print("_isFullScreen: $_isFullScreen");
       return GenieEffect(
         isMinimized: isMinimized,
         child: ResizableWidget(
@@ -117,9 +116,9 @@ class _WindowsPortalState extends State<WindowsPortal> {
           onStartMoving: (b) {
             widget.setOnCurrentScreen(index);
           },
-          lastPosition: (left, top) {
-            // widget.updatePosition(left, top);
-          },
+          // lastPosition: (left, top) {
+          //   widget.updatePosition(left, top);
+          // },
           triggersList: _isFullScreen
               ? []
               : [
