@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:os_ui/os_ui.dart';
 
-import '../../controller/controller.dart';
 
 class Bar extends StatefulWidget {
   final WindowsManagementController windowsManagementController;

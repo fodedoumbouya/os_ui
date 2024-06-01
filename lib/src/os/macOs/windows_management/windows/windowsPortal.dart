@@ -1,7 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:os_ui/os_ui.dart';
 import 'package:os_ui/src/os/macOs/widgets/genie.dart';
-import 'package:os_ui/src/os/macOs/windows_management/model/model.dart';
 
 import '../../utils/resizable/drag_triggers_enum.dart';
 import '../../utils/resizable/model/trigger.dart';
@@ -95,6 +96,7 @@ class _WindowsPortalState extends State<WindowsPortal> {
         /// helps to update the window size
         _key = GlobalKey();
       }
+      // print("_isFullScreen: $_isFullScreen");
       return GenieEffect(
         isMinimized: isMinimized,
         child: ResizableWidget(
@@ -318,37 +320,43 @@ class _WindowsPortalState extends State<WindowsPortal> {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _widgetActionIcon(
-                    color: Colors.red,
-                    icon: Icons.close,
-                    onMouseOn: value,
+                  GestureDetector(
                     onTap: () {
                       widget.onClose.call();
                     },
+                    child: _widgetActionIcon(
+                      color: Colors.red,
+                      icon: Icons.close,
+                      onMouseOn: value,
+                    ),
                   ),
-                  _widgetActionIcon(
-                    color: canMinimized ? Colors.yellow : Colors.grey,
-                    icon: Icons.minimize,
-                    onMouseOn: (value && canMinimized),
-                    bottomPadding: 3,
+                  GestureDetector(
                     onTap: () {
                       if (canMinimized) {
                         widget.onMinimize.call();
                       }
                     },
+                    child: _widgetActionIcon(
+                      color: canMinimized ? Colors.yellow : Colors.grey,
+                      icon: Icons.minimize,
+                      onMouseOn: (value && canMinimized),
+                      bottomPadding: 3,
+                    ),
                   ),
-                  _widgetActionIcon(
-                    color: canExpand ? Colors.green : Colors.grey,
-                    icon: _isFullScreen
-                        ? Icons.close_fullscreen
-                        : Icons.fullscreen,
-                    onMouseOn: (value && canExpand),
+                  GestureDetector(
                     onTap: () {
                       if (canExpand) {
                         _isFullScreen = !_isFullScreen;
                         widget.onFullScreen(_isFullScreen);
                       }
                     },
+                    child: _widgetActionIcon(
+                      color: canExpand ? Colors.green : Colors.grey,
+                      icon: _isFullScreen
+                          ? Icons.close_fullscreen
+                          : Icons.fullscreen,
+                      onMouseOn: (value && canExpand),
+                    ),
                   ),
                 ],
               );
@@ -363,25 +371,21 @@ class _WindowsPortalState extends State<WindowsPortal> {
     required bool onMouseOn,
     double? bottomPadding = 0,
     double allPadding = 1,
-    void Function()? onTap,
   }) {
     final child = onMouseOn ? Icon(icon) : const SizedBox.shrink();
     final padding = switch (bottomPadding != null) {
       true => EdgeInsets.only(bottom: bottomPadding!),
       false => EdgeInsets.all(allPadding),
     };
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: 10,
-        width: 10,
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(30),
-        ),
-        padding: padding,
-        child: FittedBox(child: child),
+    return Container(
+      height: 10,
+      width: 10,
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(30),
       ),
+      padding: padding,
+      child: FittedBox(child: child),
     );
   }
 }

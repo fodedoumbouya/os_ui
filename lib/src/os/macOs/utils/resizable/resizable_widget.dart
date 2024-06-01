@@ -132,14 +132,12 @@ class _ResizableWidgetState extends State<ResizableWidget> {
         }).toList(),
       ),
       builder: (_, triggersStack) {
-        if (!widget.isFullScreen) {
-          widget.windowPositionCallback?.call(WindowPosition(
-            newTop: controller.top,
-            newLeft: controller.left,
-            newRight: controller.right,
-            newBottom: controller.bottom,
-          ));
-        }
+        widget.windowPositionCallback?.call(WindowPosition(
+          newTop: controller.top,
+          newLeft: controller.left,
+          newRight: controller.right,
+          newBottom: controller.bottom,
+        ));
 
         return Stack(
           children: <Widget>[

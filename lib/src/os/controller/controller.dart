@@ -131,7 +131,9 @@ class WindowsManagementController {
     _currentWindow =
         windows.value.indexWhere((element) => element.index == window.index);
     checkIfWindowExist();
-    _windows.value[_currentWindow].lastPosition = position;
+    if (!_windows.value[_currentWindow].isCurrentScreen) {
+      _windows.value[_currentWindow].lastPosition = position;
+    }
   }
 
   /// Transition to a new screen within the current window.

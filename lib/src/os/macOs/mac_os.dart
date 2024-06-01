@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:os_ui/src/os/macOs/bar/bar.dart';
 import 'package:os_ui/src/os/macOs/body/body.dart';
-import 'package:os_ui/src/os/macOs/launchPad/launchPad.dart';
 import 'package:os_ui/src/os/macOs/utils/background_frame.dart';
 import 'package:os_ui/src/os/macOs/dock/mac_os_dock.dart';
 
