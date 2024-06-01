@@ -16,6 +16,7 @@ class WindowsPortal extends StatefulWidget {
   final void Function(bool) onFullScreen;
   final void Function() onMinimize;
   final void Function() onClose;
+  final void Function(WindowPosition) windowPositionCallback;
 
   const WindowsPortal({
     super.key,
@@ -27,6 +28,7 @@ class WindowsPortal extends StatefulWidget {
     required this.onMinimize,
     required this.onClose,
     required this.controller,
+    required this.windowPositionCallback,
   });
 
   @override
@@ -98,9 +100,7 @@ class _WindowsPortalState extends State<WindowsPortal> {
         child: ResizableWidget(
           key: _key,
           initWindowPosition: widget.windowsModel.lastPosition2,
-          windowPositionCallback: (windowPosition) {
-            widget.windowsModel.lastPosition2 = windowPosition;
-          },
+          windowPositionCallback: widget.windowPositionCallback,
           // initialPosition: widget.windowsModel.lastPosition == Offset.zero
           //     ? Offset(
           //         (constraints.biggest.width) / 2,

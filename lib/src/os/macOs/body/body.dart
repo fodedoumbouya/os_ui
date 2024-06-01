@@ -129,8 +129,13 @@ class BodyMacOs extends StatelessWidget {
                             index: index);
                       },
                       updatePosition: (left, top) {
-                        windows.lastPosition = Offset(left, top);
-                        print(windows.lastPosition);
+                        // windows.lastPosition = Offset(left, top);
+                        // print(windows.lastPosition);
+                      },
+                      windowPositionCallback: (windowPosition) {
+                        windowsManagementController.updatePosition(
+                            window: windows, position: windowPosition);
+                        print(windowPosition.toString());
                       },
                       onFullScreen: (p0) {
                         /// on tap on the full screen button

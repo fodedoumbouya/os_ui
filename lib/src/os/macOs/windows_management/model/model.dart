@@ -129,6 +129,11 @@ class WindowPosition {
       newBottom: newBottom ?? this.newBottom,
     );
   }
+
+  @override
+  String toString() {
+    return 'WindowPosition(newTop: $newTop, newLeft: $newLeft, newRight: $newRight, newBottom: $newBottom)';
+  }
 }
 
 // Define the model for the windows
