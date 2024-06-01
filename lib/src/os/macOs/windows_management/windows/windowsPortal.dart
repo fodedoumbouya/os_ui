@@ -55,7 +55,6 @@ class _WindowsPortalState extends State<WindowsPortal> {
   GlobalKey _key = GlobalKey();
 
   late Size lastSize;
-
   @override
   void initState() {
     windowsModel = widget.windowsModel;
@@ -98,6 +97,12 @@ class _WindowsPortalState extends State<WindowsPortal> {
         isMinimized: isMinimized,
         child: ResizableWidget(
           key: _key,
+          initialPosition: widget.windowsModel.lastPosition == Offset.zero
+              ? Offset(
+                  (constraints.biggest.width) / 2,
+                  (constraints.biggest.height) / 2,
+                )
+              : widget.windowsModel.lastPosition,
           isCurrentScreen: windowsModel.isCurrentScreen,
           isFullScreen: _isFullScreen,
           enableDragWidgets: windowsModel.enableDragWidgets,

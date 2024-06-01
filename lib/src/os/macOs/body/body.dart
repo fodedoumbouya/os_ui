@@ -128,7 +128,10 @@ class BodyMacOs extends StatelessWidget {
                         windowsManagementController.swapToCurrentWindow(
                             index: index);
                       },
-                      updatePosition: (left, top) {},
+                      updatePosition: (left, top) {
+                        windows.lastPosition = Offset(left, top);
+                        print(windows.lastPosition);
+                      },
                       onFullScreen: (p0) {
                         /// on tap on the full screen button
                         /// if the window is in full screen mode, un-full screen it
