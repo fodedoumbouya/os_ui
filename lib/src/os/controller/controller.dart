@@ -97,8 +97,8 @@ class WindowsManagementController {
 
   void addApp(WindowsModel app) {
     //if exist then do nothing
-    if (windows.value.indexWhere((element) => element.index == app.index) !=
-        -1) {
+    if (windows.value.indexWhere((element) => element.name == app.name) != -1) {
+      swapToCurrentWindow(index: app.index);
       return;
     }
     // app.isOpenWindow = true;
