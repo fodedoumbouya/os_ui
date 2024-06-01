@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:os_ui/os_ui.dart';
 import './size_calcualator.dart';
 import 'model/common_sizes.dart';
 
@@ -6,8 +7,11 @@ class ResizableWidgetController extends SizeCalculator with ChangeNotifier {
   late bool _showDragWidgets;
   bool get showDragWidgets => _showDragWidgets;
 
-  void init({required CommonSizes finalSize, bool? showDragWidgets}) {
-    super.initFields(finalSize);
+  void init(
+      {required CommonSizes finalSize,
+      bool? showDragWidgets,
+      WindowPosition? windowPosition}) {
+    super.initFields(finalSize, windowPosition: windowPosition);
     _showDragWidgets = showDragWidgets ?? true;
   }
 

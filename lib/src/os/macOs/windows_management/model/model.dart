@@ -103,6 +103,34 @@ typedef EntryWidgetBuilder = Widget Function(
   WindowsManagementController controller,
 );
 
+class WindowPosition {
+  double? newTop;
+  double? newLeft;
+  double? newRight;
+  double? newBottom;
+
+  WindowPosition({
+    this.newTop,
+    this.newLeft,
+    this.newRight,
+    this.newBottom,
+  });
+
+  WindowPosition copyWith({
+    double? newTop,
+    double? newLeft,
+    double? newRight,
+    double? newBottom,
+  }) {
+    return WindowPosition(
+      newTop: newTop ?? this.newTop,
+      newLeft: newLeft ?? this.newLeft,
+      newRight: newRight ?? this.newRight,
+      newBottom: newBottom ?? this.newBottom,
+    );
+  }
+}
+
 // Define the model for the windows
 class WindowsModel {
   static int _currentIndex =
@@ -158,6 +186,8 @@ class WindowsModel {
   bool enableDragWidgets;
 
   Offset lastPosition = Offset.zero;
+
+  WindowPosition? lastPosition2;
 
   WindowsModel(
       {required this.size,

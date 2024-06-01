@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:os_ui/os_ui.dart';
 import 'package:os_ui/src/os/macOs/utils/resizable/drag_triggers_enum.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
 import 'model/common_sizes.dart';
@@ -25,6 +26,8 @@ class ResizableWidget extends StatefulWidget {
       required this.triggersList,
       required this.onTap,
       required this.onStartMoving,
+      this.initWindowPosition,
+      this.windowPositionCallback,
       required this.lastPosition}) {
     height ??= areaHeight;
     width ??= areaWidth;
@@ -49,6 +52,9 @@ class ResizableWidget extends StatefulWidget {
   final FunctionCallbackInt onStartMoving;
 
   final void Function(double, double) lastPosition;
+  final WindowPosition? initWindowPosition;
+  final void Function(WindowPosition windowPosition)? windowPositionCallback;
+
   bool isFullScreen;
   final int? index;
   final bool isCurrentScreen;
@@ -68,7 +74,9 @@ class _ResizableWidgetState extends State<ResizableWidget> {
   void initState() {
     controller = ResizableWidgetController();
     controller.init(
-        finalSize: widget.size, showDragWidgets: widget.enableDragWidgets);
+        finalSize: widget.size,
+        showDragWidgets: widget.enableDragWidgets,
+        windowPosition: widget.initWindowPosition);
     oldSize = widget.size;
     super.initState();
   }
@@ -99,6 +107,11 @@ class _ResizableWidgetState extends State<ResizableWidget> {
             newTop: newTop,
             newLeft: newLeft,
             newRight: newRight);
+        widget.windowPositionCallback?.call(WindowPosition(
+            newTop: newTop,
+            newLeft: newLeft,
+            newRight: newRight,
+            newBottom: newBottom));
       }
     }
     super.didUpdateWidget(oldWidget);

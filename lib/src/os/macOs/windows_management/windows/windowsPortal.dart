@@ -97,12 +97,16 @@ class _WindowsPortalState extends State<WindowsPortal> {
         isMinimized: isMinimized,
         child: ResizableWidget(
           key: _key,
-          initialPosition: widget.windowsModel.lastPosition == Offset.zero
-              ? Offset(
-                  (constraints.biggest.width) / 2,
-                  (constraints.biggest.height) / 2,
-                )
-              : widget.windowsModel.lastPosition,
+          initWindowPosition: widget.windowsModel.lastPosition2,
+          windowPositionCallback: (windowPosition) {
+            widget.windowsModel.lastPosition2 = windowPosition;
+          },
+          // initialPosition: widget.windowsModel.lastPosition == Offset.zero
+          //     ? Offset(
+          //         (constraints.biggest.width) / 2,
+          //         (constraints.biggest.height) / 2,
+          //       )
+          //     : widget.windowsModel.lastPosition,
           isCurrentScreen: windowsModel.isCurrentScreen,
           isFullScreen: _isFullScreen,
           enableDragWidgets: windowsModel.enableDragWidgets,

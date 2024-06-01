@@ -1,3 +1,5 @@
+import 'package:os_ui/os_ui.dart';
+
 import 'model/common_sizes.dart';
 
 class SizeCalculator {
@@ -12,14 +14,18 @@ class SizeCalculator {
 
   /// Initializes the fields
   /// It should called just once in widget lifecycle before [ResizableWidgetController] used
-  void initFields(CommonSizes finalSize) {
+  void initFields(CommonSizes finalSize, {WindowPosition? windowPosition}) {
     _size = finalSize;
     height = _size.height;
     width = _size.width;
-    double newTop = _size.initialPosition.dy - height / 2;
-    double newBottom = _size.areaHeight - height - newTop;
-    double newLeft = _size.initialPosition.dx - (width / 2);
-    double newRight = (_size.areaWidth - width) - newLeft;
+    double newTop =
+        windowPosition?.newTop ?? _size.initialPosition.dy - height / 2;
+    double newBottom =
+        windowPosition?.newBottom ?? _size.areaHeight - height - newTop;
+    double newLeft =
+        windowPosition?.newLeft ?? _size.initialPosition.dx - (width / 2);
+    double newRight =
+        windowPosition?.newRight ?? (_size.areaWidth - width) - newLeft;
 
     // init top & bottom
     if (newTop < 0) {
