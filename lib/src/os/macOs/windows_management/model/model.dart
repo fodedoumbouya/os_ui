@@ -161,7 +161,7 @@ class WindowsModel {
       {required this.size,
       required this.name,
       required this.iconUrl,
-      this.iconPosition = AppIconPosition.desktop,
+      this.iconPosition = AppIconPosition.none,
       this.style,
       this.canExpand = true,
       this.canMinimized = true,
