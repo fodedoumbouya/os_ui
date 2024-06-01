@@ -31,6 +31,16 @@ class WindowsManagementController {
 
     /// Add the applications to the list of windows.
     _windows.value.addAll(applications);
+
+    /// check if the application is open window or not
+    /// if open window then set the current window to the index of the application
+    for (var i = 0; i < _windows.value.length; i++) {
+      final element = _windows.value[i];
+      if (element.isOpenWindow) {
+        _currentWindow = i;
+        break;
+      }
+    }
   }
 
   /// The path to the icon for the launcher.
