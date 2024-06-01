@@ -180,7 +180,6 @@ class WindowsModel {
 
   //copyWith
   WindowsModel copyWith({
-    int? index,
     String? iconUrl,
     String? name,
     AppIconPosition? iconPosition,
@@ -188,7 +187,6 @@ class WindowsModel {
     WindowsModelStyle? style,
     bool? canExpand,
     bool? canMinimized,
-    bool? isMinimized,
     EntryWidgetBuilder? entryApp,
     void Function()? onOpen,
     bool? enableDragWidgets,
@@ -204,6 +202,14 @@ class WindowsModel {
       entryApp: entryApp ?? this.entryApp,
       onOpen: onOpen ?? this.onOpen,
       enableDragWidgets: enableDragWidgets ?? this.enableDragWidgets,
-    );
+    )
+      ..index = index
+      ..isMinimized = isMinimized
+      ..isFullScreen = isFullScreen
+      ..isCurrentScreen = isCurrentScreen
+      ..states = states
+      ..isOpenWindow = isOpenWindow
+      ..isLaunchpad = isLaunchpad
+      ..lastPosition = lastPosition;
   }
 }
