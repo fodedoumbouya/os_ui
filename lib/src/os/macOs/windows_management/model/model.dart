@@ -190,9 +190,7 @@ class WindowsModel {
 
   bool enableDragWidgets;
 
-  Offset lastPosition = Offset.zero;
-
-  WindowPosition? lastPosition2;
+  WindowPosition? lastPosition;
 
   WindowsModel(
       {required this.size,
