@@ -101,8 +101,9 @@ class WindowsManagementController {
         -1) {
       return;
     }
-    app.isOpenWindow = true;
+    // app.isOpenWindow = true;
     _windows.value.add(app);
+    addWindow(app);
     windows.notifyListeners();
   }
 
