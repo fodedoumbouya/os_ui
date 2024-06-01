@@ -21,7 +21,9 @@ class LaunchPad extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
     final apps = windowsManagementController.windows.value
-        .where((element) => !element.isLaunchpad)
+        .where((element) =>
+            !element.isLaunchpad &&
+            element.iconPosition != AppIconPosition.none)
         .toList();
     return CustomPaint(
       painter: MacOsPainter(

@@ -130,7 +130,6 @@ class BodyMacOs extends StatelessWidget {
                       },
                       updatePosition: (left, top) {
                         windows.lastPosition = Offset(left, top);
-                        print(windows.lastPosition);
                       },
                       onFullScreen: (p0) {
                         /// on tap on the full screen button
