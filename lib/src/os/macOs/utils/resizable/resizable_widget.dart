@@ -107,11 +107,6 @@ class _ResizableWidgetState extends State<ResizableWidget> {
             newTop: newTop,
             newLeft: newLeft,
             newRight: newRight);
-        widget.windowPositionCallback?.call(WindowPosition(
-            newTop: newTop,
-            newLeft: newLeft,
-            newRight: newRight,
-            newBottom: newBottom));
       }
     }
     super.didUpdateWidget(oldWidget);
@@ -137,12 +132,15 @@ class _ResizableWidgetState extends State<ResizableWidget> {
         }).toList(),
       ),
       builder: (_, triggersStack) {
-        widget.windowPositionCallback?.call(WindowPosition(
-          newTop: controller.top,
-          newLeft: controller.left,
-          newRight: controller.right,
-          newBottom: controller.bottom,
-        ));
+        if (!widget.isFullScreen) {
+          widget.windowPositionCallback?.call(WindowPosition(
+            newTop: controller.top,
+            newLeft: controller.left,
+            newRight: controller.right,
+            newBottom: controller.bottom,
+          ));
+        }
+
         return Stack(
           children: <Widget>[
             Positioned(

@@ -135,7 +135,6 @@ class BodyMacOs extends StatelessWidget {
                       windowPositionCallback: (windowPosition) {
                         windowsManagementController.updatePosition(
                             window: windows, position: windowPosition);
-                        print(windowPosition.toString());
                       },
                       onFullScreen: (p0) {
                         /// on tap on the full screen button
