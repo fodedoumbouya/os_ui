@@ -17,7 +17,7 @@ class TopBarModel {
   final Color? iconColor; // The color of the icons in the top bar
   final String? barText; // The text displayed in the top bar
   final Function? onAbout; // The callback function for the "About" action
-  final List<PopupMenuItem>
+  List<PopupMenuItem>
       popupMenuItemsOnAppleIcon; // The popup menu items displayed when clicking on the Apple icon
   final Color? popupMenuItemColor; // The color of the popup menu items
   final Color?
