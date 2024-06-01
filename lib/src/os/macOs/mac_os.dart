@@ -64,29 +64,58 @@ class _MacOsState extends State<MacOs> {
                   top: dialogOpen ? 10 : -200,
                   // left: 0,
                   right: 0,
-                  width: 400,
+                  width: 350,
                   duration: const Duration(milliseconds: 300),
                   child: Container(
-                    height: 150,
-                    margin: const EdgeInsets.all(30),
-                    decoration: widget.windowsManagementController.toast
-                            .toastDecoration ??
-                        BoxDecoration(
-                          color: const Color.fromARGB(255, 228, 227, 224),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                    child: ListTile(
-                      titleAlignment: ListTileTitleAlignment.center,
-                      contentPadding: widget
-                          .windowsManagementController.toast.contentPadding,
-                      leading: widget.windowsManagementController.toast.leading,
-                      title: widget.windowsManagementController.toast.title,
-                      subtitle:
-                          widget.windowsManagementController.toast.content,
-                      trailing:
-                          widget.windowsManagementController.toast.trailing,
-                    ),
-                  ));
+                      // height: 150,
+                      margin: widget.windowsManagementController.toast
+                              .contentPadding ??
+                          const EdgeInsets.all(30),
+                      padding: const EdgeInsets.all(20),
+                      decoration: widget.windowsManagementController.toast
+                              .toastDecoration ??
+                          BoxDecoration(
+                            color: const Color.fromARGB(255, 228, 227, 224),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              flex: 1,
+                              child: widget.windowsManagementController.toast
+                                      .leading ??
+                                  const SizedBox.shrink()),
+                          Expanded(
+                              flex: 3,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  widget.windowsManagementController.toast
+                                          .title ??
+                                      const SizedBox.shrink(),
+                                  widget.windowsManagementController.toast
+                                          .content ??
+                                      const SizedBox.shrink(),
+                                ],
+                              )),
+                          widget.windowsManagementController.toast.trailing ??
+                              const SizedBox.shrink(),
+                        ],
+                      )
+
+                      // ListTile(
+                      //   titleAlignment: ListTileTitleAlignment.center,
+                      //   contentPadding: widget
+                      //       .windowsManagementController.toast.contentPadding,
+                      //   leading: widget.windowsManagementController.toast.leading,
+                      //   title: widget.windowsManagementController.toast.title,
+                      //   subtitle:
+                      //       widget.windowsManagementController.toast.content,
+                      //   trailing:
+                      //       widget.windowsManagementController.toast.trailing,
+                      // ),
+                      ));
             },
           )
         ],
