@@ -10,6 +10,29 @@ class WindowsModelStyle {
   WindowsModelStyle({this.barColor, this.shadowColor});
 }
 
+class TopBarPopupMenuItem {
+  EntryWidgetBuilder builder;
+  final VoidCallback? onTap;
+  final EdgeInsets? padding;
+  TopBarPopupMenuItem({
+    required this.builder,
+    this.onTap,
+    this.padding,
+  });
+
+  TopBarPopupMenuItem copyWith({
+    EntryWidgetBuilder? builder,
+    VoidCallback? onTap,
+    EdgeInsets? padding,
+  }) {
+    return TopBarPopupMenuItem(
+      builder: builder ?? this.builder,
+      onTap: onTap ?? this.onTap,
+      padding: padding ?? this.padding,
+    );
+  }
+}
+
 // Define the model for the top bar
 class TopBarModel {
   final Color? backgroundColor; // The background color of the top bar
@@ -17,7 +40,7 @@ class TopBarModel {
   final Color? iconColor; // The color of the icons in the top bar
   final String? barText; // The text displayed in the top bar
   final Function? onAbout; // The callback function for the "About" action
-  List<PopupMenuItem>
+  List<TopBarPopupMenuItem>
       popupMenuItemsOnAppleIcon; // The popup menu items displayed when clicking on the Apple icon
   final Color? popupMenuItemColor; // The color of the popup menu items
   final Color?
@@ -26,7 +49,8 @@ class TopBarModel {
       popupMenuItemSurfaceTintColor; // The color of the surface of the popup menu items
   final ValueNotifier<String?>?
       language; // The notifier for the selected language
-  final List<PopupMenuItem> listLanguage; // The list of available languages
+  final List<TopBarPopupMenuItem>
+      listLanguage; // The list of available languages
   final DateFormat? dateFormat; // The date format for the top bar
 
   TopBarModel({

@@ -136,25 +136,25 @@ class _MyHomePageState extends State<MyHomePage> {
           barText: "MacOs",
           language: language,
           listLanguage: [
-            PopupMenuItem(
-              child: const Text("EN"),
+            TopBarPopupMenuItem(
+              builder: (controller) => const Text("EN"),
               onTap: () {
                 language.value = "EN";
               },
             ),
-            PopupMenuItem(
-              child: const Text("VI"),
+            TopBarPopupMenuItem(
+              builder: (controller) => const Text("VI"),
               onTap: () {
                 language.value = "VI";
               },
             )
           ],
           popupMenuItemsOnAppleIcon: [
-            const PopupMenuItem(
-              child: Text("About"),
+            TopBarPopupMenuItem(
+              builder: (controller) => const Text("About"),
             ),
-            const PopupMenuItem(
-              child: Text("Quit"),
+            TopBarPopupMenuItem(
+              builder: (controller) => const Text("Quit"),
             )
           ],
         ));

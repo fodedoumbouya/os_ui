@@ -105,7 +105,12 @@ class _BarState extends State<Bar> {
                       (topBarModel?.popupMenuItemsOnAppleIcon ?? []).length,
                       (index) {
                     final item = topBarModel!.popupMenuItemsOnAppleIcon[index];
-                    return item;
+                    return PopupMenuItem(
+                      onTap: item.onTap,
+                      padding: item.padding,
+                      child: item.builder(widget.windowsManagementController),
+                    );
+                    // item;
                   })
                 ],
                 child: imageWidget,
@@ -155,7 +160,12 @@ class _BarState extends State<Bar> {
                               (topBarModel?.listLanguage ?? []).length,
                               (index) {
                             final item = topBarModel!.listLanguage[index];
-                            return item;
+                            return PopupMenuItem(
+                              onTap: item.onTap,
+                              padding: item.padding,
+                              child: item
+                                  .builder(widget.windowsManagementController),
+                            );
                           })
                         ],
                     child: ValueListenableBuilder(
