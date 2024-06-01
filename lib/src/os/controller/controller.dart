@@ -20,9 +20,6 @@ class WindowsManagementController {
     /// Add the launcher to the list of windows.
     _windows.value.add(_launcher(launchIconPath));
 
-    /// Add the applications to the list of windows.
-    _windows.value.addAll(applications);
-
     /// add application from top bar
     if (topBarModel != null) {
       for (var item in topBarModel!.popupMenuItemsOnAppleIcon) {
@@ -31,6 +28,9 @@ class WindowsManagementController {
         }
       }
     }
+
+    /// Add the applications to the list of windows.
+    _windows.value.addAll(applications);
   }
 
   /// The path to the icon for the launcher.
