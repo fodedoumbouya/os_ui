@@ -8,28 +8,27 @@ import 'resizable_widget_controller.dart';
 import 'trigger_widget.dart';
 
 class ResizableWidget extends StatefulWidget {
-  ResizableWidget({
-    super.key,
-    double? height,
-    double? width,
-    Offset? initialPosition,
-    double minWidth = 0.0,
-    double minHeight = 0.0,
-    this.enableDragWidgets,
-    this.isFullScreen = false,
-    this.index,
-    required this.isCurrentScreen,
-    required double areaHeight,
-    required double areaWidth,
-    required this.child,
-    required this.dragWidgetsArea,
-    required this.triggersList,
-    required this.onTap,
-    required this.onStartMoving,
-    this.initWindowPosition,
-    this.windowPositionCallback,
-    // required this.lastPosition
-  }) {
+  ResizableWidget(
+      {super.key,
+      double? height,
+      double? width,
+      Offset? initialPosition,
+      double minWidth = 0.0,
+      double minHeight = 0.0,
+      this.enableDragWidgets,
+      this.isFullScreen = false,
+      this.index,
+      required this.isCurrentScreen,
+      required double areaHeight,
+      required double areaWidth,
+      required this.child,
+      required this.dragWidgetsArea,
+      required this.triggersList,
+      required this.onTap,
+      required this.onStartMoving,
+      this.initWindowPosition,
+      this.windowPositionCallback,
+      required this.lastPosition}) {
     height ??= areaHeight;
     width ??= areaWidth;
 
@@ -52,7 +51,7 @@ class ResizableWidget extends StatefulWidget {
   final FunctionCallbackInt onTap;
   final FunctionCallbackInt onStartMoving;
 
-  // final void Function(double, double) lastPosition;
+  final void Function(double, double) lastPosition;
   final WindowPosition? initWindowPosition;
   final void Function(WindowPosition windowPosition)? windowPositionCallback;
 
@@ -136,6 +135,7 @@ class _ResizableWidgetState extends State<ResizableWidget> {
       ),
       builder: (_, triggersStack) {
         if (!widget.isFullScreen) {
+          // widget.lastPosition
           widget.windowPositionCallback?.call(WindowPosition(
             newTop: controller.top,
             newLeft: controller.left,

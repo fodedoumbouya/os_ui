@@ -22,12 +22,17 @@ class SizeCalculator {
     width = _size.width;
     double newTop =
         windowPosition?.newTop ?? _size.initialPosition.dy - height / 2;
-    double newBottom =
-        windowPosition?.newBottom ?? _size.areaHeight - height - newTop;
+    double newBottom = _size.areaHeight - height - newTop;
     double newLeft =
         windowPosition?.newLeft ?? _size.initialPosition.dx - (width / 2);
-    double newRight =
-        windowPosition?.newRight ?? (_size.areaWidth - width) - newLeft;
+    double newRight = (_size.areaWidth - width) - newLeft;
+
+    // if (windowPosition?.newRight != null) {
+    //   newRight = (_size.areaWidth - windowPosition!.newRight! ) - newLeft;
+    // }
+    // if (windowPosition?.newLeft != null) {
+    //   newLeft = windowPosition!.newLeft! - (width / 2);
+    // }
 
     // init top & bottom
     if (newTop < 0) {
@@ -47,6 +52,8 @@ class SizeCalculator {
       right = newRight;
       left = newLeft;
     }
+
+    print("top: $top, left: $left");
   }
 
   /// Get new sizes and Calculate widget size

@@ -11,7 +11,7 @@ class BodyMacOs extends StatelessWidget {
 
   final WindowsManagementController windowsManagementController;
 
-  const BodyMacOs(
+  BodyMacOs(
       {required this.onFullScreen,
       required this.windowsManagementController,
       super.key});
@@ -40,12 +40,22 @@ class BodyMacOs extends StatelessWidget {
     }
   }
 
+  Size lastScreenSize = Size.zero;
+  bool screenResizing = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: LayoutBuilder(builder: (context, constraints) {
         final s = constraints.biggest;
+        screenResizing = false;
+        if (lastScreenSize != s) {
+          lastScreenSize = s;
+          screenResizing = true;
+        }
+        print("--------------------$screenResizing");
+
         return Stack(
           children: [
             Align(
@@ -119,6 +129,7 @@ class BodyMacOs extends StatelessWidget {
                     /// and use it to determine the window
                     final index = windows.index;
                     return WindowsPortal(
+                      // screenResizing: screenResizing,
                       safeAreaSize: s,
                       controller: windowsManagementController,
                       key: ValueKey(index),

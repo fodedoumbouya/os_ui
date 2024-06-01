@@ -13,7 +13,6 @@ class WindowsPortal extends StatefulWidget {
   final WindowsModel windowsModel;
   final WindowsManagementController controller;
   final void Function(int) setOnCurrentScreen;
-  // final void Function(double, double) updatePosition;
   final void Function(bool) onFullScreen;
   final void Function() onMinimize;
   final void Function() onClose;
@@ -25,7 +24,6 @@ class WindowsPortal extends StatefulWidget {
     required this.windowsModel,
     required this.setOnCurrentScreen,
     required this.onFullScreen,
-    // required this.updatePosition,
     required this.onMinimize,
     required this.onClose,
     required this.controller,
@@ -74,7 +72,6 @@ class _WindowsPortalState extends State<WindowsPortal> {
     index = windowsModel.index;
     _isFullScreen = windowsModel.isFullScreen;
     isMinimized = windowsModel.isMinimized;
-
     super.didUpdateWidget(oldWidget);
   }
 
@@ -120,9 +117,9 @@ class _WindowsPortalState extends State<WindowsPortal> {
           onStartMoving: (b) {
             widget.setOnCurrentScreen(index);
           },
-          // lastPosition: (left, top) {
-          //   widget.updatePosition(left, top);
-          // },
+          lastPosition: (left, top) {
+            // widget.updatePosition(left, top);
+          },
           triggersList: _isFullScreen
               ? []
               : [
