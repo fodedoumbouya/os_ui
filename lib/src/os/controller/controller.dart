@@ -131,7 +131,7 @@ class WindowsManagementController {
     _currentWindow =
         windows.value.indexWhere((element) => element.index == window.index);
     checkIfWindowExist();
-    if (!_windows.value[_currentWindow].isCurrentScreen) {
+    if (!_windows.value[_currentWindow].isFullScreen) {
       _windows.value[_currentWindow].lastPosition = position;
     }
   }
