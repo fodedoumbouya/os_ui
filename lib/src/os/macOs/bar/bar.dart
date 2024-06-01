@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:os_ui/os_ui.dart';
 
 import '../../controller/controller.dart';
 
@@ -44,6 +45,26 @@ class _BarState extends State<Bar> {
       timer!.cancel();
     }
     super.dispose();
+  }
+
+  void tapOnApp({required WindowsModel app}) {
+    /// if the app has an onOpen function, call it
+    if (app.onOpen != null) {
+      app.onOpen!();
+      return;
+    }
+
+    /// on tap on the desktop app icon
+    /// if the app is minimized, maximize it
+    /// if the app is open window, swap to the current window
+    /// else add the window
+    if (app.isMinimized) {
+      widget.windowsManagementController.maximize(index: app.index);
+    } else if (app.isOpenWindow) {
+      widget.windowsManagementController.swapToCurrentWindow(index: app.index);
+    } else {
+      widget.windowsManagementController.openWindow(app);
+    }
   }
 
   @override
@@ -106,7 +127,11 @@ class _BarState extends State<Bar> {
                       (index) {
                     final item = topBarModel!.popupMenuItemsOnAppleIcon[index];
                     return PopupMenuItem(
-                      onTap: item.onTap,
+                      onTap: () {
+                        if (item.entryApp != null) {
+                          tapOnApp(app: item.entryApp!);
+                        }
+                      },
                       padding: item.padding,
                       child: item.builder(widget.windowsManagementController),
                     );
@@ -161,7 +186,11 @@ class _BarState extends State<Bar> {
                               (index) {
                             final item = topBarModel!.listLanguage[index];
                             return PopupMenuItem(
-                              onTap: item.onTap,
+                              onTap: () {
+                                if (item.entryApp != null) {
+                                  tapOnApp(app: item.entryApp!);
+                                }
+                              },
                               padding: item.padding,
                               child: item
                                   .builder(widget.windowsManagementController),

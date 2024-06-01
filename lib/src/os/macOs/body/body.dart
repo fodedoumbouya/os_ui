@@ -36,7 +36,7 @@ class BodyMacOs extends StatelessWidget {
     } else if (app.isOpenWindow) {
       windowsManagementController.swapToCurrentWindow(index: app.index);
     } else {
-      windowsManagementController.addWindow(app);
+      windowsManagementController.openWindow(app);
     }
   }
 

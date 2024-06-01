@@ -12,22 +12,22 @@ class WindowsModelStyle {
 
 class TopBarPopupMenuItem {
   EntryWidgetBuilder builder;
-  final VoidCallback? onTap;
+  final WindowsModel? entryApp;
   final EdgeInsets? padding;
   TopBarPopupMenuItem({
     required this.builder,
-    this.onTap,
+    this.entryApp,
     this.padding,
   });
 
   TopBarPopupMenuItem copyWith({
     EntryWidgetBuilder? builder,
-    VoidCallback? onTap,
+    WindowsModel? entryApp,
     EdgeInsets? padding,
   }) {
     return TopBarPopupMenuItem(
       builder: builder ?? this.builder,
-      onTap: onTap ?? this.onTap,
+      entryApp: entryApp ?? this.entryApp,
       padding: padding ?? this.padding,
     );
   }

@@ -22,6 +22,15 @@ class WindowsManagementController {
 
     /// Add the applications to the list of windows.
     _windows.value.addAll(applications);
+
+    /// add application from top bar
+    if (topBarModel != null) {
+      for (var item in topBarModel!.popupMenuItemsOnAppleIcon) {
+        if (item.entryApp != null) {
+          _windows.value.add(item.entryApp!);
+        }
+      }
+    }
   }
 
   /// The path to the icon for the launcher.
@@ -77,7 +86,7 @@ class WindowsManagementController {
   }
 
   /// Add a new window to the list of windows.
-  void addWindow(WindowsModel window) {
+  void openWindow(WindowsModel window) {
     _currentWindow =
         windows.value.indexWhere((element) => element.index == window.index);
     checkIfWindowExist();
@@ -95,17 +104,17 @@ class WindowsManagementController {
     return;
   }
 
-  void addApp(WindowsModel app) {
-    //if exist then do nothing
-    if (windows.value.indexWhere((element) => element.name == app.name) != -1) {
-      swapToCurrentWindow(index: app.index);
-      return;
-    }
-    // app.isOpenWindow = true;
-    _windows.value.add(app);
-    addWindow(app);
-    windows.notifyListeners();
-  }
+  // void addApp(WindowsModel app) {
+  //   //if exist then do nothing
+  //   if (windows.value.indexWhere((element) => element.name == app.name) != -1) {
+  //     swapToCurrentWindow(index: app.index);
+  //     return;
+  //   }
+  //   // app.isOpenWindow = true;
+  //   _windows.value.add(app);
+  //   openWindow(app);
+  //   windows.notifyListeners();
+  // }
 
   /// Transition to a new screen within the current window.
   void toGo(

@@ -80,7 +80,7 @@ class MacOSDock extends StatelessWidget {
                               windowsManagementController.swapToCurrentWindow(
                                   index: app.index);
                             } else {
-                              windowsManagementController.addWindow(app);
+                              windowsManagementController.openWindow(app);
                             }
                           }
                         },

@@ -138,15 +138,15 @@ class _MyHomePageState extends State<MyHomePage> {
           listLanguage: [
             TopBarPopupMenuItem(
               builder: (controller) => const Text("EN"),
-              onTap: () {
-                language.value = "EN";
-              },
+              // onTap: () {
+              //   language.value = "EN";
+              // },
             ),
             TopBarPopupMenuItem(
               builder: (controller) => const Text("VI"),
-              onTap: () {
-                language.value = "VI";
-              },
+              // onTap: () {
+              //   language.value = "VI";
+              // },
             )
           ],
           popupMenuItemsOnAppleIcon: [
