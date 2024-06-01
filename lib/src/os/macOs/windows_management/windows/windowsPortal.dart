@@ -16,7 +16,7 @@ class WindowsPortal extends StatefulWidget {
   final void Function(bool) onFullScreen;
   final void Function() onMinimize;
   final void Function() onClose;
-  final void Function(WindowPosition) windowPositionCallback;
+  final void Function(WindowPosition windowPosition) windowPositionCallback;
 
   const WindowsPortal({
     super.key,
