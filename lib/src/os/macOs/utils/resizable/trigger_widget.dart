@@ -6,7 +6,7 @@ class TriggerWidget extends StatefulWidget {
   final DragDetailsCallback onDrag;
   final Trigger trigger;
   final FunctionCallbackInt onTap;
-  final void Function(double, double) lastPosition;
+  // final void Function(double, double) lastPosition;
   final double initX;
   final double initY;
   final int? index;
@@ -16,7 +16,7 @@ class TriggerWidget extends StatefulWidget {
     required this.onDrag,
     required this.trigger,
     required this.onTap,
-    required this.lastPosition,
+    // required this.lastPosition,
     this.initX = 0.0,
     this.initY = 0.0,
     this.index,
@@ -75,9 +75,9 @@ class _TriggerWidgetState extends State<TriggerWidget> {
 
             //   // widget.lastPosition(initX, initY);
             // },
-            onPanEnd: (details) {
-              widget.lastPosition(initX, initY);
-            },
+            // onPanEnd: (details) {
+            //   widget.lastPosition(initX, initY);
+            // },
             child: widget.trigger.child,
           ),
         ),

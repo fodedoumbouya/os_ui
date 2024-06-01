@@ -10,8 +10,10 @@ class ResizableWidgetController extends SizeCalculator with ChangeNotifier {
   void init(
       {required CommonSizes finalSize,
       bool? showDragWidgets,
-      WindowPosition? windowPosition}) {
-    super.initFields(finalSize, windowPosition: windowPosition);
+      WindowPosition? windowPosition,
+      bool isFullScreen = false}) {
+    super.initFields(finalSize,
+        windowPosition: windowPosition, isFullScreen: isFullScreen);
     _showDragWidgets = showDragWidgets ?? true;
   }
 

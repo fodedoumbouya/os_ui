@@ -14,7 +14,9 @@ class SizeCalculator {
 
   /// Initializes the fields
   /// It should called just once in widget lifecycle before [ResizableWidgetController] used
-  void initFields(CommonSizes finalSize, {WindowPosition? windowPosition}) {
+  void initFields(CommonSizes finalSize,
+      {WindowPosition? windowPosition, bool isFullScreen = false}) {
+    windowPosition = isFullScreen ? null : windowPosition;
     _size = finalSize;
     height = _size.height;
     width = _size.width;

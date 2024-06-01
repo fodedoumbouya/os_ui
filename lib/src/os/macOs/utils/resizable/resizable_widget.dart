@@ -8,27 +8,28 @@ import 'resizable_widget_controller.dart';
 import 'trigger_widget.dart';
 
 class ResizableWidget extends StatefulWidget {
-  ResizableWidget(
-      {super.key,
-      double? height,
-      double? width,
-      Offset? initialPosition,
-      double minWidth = 0.0,
-      double minHeight = 0.0,
-      this.enableDragWidgets,
-      this.isFullScreen = false,
-      this.index,
-      required this.isCurrentScreen,
-      required double areaHeight,
-      required double areaWidth,
-      required this.child,
-      required this.dragWidgetsArea,
-      required this.triggersList,
-      required this.onTap,
-      required this.onStartMoving,
-      this.initWindowPosition,
-      this.windowPositionCallback,
-      required this.lastPosition}) {
+  ResizableWidget({
+    super.key,
+    double? height,
+    double? width,
+    Offset? initialPosition,
+    double minWidth = 0.0,
+    double minHeight = 0.0,
+    this.enableDragWidgets,
+    this.isFullScreen = false,
+    this.index,
+    required this.isCurrentScreen,
+    required double areaHeight,
+    required double areaWidth,
+    required this.child,
+    required this.dragWidgetsArea,
+    required this.triggersList,
+    required this.onTap,
+    required this.onStartMoving,
+    this.initWindowPosition,
+    this.windowPositionCallback,
+    // required this.lastPosition
+  }) {
     height ??= areaHeight;
     width ??= areaWidth;
 
@@ -51,7 +52,7 @@ class ResizableWidget extends StatefulWidget {
   final FunctionCallbackInt onTap;
   final FunctionCallbackInt onStartMoving;
 
-  final void Function(double, double) lastPosition;
+  // final void Function(double, double) lastPosition;
   final WindowPosition? initWindowPosition;
   final void Function(WindowPosition windowPosition)? windowPositionCallback;
 
@@ -76,8 +77,10 @@ class _ResizableWidgetState extends State<ResizableWidget> {
     controller.init(
         finalSize: widget.size,
         showDragWidgets: widget.enableDragWidgets,
-        windowPosition: widget.initWindowPosition);
+        windowPosition: widget.initWindowPosition,
+        isFullScreen: widget.isFullScreen);
     oldSize = widget.size;
+
     super.initState();
   }
 
@@ -126,18 +129,20 @@ class _ResizableWidgetState extends State<ResizableWidget> {
             onDrag: trigger.dragTriggerType.getOnDragFunction(controller),
             trigger: trigger,
             onTap: widget.onStartMoving,
-            lastPosition: widget.lastPosition,
+            // lastPosition: widget.lastPosition,
             index: widget.index,
           );
         }).toList(),
       ),
       builder: (_, triggersStack) {
-        widget.windowPositionCallback?.call(WindowPosition(
-          newTop: controller.top,
-          newLeft: controller.left,
-          newRight: controller.right,
-          newBottom: controller.bottom,
-        ));
+        if (!widget.isFullScreen) {
+          widget.windowPositionCallback?.call(WindowPosition(
+            newTop: controller.top,
+            newLeft: controller.left,
+            newRight: controller.right,
+            newBottom: controller.bottom,
+          ));
+        }
 
         return Stack(
           children: <Widget>[
