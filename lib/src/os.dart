@@ -63,8 +63,10 @@ class Os extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FittedBox(
-      child: _screen(context, osIndentifier),
+    return Scaffold(
+      body: FittedBox(
+        child: _screen(context, osIndentifier),
+      ),
     );
   }
 }
