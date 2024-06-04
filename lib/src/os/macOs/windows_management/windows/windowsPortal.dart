@@ -316,42 +316,54 @@ class _WindowsPortalState extends State<WindowsPortal> {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  GestureDetector(
-                    onTap: () {
+                  Listener(
+                    onPointerDown: (p) {
                       widget.onClose.call();
                     },
-                    child: _widgetActionIcon(
-                      color: Colors.red,
-                      icon: Icons.close,
-                      onMouseOn: value,
+                    child: Padding(
+                      // color: Colors.red,
+                      padding: const EdgeInsets.all(4),
+                      child: _widgetActionIcon(
+                        color: Colors.red,
+                        icon: Icons.close,
+                        onMouseOn: value,
+                      ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
+                  Listener(
+                    onPointerDown: (p) {
                       if (canMinimized) {
                         widget.onMinimize.call();
                       }
                     },
-                    child: _widgetActionIcon(
-                      color: canMinimized ? Colors.yellow : Colors.grey,
-                      icon: Icons.minimize,
-                      onMouseOn: (value && canMinimized),
-                      bottomPadding: 3,
+                    child: Padding(
+                      // color: Colors.yellow,
+                      padding: const EdgeInsets.all(3),
+                      child: _widgetActionIcon(
+                        color: canMinimized ? Colors.yellow : Colors.grey,
+                        icon: Icons.minimize,
+                        onMouseOn: (value && canMinimized),
+                        bottomPadding: 3,
+                      ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
+                  Listener(
+                    onPointerDown: (p) {
                       if (canExpand) {
                         _isFullScreen = !_isFullScreen;
                         widget.onFullScreen(_isFullScreen);
                       }
                     },
-                    child: _widgetActionIcon(
-                      color: canExpand ? Colors.green : Colors.grey,
-                      icon: _isFullScreen
-                          ? Icons.close_fullscreen
-                          : Icons.fullscreen,
-                      onMouseOn: (value && canExpand),
+                    child: Padding(
+                      // color: Colors.green,
+                      padding: const EdgeInsets.all(3),
+                      child: _widgetActionIcon(
+                        color: canExpand ? Colors.green : Colors.grey,
+                        icon: _isFullScreen
+                            ? Icons.close_fullscreen
+                            : Icons.fullscreen,
+                        onMouseOn: (value && canExpand),
+                      ),
                     ),
                   ),
                 ],

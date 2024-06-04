@@ -43,62 +43,75 @@ class BodyMacOs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Stack(
         children: [
           Align(
               alignment: Alignment.topLeft,
-              child: GridView.builder(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.all(10),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 10,
-                  childAspectRatio: 1.0,
-                  crossAxisSpacing: 15,
-                ),
-                itemCount: deskApp.length,
-                itemBuilder: (context, index) {
-                  final app = deskApp[index];
-                  final imageWidget = switch (app.iconUrl.contains("http")) {
-                    true => Image.network(
-                        app.iconUrl,
-                        fit: BoxFit.cover,
-                      ),
-                    false => Image.asset(
-                        app.iconUrl,
-                        fit: BoxFit.cover,
-                      ),
-                  };
-                  return GestureDetector(
-                    onTap: () {
-                      tapOnApp(app: app);
-                    },
-                    child: Column(
-                      children: [
-                        Expanded(
-                          flex: 3,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: imageWidget,
-                          ),
+              child: SizedBox(
+                width: size.width,
+                height: size.height,
+                child: GridView.builder(
+                  padding: const EdgeInsets.all(10),
+                  scrollDirection: Axis.horizontal,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 10,
+                    crossAxisSpacing: 15,
+                    childAspectRatio: MediaQuery.of(context).devicePixelRatio,
+                  ),
+                  itemCount: deskApp.length,
+                  itemBuilder: (context, index) {
+                    final app = deskApp[index];
+                    final imageWidget = switch (app.iconUrl.contains("http")) {
+                      true => Image.network(
+                          app.iconUrl,
+                          fit: BoxFit.cover,
                         ),
-                        Expanded(
-                            flex: 1,
-                            child: Text(
-                              app.name,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: windowsManagementController
-                                      .desktopStyle?.textStyle ??
-                                  const TextStyle(
-                                    color: Colors.white,
-                                  ),
-                            ))
-                      ],
-                    ),
-                  );
-                },
+                      false => Image.asset(
+                          app.iconUrl,
+                          fit: BoxFit.cover,
+                        ),
+                    };
+                    return GestureDetector(
+                      onTap: () {
+                        tapOnApp(app: app);
+                      },
+                      child: Column(
+                        children: [
+                          Expanded(
+                            flex: 3,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: imageWidget,
+                            ),
+                          ),
+                          Expanded(
+                              flex: 1,
+                              child: LayoutBuilder(
+                                  builder: (context, constraints) {
+                                final size = constraints.biggest;
+                                final fontSize = size.height > 5
+                                    ? size.height - 3
+                                    : size.height;
+                                return Text(
+                                  app.name,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: windowsManagementController
+                                          .desktopStyle?.textStyle ??
+                                      TextStyle(
+                                          color: Colors.white,
+                                          fontSize: fontSize),
+                                );
+                              })),
+                          const SizedBox(height: 2),
+                        ],
+                      ),
+                    );
+                  },
+                ),
               )),
           ValueListenableBuilder(
             valueListenable: windowsManagementController.windows,
