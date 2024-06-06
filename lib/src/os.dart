@@ -4,17 +4,15 @@ import 'package:os_ui/src/utils/os_indentifier.dart';
 import 'package:os_ui/src/utils/os_type.dart';
 
 class Os extends StatelessWidget {
+  /// [osIndentifier] is the object that contains the type of the OS and the controller for the windows.
   final OsIndentifier osIndentifier;
-
-  /// [deviceOccupySize] is the size of the device in the screen
-  final double? deviceOccupySize;
 
   const Os({
     super.key,
     required this.osIndentifier,
-    this.deviceOccupySize,
   });
 
+  /// The theme of the OS.
   ThemeData _theme(BuildContext context) {
     final platform = switch (osIndentifier.type) {
       OsType.macos => TargetPlatform.macOS,
@@ -24,15 +22,15 @@ class Os extends StatelessWidget {
 
     return Theme.of(context).copyWith(
       platform: platform,
-      // visualDensity: density,
     );
   }
 
+  /// The widget that is displayed when the OS is not supported.
   Widget get _notSupport => Container(
         color: Colors.blue,
         child: const Center(
           child: Text(
-            'Not supported',
+            'Not supported for now. Please use macOS. Thank you. 🙏',
             style: TextStyle(
               color: Colors.white,
               fontSize: 24,
@@ -41,6 +39,7 @@ class Os extends StatelessWidget {
         ),
       );
 
+  /// The widget that is displayed when the OS is supported.
   Widget _screen(BuildContext context, OsIndentifier osIndentifier) {
     final mediaQuery = MediaQuery.of(context);
     final screenSize = mediaQuery.size;

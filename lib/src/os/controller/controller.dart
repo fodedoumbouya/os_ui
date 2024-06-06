@@ -114,18 +114,7 @@ class WindowsManagementController {
     return;
   }
 
-  // void addApp(WindowsModel app) {
-  //   //if exist then do nothing
-  //   if (windows.value.indexWhere((element) => element.name == app.name) != -1) {
-  //     swapToCurrentWindow(index: app.index);
-  //     return;
-  //   }
-  //   // app.isOpenWindow = true;
-  //   _windows.value.add(app);
-  //   openWindow(app);
-  //   windows.notifyListeners();
-  // }
-
+  /// update the position of the window.
   void updatePosition(
       {required WindowsModel window, required WindowPosition position}) {
     _currentWindow =
@@ -275,6 +264,7 @@ class WindowsManagementController {
       Future.delayed(
           (duration ?? const Duration(seconds: 2)) +
               const Duration(milliseconds: 300), () {
+        if (toast.showToast.value == false) return;
         toast.showToast.value = false;
         toast.showToast.notifyListeners();
       });

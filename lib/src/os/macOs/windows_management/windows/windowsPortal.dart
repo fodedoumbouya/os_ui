@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:os_ui/os_ui.dart';
 import 'package:os_ui/src/os/macOs/widgets/genie.dart';
 

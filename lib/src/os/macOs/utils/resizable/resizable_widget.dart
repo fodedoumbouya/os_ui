@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:os_ui/os_ui.dart';
-import 'package:os_ui/src/os/macOs/utils/resizable/drag_triggers_enum.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
 import 'model/common_sizes.dart';
 import 'model/trigger.dart';

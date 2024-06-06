@@ -4,6 +4,7 @@ import 'package:os_ui/src/os/macOs/body/body.dart';
 import 'package:os_ui/src/os/macOs/utils/background_frame.dart';
 import 'package:os_ui/src/os/macOs/dock/mac_os_dock.dart';
 
+import '../utils/mesureWidgetSize.dart';
 import 'utils/constant.dart';
 import '../controller/controller.dart';
 import 'widgets/boxInnerShadow.dart';
@@ -18,6 +19,9 @@ class MacOs extends StatefulWidget {
 
 class _MacOsState extends State<MacOs> {
   bool onFullScreen = false;
+
+  /// height of the toast
+  double toastHeight = 200;
 
   @override
   Widget build(BuildContext context) {
@@ -61,11 +65,15 @@ class _MacOsState extends State<MacOs> {
             valueListenable: widget.windowsManagementController.toast.showToast,
             builder: (context, dialogOpen, child) {
               return AnimatedPositioned(
-                  top: dialogOpen ? 10 : -200,
-                  // left: 0,
-                  right: 0,
-                  width: 350,
-                  duration: const Duration(milliseconds: 300),
+                top: dialogOpen ? 10 : -(toastHeight + 30),
+                right: 0,
+                width: 350,
+                duration: const Duration(milliseconds: 300),
+                child: MeasureSize(
+                  onChange: (size) {
+                    /// Get the height of the toast
+                    toastHeight = size.height;
+                  },
                   child: InnerShadow(
                     color: Colors.black12,
                     child: Container(
@@ -111,21 +119,10 @@ class _MacOsState extends State<MacOs> {
                             widget.windowsManagementController.toast.trailing ??
                                 const SizedBox.shrink(),
                           ],
-                        )
-
-                        // ListTile(
-                        //   titleAlignment: ListTileTitleAlignment.center,
-                        //   contentPadding: widget
-                        //       .windowsManagementController.toast.contentPadding,
-                        //   leading: widget.windowsManagementController.toast.leading,
-                        //   title: widget.windowsManagementController.toast.title,
-                        //   subtitle:
-                        //       widget.windowsManagementController.toast.content,
-                        //   trailing:
-                        //       widget.windowsManagementController.toast.trailing,
-                        // ),
-                        ),
-                  ));
+                        )),
+                  ),
+                ),
+              );
             },
           )
         ],

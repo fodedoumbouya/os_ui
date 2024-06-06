@@ -142,10 +142,6 @@ class BodyMacOs extends StatelessWidget {
                       windowsManagementController.swapToCurrentWindow(
                           index: index);
                     },
-                    // updatePosition: (left, top) {
-                    //   // windows.lastPosition = Offset(left, top);
-                    //   // print(windows.lastPosition);
-                    // },
                     windowPositionCallback: (windowPosition) {
                       windowsManagementController.updatePosition(
                           window: windows, position: windowPosition);

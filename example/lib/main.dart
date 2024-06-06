@@ -93,12 +93,11 @@ class _MyHomePageState extends State<MyHomePage> {
             // ),
             onOpen: () {
               windowsManagementController.showToast(
-                content: const Text("Github"),
-                title: const Text("Github"),
+                content: const Text("Toast Content"),
+                title: const Text("Toast Title"),
                 leading: const Icon(Icons.ac_unit),
               );
             },
-            // => print("Github"),
           ),
           WindowsModel(
             name: "Github",
@@ -107,12 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
             iconUrl: "images/github.png",
             style: WindowsModelStyle(
               barColor: Colors.blue,
-              // shadowColor: Colors.transparent,
             ),
-            // child: Container(
-            //   color: Colors.blue,
-            //   alignment: Alignment.center,
-            // ),
             onOpen: () => print("Github"),
           ),
           WindowsModel(
@@ -124,7 +118,6 @@ class _MyHomePageState extends State<MyHomePage> {
             iconUrl: "images/linkedin.png",
             style: WindowsModelStyle(
               barColor: Colors.blue,
-              // shadowColor: Colors.transparent,
             ),
             entryApp: (controller) => Container(
               color: Colors.red,
