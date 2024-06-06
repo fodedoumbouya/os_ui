@@ -13,22 +13,27 @@ class WindowsModelStyle {
 class TopBarPopupMenuItem {
   EntryWidgetBuilder builder;
   final WindowsModel? entryApp;
+  void Function()? onTap;
   final EdgeInsets? padding;
   TopBarPopupMenuItem({
     required this.builder,
     this.entryApp,
+    this.onTap,
     this.padding,
-  });
+  }) : assert(entryApp == null || onTap == null,
+            'entryApp and onTap cannot be use together');
 
   TopBarPopupMenuItem copyWith({
     EntryWidgetBuilder? builder,
     WindowsModel? entryApp,
     EdgeInsets? padding,
+    void Function()? onTap,
   }) {
     return TopBarPopupMenuItem(
       builder: builder ?? this.builder,
       entryApp: entryApp ?? this.entryApp,
       padding: padding ?? this.padding,
+      onTap: onTap ?? this.onTap,
     );
   }
 }
@@ -204,7 +209,7 @@ class WindowsModel {
       this.entryApp,
       this.onOpen,
       this.enableDragWidgets = true}) {
-    assert(entryApp != null || onOpen != null,
+    assert(!(entryApp != null && onOpen != null),
         'entryApp or onOpen must be not nul');
     if (index == -1) {
       // If the index is not provided, auto increment it

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:os_ui/os_ui.dart';
 
-
 class Bar extends StatefulWidget {
   final WindowsManagementController windowsManagementController;
 
@@ -186,7 +185,9 @@ class _BarState extends State<Bar> {
                             final item = topBarModel!.listLanguage[index];
                             return PopupMenuItem(
                               onTap: () {
-                                if (item.entryApp != null) {
+                                if (item.onTap != null) {
+                                  item.onTap!.call();
+                                } else if (item.entryApp != null) {
                                   tapOnApp(app: item.entryApp!);
                                 }
                               },
