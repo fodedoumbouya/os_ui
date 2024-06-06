@@ -118,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
           WindowsModel(
             name: "Linkedin",
             size: const Size(700, 700),
-            iconPosition: AppIconPosition.dock,
+            iconPosition: AppIconPosition.both,
             // canMinimized: false,
             // canExpand: false,
             iconUrl: "images/linkedin.png",

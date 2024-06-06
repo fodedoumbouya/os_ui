@@ -20,6 +20,7 @@ class MacOSDock extends StatelessWidget {
           List<WindowsModel> appOnBottom = windowsList
               .where((element) =>
                   element.iconPosition == AppIconPosition.dock ||
+                  element.iconPosition == AppIconPosition.both ||
                   element.isOpenWindow)
               .toList();
           // sort by index

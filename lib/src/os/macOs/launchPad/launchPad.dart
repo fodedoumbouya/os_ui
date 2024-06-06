@@ -5,7 +5,6 @@ import 'package:os_ui/os_ui.dart';
 import 'package:os_ui/src/os/macOs/utils/background_frame.dart';
 import 'package:os_ui/src/os/macOs/utils/constant.dart';
 
-
 class LaunchPad extends StatelessWidget {
   final WindowsManagementController windowsManagementController;
   final Function(WindowsModel?) onTap;

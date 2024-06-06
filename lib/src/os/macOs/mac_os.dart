@@ -6,6 +6,7 @@ import 'package:os_ui/src/os/macOs/dock/mac_os_dock.dart';
 
 import 'utils/constant.dart';
 import '../controller/controller.dart';
+import 'widgets/boxInnerShadow.dart';
 
 class MacOs extends StatefulWidget {
   final WindowsManagementController windowsManagementController;
@@ -65,56 +66,66 @@ class _MacOsState extends State<MacOs> {
                   right: 0,
                   width: 350,
                   duration: const Duration(milliseconds: 300),
-                  child: Container(
-                      // height: 150,
-                      margin: widget.windowsManagementController.toast
-                              .contentPadding ??
-                          const EdgeInsets.all(30),
-                      padding: const EdgeInsets.all(20),
-                      decoration: widget.windowsManagementController.toast
-                              .toastDecoration ??
-                          BoxDecoration(
-                            color: const Color.fromARGB(255, 228, 227, 224),
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                              flex: 1,
-                              child: widget.windowsManagementController.toast
-                                      .leading ??
-                                  const SizedBox.shrink()),
-                          Expanded(
-                              flex: 3,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  widget.windowsManagementController.toast
-                                          .title ??
-                                      const SizedBox.shrink(),
-                                  widget.windowsManagementController.toast
-                                          .content ??
-                                      const SizedBox.shrink(),
-                                ],
-                              )),
-                          widget.windowsManagementController.toast.trailing ??
-                              const SizedBox.shrink(),
-                        ],
-                      )
+                  child: InnerShadow(
+                    color: Colors.black12,
+                    child: Container(
+                        margin: widget.windowsManagementController.toast
+                                .contentPadding ??
+                            const EdgeInsets.all(30),
+                        padding: const EdgeInsets.all(20),
+                        decoration: widget.windowsManagementController.toast
+                                .toastDecoration ??
+                            BoxDecoration(
+                              color: Colors.white.withOpacity(0.6),
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  spreadRadius: 1,
+                                  blurRadius: 10,
+                                  offset: const Offset(0, 0),
+                                ),
+                              ],
+                            ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                flex: 1,
+                                child: widget.windowsManagementController.toast
+                                        .leading ??
+                                    const SizedBox.shrink()),
+                            Expanded(
+                                flex: 3,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    widget.windowsManagementController.toast
+                                            .title ??
+                                        const SizedBox.shrink(),
+                                    widget.windowsManagementController.toast
+                                            .content ??
+                                        const SizedBox.shrink(),
+                                  ],
+                                )),
+                            widget.windowsManagementController.toast.trailing ??
+                                const SizedBox.shrink(),
+                          ],
+                        )
 
-                      // ListTile(
-                      //   titleAlignment: ListTileTitleAlignment.center,
-                      //   contentPadding: widget
-                      //       .windowsManagementController.toast.contentPadding,
-                      //   leading: widget.windowsManagementController.toast.leading,
-                      //   title: widget.windowsManagementController.toast.title,
-                      //   subtitle:
-                      //       widget.windowsManagementController.toast.content,
-                      //   trailing:
-                      //       widget.windowsManagementController.toast.trailing,
-                      // ),
-                      ));
+                        // ListTile(
+                        //   titleAlignment: ListTileTitleAlignment.center,
+                        //   contentPadding: widget
+                        //       .windowsManagementController.toast.contentPadding,
+                        //   leading: widget.windowsManagementController.toast.leading,
+                        //   title: widget.windowsManagementController.toast.title,
+                        //   subtitle:
+                        //       widget.windowsManagementController.toast.content,
+                        //   trailing:
+                        //       widget.windowsManagementController.toast.trailing,
+                        // ),
+                        ),
+                  ));
             },
           )
         ],

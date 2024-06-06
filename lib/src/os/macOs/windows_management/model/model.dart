@@ -95,6 +95,7 @@ class DockStyle {
 enum AppIconPosition {
   dock, // The app icon is in the dock
   desktop, // The app icon is on the desktop
+  both, // The app icon is in both the dock and on the desktop
   none, // The app icon is not displayed
 }
 

@@ -17,7 +17,9 @@ class BodyMacOs extends StatelessWidget {
       super.key});
 
   List<WindowsModel> get deskApp => windowsManagementController.windows.value
-      .where((element) => element.iconPosition == AppIconPosition.desktop)
+      .where((element) =>
+          element.iconPosition == AppIconPosition.desktop ||
+          element.iconPosition == AppIconPosition.both)
       .toList();
 
   void tapOnApp({required WindowsModel app}) {
