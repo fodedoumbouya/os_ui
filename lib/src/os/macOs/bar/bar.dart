@@ -47,8 +47,8 @@ class _BarState extends State<Bar> {
 
   void tapOnApp({required WindowsModel app}) {
     /// if the app has an onOpen function, call it
-    if (app.onOpen != null) {
-      app.onOpen!();
+    if (app.onTap != null) {
+      app.onTap!(widget.windowsManagementController);
       return;
     }
 

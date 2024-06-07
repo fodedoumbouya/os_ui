@@ -24,8 +24,8 @@ class BodyMacOs extends StatelessWidget {
 
   void tapOnApp({required WindowsModel app}) {
     /// if the app has an onOpen function, call it
-    if (app.onOpen != null) {
-      app.onOpen!();
+    if (app.onTap != null) {
+      app.onTap!(windowsManagementController);
       return;
     }
 
@@ -58,11 +58,10 @@ class BodyMacOs extends StatelessWidget {
                 child: GridView.builder(
                   padding: const EdgeInsets.all(10),
                   scrollDirection: Axis.horizontal,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 10,
-                    crossAxisSpacing: 15,
-                    childAspectRatio: MediaQuery.of(context).devicePixelRatio,
-                  ),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 10,
+                      crossAxisSpacing: 20,
+                      childAspectRatio: 1.0),
                   itemCount: deskApp.length,
                   itemBuilder: (context, index) {
                     final app = deskApp[index];

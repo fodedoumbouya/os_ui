@@ -66,8 +66,8 @@ class MacOSDock extends StatelessWidget {
                             windowsManagementController.showLaunchPadToggle();
                           } else {
                             /// if the app has an onOpen function, call it
-                            if (app.onOpen != null) {
-                              app.onOpen!();
+                            if (app.onTap != null) {
+                              app.onTap!(windowsManagementController);
                               return;
                             }
 

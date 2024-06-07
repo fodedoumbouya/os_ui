@@ -131,8 +131,9 @@ class WindowsManagementController {
   }
 
   /// Transition to a new screen within the current window.
-  void toGo(
-      {required Widget Function(WindowsManagementController) entryApp,
+  void goTo(
+      {required Widget Function(WindowsManagementController controller)
+          entryApp,
       WindowsModel? window}) {
     if (window != null) {
       _currentWindow =

@@ -110,6 +110,10 @@ typedef EntryWidgetBuilder = Widget Function(
   WindowsManagementController controller,
 );
 
+typedef EntryTapBuilder = void Function(
+  WindowsManagementController controller,
+);
+
 class WindowPosition {
   double? newTop;
   double? newLeft;
@@ -177,8 +181,8 @@ class WindowsModel {
   /// The child widget of the window
   EntryWidgetBuilder? entryApp;
 
-  //
-  void Function()? onOpen;
+  /// The callback function for the "Open" action
+  EntryTapBuilder? onTap;
 
   /// Whether the window is in full screen mode
   bool isFullScreen = false;
@@ -208,10 +212,10 @@ class WindowsModel {
       this.canExpand = true,
       this.canMinimized = true,
       this.entryApp,
-      this.onOpen,
+      this.onTap,
       this.enableDragWidgets = true}) {
-    assert(!(entryApp != null && onOpen != null),
-        'entryApp or onOpen must be not nul');
+    assert(!(entryApp != null && onTap != null),
+        'entryApp or onTap must be not nul');
     if (index == -1) {
       // If the index is not provided, auto increment it
       index = _currentIndex++;
@@ -228,7 +232,7 @@ class WindowsModel {
     bool? canExpand,
     bool? canMinimized,
     EntryWidgetBuilder? entryApp,
-    void Function()? onOpen,
+    void Function(WindowsManagementController)? onTap,
     bool? enableDragWidgets,
   }) {
     return WindowsModel(
@@ -240,7 +244,7 @@ class WindowsModel {
       canExpand: canExpand ?? this.canExpand,
       canMinimized: canMinimized ?? this.canMinimized,
       entryApp: entryApp ?? this.entryApp,
-      onOpen: onOpen ?? this.onOpen,
+      onTap: onTap ?? this.onTap,
       enableDragWidgets: enableDragWidgets ?? this.enableDragWidgets,
     )
       ..index = index
