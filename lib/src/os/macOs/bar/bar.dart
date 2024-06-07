@@ -68,7 +68,11 @@ class _BarState extends State<Bar> {
   @override
   Widget build(BuildContext context) {
     final topBarModel = widget.windowsManagementController.topBarModel;
-    final language = topBarModel?.language ?? ValueNotifier<String?>(null);
+    final langText = (topBarModel?.listLanguage ?? []).isEmpty
+        ? null
+        : topBarModel?.listLanguage.first.text;
+    final languageNotifier = ValueNotifier<String?>(langText);
+
     final iconUrl = widget.windowsManagementController.appleIconPath;
     final imageWidget = switch (iconUrl.contains("http")) {
       true => Image.network(
@@ -125,14 +129,13 @@ class _BarState extends State<Bar> {
                       (index) {
                     final item = topBarModel!.popupMenuItemsOnAppleIcon[index];
                     return PopupMenuItem(
-                      onTap: () {
-                        if (item.entryApp != null) {
-                          tapOnApp(app: item.entryApp!);
-                        }
-                      },
-                      padding: item.padding,
-                      child: item.builder(widget.windowsManagementController),
-                    );
+                        onTap: () {
+                          if (item.entryApp != null) {
+                            tapOnApp(app: item.entryApp!);
+                          }
+                        },
+                        padding: item.padding,
+                        child: Text(item.text, style: item.textStyle));
                     // item;
                   })
                 ],
@@ -184,21 +187,23 @@ class _BarState extends State<Bar> {
                               (index) {
                             final item = topBarModel!.listLanguage[index];
                             return PopupMenuItem(
-                              onTap: () {
-                                if (item.onTap != null) {
-                                  item.onTap!.call();
-                                } else if (item.entryApp != null) {
-                                  tapOnApp(app: item.entryApp!);
-                                }
-                              },
-                              padding: item.padding,
-                              child: item
-                                  .builder(widget.windowsManagementController),
-                            );
+                                onTap: () {
+                                  if (item.onTap != null) {
+                                    item.onTap!.call();
+                                  } else if (item.entryApp != null) {
+                                    tapOnApp(app: item.entryApp!);
+                                  }
+                                  languageNotifier.value = item.text;
+                                },
+                                padding: item.padding,
+                                child: Text(
+                                  item.text,
+                                  style: item.textStyle,
+                                ));
                           })
                         ],
                     child: ValueListenableBuilder(
-                      valueListenable: language,
+                      valueListenable: languageNotifier,
                       builder: (context, value, child) {
                         return value == null
                             ? const SizedBox.shrink()

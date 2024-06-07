@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:os_ui/src/os/macOs/bar/bar.dart';
 import 'package:os_ui/src/os/macOs/body/body.dart';
@@ -32,6 +34,28 @@ class _MacOsState extends State<MacOs> {
       ),
       child: Stack(
         children: [
+          if (widget.windowsManagementController.showFlutterText)
+            const Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 90),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Made with Flutter ",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600, color: Colors.white30),
+                    ),
+                    ColorFiltered(
+                      colorFilter:
+                          ColorFilter.mode(Colors.white30, BlendMode.modulate),
+                      child: FlutterLogo(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           if (!onFullScreen)
             Align(
               alignment: Alignment.topCenter,
@@ -124,7 +148,7 @@ class _MacOsState extends State<MacOs> {
                 ),
               );
             },
-          )
+          ),
         ],
       ),
     );

@@ -11,12 +11,14 @@ class WindowsManagementController {
   final _windows = ValueNotifier<List<WindowsModel>>([]);
 
   final List<WindowsModel> applications;
-  WindowsManagementController(
-      {required this.applications,
-      required this.launchIconPath,
-      required this.appleIconPath,
-      this.dockStyle,
-      this.topBarModel}) {
+  WindowsManagementController({
+    required this.applications,
+    required this.launchIconPath,
+    required this.appleIconPath,
+    this.dockStyle,
+    this.topBarModel,
+    this.showFlutterText = true,
+  }) {
     /// Add the launcher to the list of windows.
     _windows.value.add(_launcher(launchIconPath));
 
@@ -59,6 +61,9 @@ class WindowsManagementController {
   DesktopStyle? desktopStyle;
 
   MacOsToast toast = MacOsToast();
+
+  /// The flag for showing the Flutter text.
+  bool showFlutterText;
 
   /// The index of the current window.
   int _currentWindow = 0;

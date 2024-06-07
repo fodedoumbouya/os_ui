@@ -11,12 +11,14 @@ class WindowsModelStyle {
 }
 
 class TopBarPopupMenuItem {
-  EntryWidgetBuilder builder;
+  String text;
+  TextStyle? textStyle;
   final WindowsModel? entryApp;
   void Function()? onTap;
   final EdgeInsets? padding;
   TopBarPopupMenuItem({
-    required this.builder,
+    required this.text,
+    this.textStyle,
     this.entryApp,
     this.onTap,
     this.padding,
@@ -24,13 +26,15 @@ class TopBarPopupMenuItem {
             'entryApp and onTap cannot be use together');
 
   TopBarPopupMenuItem copyWith({
-    EntryWidgetBuilder? builder,
+    String? text,
+    TextStyle? textStyle,
     WindowsModel? entryApp,
     EdgeInsets? padding,
     void Function()? onTap,
   }) {
     return TopBarPopupMenuItem(
-      builder: builder ?? this.builder,
+      text: text ?? this.text,
+      textStyle: textStyle ?? this.textStyle,
       entryApp: entryApp ?? this.entryApp,
       padding: padding ?? this.padding,
       onTap: onTap ?? this.onTap,
@@ -52,8 +56,6 @@ class TopBarModel {
       popupMenuItemShadowColor; // The color of the shadow of the popup menu items
   final Color?
       popupMenuItemSurfaceTintColor; // The color of the surface of the popup menu items
-  final ValueNotifier<String?>?
-      language; // The notifier for the selected language
   final List<TopBarPopupMenuItem>
       listLanguage; // The list of available languages
   final DateFormat? dateFormat; // The date format for the top bar
@@ -68,7 +70,6 @@ class TopBarModel {
     this.popupMenuItemColor,
     this.popupMenuItemShadowColor,
     this.popupMenuItemSurfaceTintColor,
-    this.language,
     this.dateFormat,
     this.listLanguage = const [],
   });
