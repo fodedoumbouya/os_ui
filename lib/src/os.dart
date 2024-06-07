@@ -7,6 +7,15 @@ class Os extends StatelessWidget {
   /// [osIndentifier] is the object that contains the type of the OS and the controller for the windows.
   final OsIndentifier osIndentifier;
 
+  /// The OS widget.
+  /// example:
+  /// ```dart
+  /// Os(
+  ///  osIndentifier: OsIndentifier(
+  ///   type: OsType.macos,
+  ///  windowsManagementController: windowsManagementController,
+  /// ),
+  /// ```
   const Os({
     super.key,
     required this.osIndentifier,

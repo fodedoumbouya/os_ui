@@ -118,11 +118,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
           /// top bar model for the macOs
           topBarModel: TopBarModel(
-            barText: "MacOs",
-            popupMenuItemColor: Colors.white,
+            // barText: "MacOs",
+            // popupMenuItemColor: Colors.white,
 
             /// popup menu items on the list language
-            listLanguage: [
+            listLanguages: [
               TopBarPopupMenuItem(
                 text: "EN",
                 onTap: () {

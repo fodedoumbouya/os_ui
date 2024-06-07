@@ -68,9 +68,9 @@ class _BarState extends State<Bar> {
   @override
   Widget build(BuildContext context) {
     final topBarModel = widget.windowsManagementController.topBarModel;
-    final langText = (topBarModel?.listLanguage ?? []).isEmpty
+    final langText = (topBarModel?.listLanguages ?? []).isEmpty
         ? null
-        : topBarModel?.listLanguage.first.text;
+        : topBarModel?.listLanguages.first.text;
     final languageNotifier = ValueNotifier<String?>(langText);
 
     final iconUrl = widget.windowsManagementController.appleIconPath;
@@ -183,9 +183,9 @@ class _BarState extends State<Bar> {
                     ),
                     itemBuilder: (BuildContext context) => [
                           ...List.generate(
-                              (topBarModel?.listLanguage ?? []).length,
+                              (topBarModel?.listLanguages ?? []).length,
                               (index) {
-                            final item = topBarModel!.listLanguage[index];
+                            final item = topBarModel!.listLanguages[index];
                             return PopupMenuItem(
                                 onTap: () {
                                   if (item.onTap != null) {

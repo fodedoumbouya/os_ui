@@ -7,6 +7,130 @@ import 'package:os_ui/src/os/macOs/model/toast.dart';
 import 'package:os_ui/src/os/macOs/windows_management/model/model.dart';
 
 /// The controller class for managing windows in a macOS-like interface.
+/// and tost
+/// example:
+/// check the github repository for the full example
+/// url: https://github.com/fodedoumbouya/os_ui.git
+/// ```dart
+///  WindowsManagementController windowsManagementController =
+///       WindowsManagementController(
+
+///           /// path to the launcher icon
+///           launchIconPath: "images/launcher.png",
+
+///           //// path to the apple icon
+///           appleIconPath: "images/applelogo.png",
+
+///           //// show the flutter text
+///           showFlutterText: true,
+
+///           //// list of applications to be displayed on the macOs
+///           applications: [
+///             WindowsModel(
+///               //// name of the application
+///               name: "Toast",
+
+///               //// size of the application window if you decide to just show the icon and not display the window on tap on the icon
+///               //// set the size to Size.zero
+///               //// if you want to display the window on tap on the icon, set the size to the size of the window
+///               //// and user can minimize, maximize, and expand the window
+///               //// if you don't want the user to minimize, maximize, and expand the window, set [canMinimized],[canExpand] to false
+///               size: Size.zero,
+
+///               //// position of the icon on the os
+///               //// [AppIconPosition.desktop] to display the icon on the desktop
+///               //// [AppIconPosition.dock] to display the icon on the dock
+///               //// [AppIconPosition.both] to display the icon on the desktop and dock
+///               iconPosition: AppIconPosition.desktop,
+
+///               //// url of the icon
+///               //// you can use a network image or local image
+///               iconUrl: "images/alert.png",
+
+///               //// style of the application window
+///               style: WindowsModelStyle(
+///                 barColor: Colors.blue,
+///               ),
+
+///               //// [onTap] function to be called on tap on the icon and the window is not displayed
+///               //// if you want to display the window on tap on the icon, set the [entryApp] function
+///               onTap: (controller) {
+///                 //// on tap on the  app icon
+///                 //// show a toast
+///                 controller.showToast(
+///                   content: const Text("Toast Content"),
+///                   title: const Text("Toast Title"),
+///                   leading: const Icon(Icons.ac_unit),
+///                 );
+///               },
+///             ),
+///             WindowsModel(
+///               name: "Dart",
+///               size: const Size(700, 700),
+///               iconPosition: AppIconPosition.desktop,
+///               iconUrl: "images/dart.png",
+///               style: WindowsModelStyle(
+///                 barColor: Colors.blue,
+///               ),
+
+///               //// [entryApp] function to be called on tap on the icon and the window is displayed
+///               entryApp: (controller) {
+///                 return Screen1(controller: controller);
+///               },
+///             ),
+///             WindowsModel(
+///               name: "Flutter",
+///               size: const Size(700, 700),
+///               iconPosition: AppIconPosition.both,
+///               canMinimized: false,
+///               canExpand: false,
+///               iconUrl: "images/flutter.png",
+///               style: WindowsModelStyle(
+///                 barColor: Colors.blue,
+///               ),
+///               entryApp: (controller) => Container(
+///                 color: Colors.red,
+///                 alignment: Alignment.center,
+///                 child: const Text("Flutter",
+///                     style: TextStyle(color: Colors.white)),
+///               ),
+///             ),
+///           ],
+
+///           //// top bar model for the macOs
+///           topBarModel: TopBarModel(
+///             /// barText: "MacOs",
+///             /// popupMenuItemColor: Colors.white,
+
+///             //// popup menu items on the list language
+///             listLanguages: [
+///               TopBarPopupMenuItem(
+///                 text: "EN",
+///                 onTap: () {
+///                   print("EN");
+///                 },
+///               ),
+///               TopBarPopupMenuItem(
+///                 text: "FR",
+///                 onTap: () {
+///                   print("FR");
+///                 },
+///               )
+///             ],
+
+///             //// popup menu items on the apple icon
+///             popupMenuItemsOnAppleIcon: [
+///               TopBarPopupMenuItem(
+///                 text: "About",
+///               ),
+///               TopBarPopupMenuItem(
+///                 text: "Quit",
+///               )
+///             ],
+///           ));
+
+/// ```
+///
 class WindowsManagementController {
   final _windows = ValueNotifier<List<WindowsModel>>([]);
 
