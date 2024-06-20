@@ -24,7 +24,9 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   # To add assets to your package, add an assets section, like this:
-  # assets:
+  assets:
+    - packages/os_ui/assets/applelogo.png
+    - packages/os_ui/assets/launcher.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   #

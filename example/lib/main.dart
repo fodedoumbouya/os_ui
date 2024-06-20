@@ -35,10 +35,10 @@ class _MyHomePageState extends State<MyHomePage> {
       WindowsManagementController(
 
           /// path to the launcher icon
-          launchIconPath: "images/launcher.png",
+          // launchIconPath: "images/launcher.png",
 
           /// path to the apple icon
-          appleIconPath: "images/applelogo.png",
+          // appleIconPath: "images/applelogo.png",
 
           /// show the flutter text
           showFlutterText: true,

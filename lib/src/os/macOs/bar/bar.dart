@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -73,7 +74,8 @@ class _BarState extends State<Bar> {
         : topBarModel?.listLanguages.first.text;
     final languageNotifier = ValueNotifier<String?>(langText);
 
-    final iconUrl = widget.windowsManagementController.appleIconPath;
+    final iconUrl = widget.windowsManagementController.appleIconPath ??
+        "packages/os_ui/assets/applelogo.png";
     final imageWidget = switch (iconUrl.contains("http")) {
       true => Image.network(
           iconUrl,

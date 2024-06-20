@@ -137,8 +137,8 @@ class WindowsManagementController {
   final List<WindowsModel> applications;
   WindowsManagementController({
     required this.applications,
-    required this.launchIconPath,
-    required this.appleIconPath,
+    this.launchIconPath = "packages/os_ui/assets/launcher.png",
+    this.appleIconPath,
     this.dockStyle,
     this.topBarModel,
     this.showFlutterText = true,
@@ -173,7 +173,7 @@ class WindowsManagementController {
   String launchIconPath;
 
   /// The path to the icon for the Apple icon.
-  String appleIconPath;
+  String? appleIconPath;
 
   /// The style for the dock.
   DockStyle? dockStyle;
