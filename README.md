@@ -38,7 +38,7 @@ flutter pub add os_ui
 
 This will add a line like this to your package's pubspec.yaml with the latest version (and run an implicit flutter pub get):
 
-```dart
+```js
 dependencies:
   os_ui: <latest_version>
 ```
@@ -69,7 +69,7 @@ You can use standard os_ui like so :
 
 If you want to customize it, you can use something like this : 
 
-```
+```dart
     Os(
         osIndentifier: OsIndentifier(
           type: OsType.macos,
