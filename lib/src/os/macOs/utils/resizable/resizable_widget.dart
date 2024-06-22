@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:os_ui/os_ui.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
