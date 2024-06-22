@@ -24,7 +24,7 @@ https://github.com/fodedoumbouya/os_ui/assets/47141813/524dd1df-544a-4bdd-96ed-f
 
 See real examples:
 
-* <https://github.com/golrangsystem/gsform/tree/main/example>
+* <https://github.com/fodedoumbouya/os_ui/tree/main/example>
 
 ## Table of contents
 
