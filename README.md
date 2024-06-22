@@ -1,5 +1,7 @@
 
-![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
+![Logo](https://github.com/fodedoumbouya/os_ui/assets/47141813/633a53c3-9a96-4240-b40a-105ae74fd9ea)
+
+
 
 This package helps you to showcase your project or play with computer OS interface for any kind of projects.
 
@@ -11,15 +13,18 @@ All the functions are ready include in the package such as:
 * Multi-language support
 
 
-![App Screenshot](https://github.com/golrangsystem/gsform/blob/main/screenshot/header.jpg?raw=true)
+![App Screenshot](https://github.com/fodedoumbouya/os_ui/assets/47141813/1398cc6c-af28-4191-b798-7cec1473a636)
+
 
 
 ## Demo
+https://github.com/fodedoumbouya/os_ui/assets/47141813/524dd1df-544a-4bdd-96ed-fce284d64608
+
 
 
 See real examples:
 
-* <https://github.com/golrangsystem/gsform/tree/main/example>
+* <https://github.com/fodedoumbouya/os_ui/tree/main/example>
 
 ## Table of contents
 
@@ -27,13 +32,13 @@ Run this command:
 
 With Flutter:
 
-```
+```dart
 flutter pub add os_ui
 ```
 
 This will add a line like this to your package's pubspec.yaml with the latest version (and run an implicit flutter pub get):
 
-```
+```js
 dependencies:
   os_ui: <latest_version>
 ```
@@ -43,7 +48,9 @@ more about it.
 
 Import the package in your code:
 
-``` import 'package:os_ui/os_ui.dart'; ```
+```dart 
+import 'package:os_ui/os_ui.dart';
+```
 
 You can use standard os_ui like so :
 
@@ -62,7 +69,7 @@ You can use standard os_ui like so :
 
 If you want to customize it, you can use something like this : 
 
-```
+```dart
     Os(
         osIndentifier: OsIndentifier(
           type: OsType.macos,
