@@ -1,5 +1,6 @@
 
-![Logo](https://github.com/fodedoumbouya/os_ui/assets/47141813/aa4fca06-8e37-4d94-8a1b-9bb12bdb2377)
+![Logo](https://github.com/fodedoumbouya/os_ui/assets/47141813/633a53c3-9a96-4240-b40a-105ae74fd9ea)
+
 
 
 This package helps you to showcase your project or play with computer OS interface for any kind of projects.
