@@ -48,7 +48,6 @@ class TopBarModel {
   final TextStyle? textStyle; // The text style of the top bar
   final Color? iconColor; // The color of the icons in the top bar
   final String? barText; // The text displayed in the top bar
-  final Function? onAbout; // The callback function for the "About" action
   List<TopBarPopupMenuItem>
       popupMenuItemsOnAppleIcon; // The popup menu items displayed when clicking on the Apple icon
   final Color? popupMenuItemColor; // The color of the popup menu items
@@ -65,7 +64,6 @@ class TopBarModel {
     this.textStyle,
     this.iconColor,
     this.barText,
-    this.onAbout,
     this.popupMenuItemsOnAppleIcon = const [],
     this.popupMenuItemColor,
     this.popupMenuItemShadowColor,
