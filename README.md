@@ -32,13 +32,13 @@ Run this command:
 
 With Flutter:
 
-```
+```dart
 flutter pub add os_ui
 ```
 
 This will add a line like this to your package's pubspec.yaml with the latest version (and run an implicit flutter pub get):
 
-```
+```dart
 dependencies:
   os_ui: <latest_version>
 ```
@@ -48,7 +48,9 @@ more about it.
 
 Import the package in your code:
 
-``` import 'package:os_ui/os_ui.dart'; ```
+```dart 
+import 'package:os_ui/os_ui.dart';
+```
 
 You can use standard os_ui like so :
 
