@@ -1,5 +1,6 @@
 
-![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
+![Logo](https://github.com/fodedoumbouya/os_ui/assets/47141813/aa4fca06-8e37-4d94-8a1b-9bb12bdb2377)
+
 
 This package helps you to showcase your project or play with computer OS interface for any kind of projects.
 
@@ -11,10 +12,13 @@ All the functions are ready include in the package such as:
 * Multi-language support
 
 
-![App Screenshot](https://github.com/golrangsystem/gsform/blob/main/screenshot/header.jpg?raw=true)
+![App Screenshot](https://github.com/fodedoumbouya/os_ui/assets/47141813/1398cc6c-af28-4191-b798-7cec1473a636)
+
 
 
 ## Demo
+https://github.com/fodedoumbouya/os_ui/assets/47141813/524dd1df-544a-4bdd-96ed-fce284d64608
+
 
 
 See real examples:
