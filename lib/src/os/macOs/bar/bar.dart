@@ -19,10 +19,6 @@ class _BarState extends State<Bar> {
   final ValueNotifier<DateTime> _time = ValueNotifier<DateTime>(DateTime.now());
   Timer? timer;
 
-  TopBarModel? topBarModel;
-  String? langText;
-  ValueNotifier<String?> languageNotifier = ValueNotifier<String?>(null);
-
   initTme() {
     // Update the time every second
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -36,11 +32,6 @@ class _BarState extends State<Bar> {
   @override
   void initState() {
     initTme();
-    topBarModel = widget.windowsManagementController.topBarModel;
-    langText = (topBarModel?.listLanguages ?? []).isEmpty
-        ? null
-        : topBarModel?.listLanguages.first.text;
-    languageNotifier = ValueNotifier<String?>(langText);
     super.initState();
   }
 
@@ -75,6 +66,10 @@ class _BarState extends State<Bar> {
 
   @override
   Widget build(BuildContext context) {
+    final topBarModel = widget.windowsManagementController.topBarModel;
+    final languageNotifier = ValueNotifier<String?>(
+        widget.windowsManagementController.topBarModel?.language ?? "en");
+
     final iconUrl = widget.windowsManagementController.appleIconPath ??
         "packages/os_ui/assets/applelogo.png";
     final imageWidget = switch (iconUrl.contains("http")) {
