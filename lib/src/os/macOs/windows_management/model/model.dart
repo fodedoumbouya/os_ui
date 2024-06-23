@@ -57,7 +57,7 @@ class TopBarModel {
       popupMenuItemSurfaceTintColor; // The color of the surface of the popup menu items
   final List<TopBarPopupMenuItem>
       listLanguages; // The list of available languages
-  final String language; // The current language
+  final String? language; // The current language
   final DateFormat? dateFormat; // The date format for the top bar
 
   TopBarModel({
@@ -71,7 +71,7 @@ class TopBarModel {
     this.popupMenuItemSurfaceTintColor,
     this.dateFormat,
     this.listLanguages = const [],
-    required this.language,
+    this.language,
   });
 }
 
