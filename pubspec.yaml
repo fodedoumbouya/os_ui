@@ -1,7 +1,8 @@
 name: os_ui
 description: "os_ui helps you to showcase your project or play with computer OS interface for any kind of projects."
-version: 1.0.1
+version: 1.0.2
 homepage: "https://github.com/fodedoumbouya/os_ui"
+publish_to:
 
 environment:
   sdk: ">=3.3.4 <4.0.0"
