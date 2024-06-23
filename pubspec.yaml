@@ -1,6 +1,6 @@
 name: os_ui
 description: "os_ui helps you to showcase your project or play with computer OS interface for any kind of projects."
-version: 1.0.0
+version: 1.0.1
 homepage: "https://github.com/fodedoumbouya/os_ui"
 
 environment:
