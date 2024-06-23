@@ -18,7 +18,7 @@ All the functions are ready include in the package such as:
 
 
 ## Demo
-https://github.com/fodedoumbouya/os_ui/assets/47141813/524dd1df-544a-4bdd-96ed-fce284d64608
+![OS UI Demo](https://github.com/fodedoumbouya/os_ui/assets/47141813/f8f09daa-0a45-470a-9c35-71928d820d14)
 
 
 
