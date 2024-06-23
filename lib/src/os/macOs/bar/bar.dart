@@ -68,7 +68,7 @@ class _BarState extends State<Bar> {
   Widget build(BuildContext context) {
     final topBarModel = widget.windowsManagementController.topBarModel;
     final languageNotifier = ValueNotifier<String?>(
-        widget.windowsManagementController.topBarModel?.language ?? "en");
+        widget.windowsManagementController.topBarModel?.language ?? "EN");
 
     final iconUrl = widget.windowsManagementController.appleIconPath ??
         "packages/os_ui/assets/applelogo.png";
